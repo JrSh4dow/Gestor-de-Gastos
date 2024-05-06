@@ -1,57 +1,42 @@
 package utils;
 
+import java.io.IOException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import model.Acount;
+import model.AcountDAOException;
+import model.User;
 
 /**
  *
  * @author sovacu
  */
 public class Utils {
-    /**
-     * A password is considered valid if follows an accepted email syntax:
-     * name@domain.com
-     * 
-     * @param email String which contains the email to check
-     * @return True if the email is valid. False otherwise.
-     */
 
-    public static Boolean checkEmail(String email) {
-        if (email == null) {
-            return false;
-        }
-        // Regex to check valid email.
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        // Compile the ReGex
-        Pattern pattern = Pattern.compile(regex);
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
+    public static Boolean checkEditEmail(TextField Email) {
+        return User.checkEmail(Email.getText());
     }
 
-    /**
-     * 
-     * A password is considered valid if it is combination of 8 to 15 numbers or
-     * letters, without blank spaces.
-     *
-     * @param password String which contains the password to check
-     * @return True if the password is valid. False otherwise.
-     */
-    public static Boolean checkPassword(String password) {
+    public static Boolean checkEditPass(PasswordField Pass) {
+        return User.checkPassword(Pass.getText());
+    }
 
-        // If the password is empty , return false
-        if (password == null) {
-            return false;
-        }
-        // Regex to check valid password.
-        String regex = "^[A-Za-z0-9]{8,15}$";
+    public static int checkEquals(PasswordField Pass, PasswordField Rpass) {
+        return Pass.getText().compareTo(Rpass.getText());
+    }
 
-        // Compile the ReGex
-        Pattern pattern = Pattern.compile(regex);
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(password);
-        return matcher.matches();
+    public static boolean validarNickname(TextField t) throws IOException, AcountDAOException {
+        Acount ac = Acount.getInstance();
+        boolean existe = ac.existsLogin(t.getText());
+        return User.checkNickName(t.getText()) && !existe;
+    }
 
+    public static boolean validarDatos(TextField t) {
+        String s = t.getText();
+        return (!s.isEmpty()) && (s.trim().length() != 0);
     }
 
 }

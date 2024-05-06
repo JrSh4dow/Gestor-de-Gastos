@@ -14,17 +14,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
-import model.User;
+import utils.*;
 
 /**
  * FXML Controller class
@@ -70,29 +68,6 @@ public class SignUpController implements Initializable {
         avatar.setImage(new Image(image));
     }
 
-    private Boolean checkEditEmail() {
-        return User.checkEmail(Email.getText());
-    }
-
-    private Boolean checkEditPass() {
-        return User.checkPassword(Pass.getText());
-    }
-
-    private int checkEquals() {
-        return Pass.getText().compareTo(Rpass.getText());
-    }
-
-    private boolean validarNickname(TextField t) throws IOException, AcountDAOException {
-        Acount ac = Acount.getInstance();
-        boolean existe = ac.existsLogin(t.getText());
-        return validarDatos(t) && !existe;
-    }
-
-    private boolean validarDatos(TextField t) {
-        String s = t.getText();
-        return (!s.isEmpty()) && (s.trim().length() != 0);
-    }
-
     @FXML
     private void volverClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
@@ -109,9 +84,10 @@ public class SignUpController implements Initializable {
     @FXML
     private void registrarClicked(ActionEvent event) throws IOException, AcountDAOException {
         Acount acount = Acount.getInstance();
-        int same = checkEquals();
-        if (validarDatos(Name) && validarDatos(SurName) && validarNickname(NickName) && checkEditPass()
-                && checkEditEmail() && same == EQUALS) {
+        int same = Utils.checkEquals(Pass, Rpass);
+        if (Utils.validarDatos(Name) && Utils.validarDatos(SurName) && Utils.validarNickname(NickName)
+                && Utils.checkEditPass(Pass)
+                && Utils.checkEditEmail(Email) && same == EQUALS) {
             Image img;
             if (Avatar == null) {
                 img = new Image("/avatars/default.png");
@@ -132,6 +108,13 @@ public class SignUpController implements Initializable {
             }
             Stage stage = (Stage) Registrar.getScene().getWindow();
             stage.close();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
+            Parent userRoot = loader.load();
+            Stage inicioStage = new Stage();
+            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+            inicioStage.setTitle("Expense Tracker");
+            inicioStage.setScene(new Scene(userRoot));
+            inicioStage.show();
         } else {
             if (acount.existsLogin(NickName.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
