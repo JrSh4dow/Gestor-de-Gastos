@@ -1,154 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="570.0" style="-fx-background-image: ..\icons\pane.jpg;" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.LogInController">
-  <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="350.5999755859375" minWidth="10.0" prefWidth="328.199951171875" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="286.20001220703125" minWidth="10.0" prefWidth="271.800048828125" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-    <RowConstraints minHeight="10.0" prefHeight="5.0" vgrow="SOMETIMES" />
-      <RowConstraints />
-  </rowConstraints>
+<AnchorPane id="AnchorPane" prefHeight="395.0" prefWidth="472.0" style="-fx-background-color: #00C1A4;" stylesheets="@../estilos/login.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.controlador.LoginController">
    <children>
-      <HBox alignment="CENTER_LEFT" style="-fx-background-color: #3498DB;" GridPane.columnSpan="2147483647">
+      <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Login">
-               <font>
-                  <Font name="System Bold Italic" size="30.0" />
-               </font>
-               <HBox.margin>
-                  <Insets />
-               </HBox.margin>
-            </Text>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <GridPane.margin>
-            <Insets top="10.0" />
-         </GridPane.margin>
-         <padding>
-            <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
-         </padding>
-      </HBox>
-      <HBox GridPane.columnSpan="2147483647" GridPane.rowIndex="1">
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets left="20.0" top="5.0" />
-         </padding>
-         <children>
-            <VBox>
+            <HBox alignment="CENTER" prefHeight="395.0" prefWidth="472.0">
                <children>
-                  <Label alignment="TOP_LEFT" text="NickName:" textFill="#3498db">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding>
-                  </Label>
-                  <TextField fx:id="nickName" alignment="TOP_LEFT" promptText="Your nickName">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </TextField>
+                  <AnchorPane prefHeight="395.3333333333333" prefWidth="472.0">
+                     <children>
+                        <TextField fx:id="nickName" layoutX="177.0" layoutY="238.0" prefHeight="25.0" prefWidth="216.0" />
+                        <Label alignment="CENTER" layoutX="147.0" layoutY="14.0" prefHeight="38.0" prefWidth="248.0" text="Inicio de sesión" textFill="WHITE">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="24.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="55.0" layoutY="241.0" prefHeight="19.0" prefWidth="123.0" text="Nombre usuario" textFill="WHITE">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <Label layoutX="86.0" layoutY="289.0" prefHeight="18.0" prefWidth="86.0" text="Contraseña" textFill="WHITE">
+                           <font>
+                              <Font name="FiraCode Nerd Font Bold" size="13.0" />
+                           </font>
+                        </Label>
+                        <PasswordField fx:id="pass" layoutX="177.0" layoutY="286.0" prefHeight="25.0" prefWidth="216.0" />
+                        <Button fx:id="Aceptar" layoutX="296.0" layoutY="333.0" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#Acceptar" prefHeight="30.0" prefWidth="95.0" stylesheets="@../estilos/login-Sign.css" text="ENTRAR" textAlignment="CENTER" textFill="WHITE">
+                           <font>
+                              <Font name="FiraCode Nerd Font Reg" size="13.0" />
+                           </font>
+                        </Button>
+                        <Button fx:id="botonVolver" layoutX="23.0" layoutY="20.0" mnemonicParsing="false" onAction="#volverClicked" stylesheets="@../estilos/login-Sign.css" text="Volver" textFill="WHITE">
+                           <font>
+                              <Font name="FiraCode Nerd Font Reg" size="12.0" />
+                           </font></Button>
+                        <ImageView fitHeight="159.0" fitWidth="159.0" layoutX="162.0" layoutY="52.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../imagenes/logo-sin.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </AnchorPane>
                </children>
-            </VBox>
+            </HBox>
          </children>
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-      </HBox>
-      <HBox GridPane.columnSpan="2147483647" GridPane.rowIndex="2">
-         <children>
-            <VBox prefHeight="68.0" prefWidth="157.0">
-               <children>
-                  <Label alignment="TOP_LEFT" text="Password:" textFill="#3498db">
-                     <font>
-                        <Font name="System Bold" size="12.0" />
-                     </font>
-                     <padding>
-                        <Insets top="5.0" />
-                     </padding></Label>
-                  <TextField fx:id="pass" alignment="TOP_LEFT" promptText="Your Password">
-                     <VBox.margin>
-                        <Insets top="5.0" />
-                     </VBox.margin>
-                  </TextField>
-               </children>
-            </VBox>
-         </children>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-      </HBox>
-      <Button minHeight="30.0" minWidth="96.0" mnemonicParsing="false" onAction="#SignUpAction" style="-fx-background-color: #0B57D0;" text="Sign Up" textFill="WHITE" GridPane.rowIndex="4">
-         <font>
-            <Font name="System Bold" size="14.0" />
-         </font>
-         <GridPane.margin>
-            <Insets bottom="30.0" left="20.0" right="20.0" top="20.0" />
-         </GridPane.margin>
-      </Button>
-      <Label fx:id="ErrorLogIn" text="Incorrect NickName or Password, please re-enter your information. Or Sign Up if you didn't." textFill="RED" visible="false" wrapText="true" GridPane.columnSpan="2147483647" GridPane.rowIndex="3">
-         <GridPane.margin>
-            <Insets bottom="40.0" left="20.0" />
-         </GridPane.margin>
-         <font>
-            <Font name="System Bold" size="12.0" />
-         </font>
-      </Label>
-      <HBox prefHeight="68.0" prefWidth="300.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
-         <children>
-            <Button fx:id="Aceptar" minWidth="80.0" mnemonicParsing="false" onAction="#Acceptar" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Accept" textFill="WHITE">
-               <HBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </HBox.margin>
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/accept_white.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </Button>
-            <Button fx:id="Cancelar" minWidth="80.0" mnemonicParsing="false" prefWidth="100.0" style="-fx-background-color: #0685BC;" text="Cancel" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="14.0" />
-               </font>
-               <HBox.margin>
-                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
-               </HBox.margin>
-               <graphic>
-                  <ImageView fitHeight="20.0" fitWidth="56.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../icons/cancel_white.png" />
-                     </image>
-                  </ImageView>
-               </graphic></Button>
-         </children>
-      </HBox>
+      </VBox>
    </children>
-</GridPane>
+</AnchorPane>

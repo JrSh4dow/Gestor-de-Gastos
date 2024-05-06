@@ -1,0 +1,31 @@
+#botonVolver {
+    -fx-background-color: #00C1A4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#botonVolver:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+}
+
+#Registrar {
+    -fx-background-color: #00C1A4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20
+}
+
+#Registrar:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+}
