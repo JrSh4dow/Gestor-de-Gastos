@@ -1,16 +1,15 @@
 package controlador;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -21,6 +20,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -33,12 +33,6 @@ import model.User;
  */
 public class SignUpController implements Initializable {
 
-    // properties to control valid fieds values.
-    private BooleanProperty validPassword;
-    private BooleanProperty validEmail;
-    private BooleanProperty ExistsNickName;
-    private BooleanProperty equalPasswords;
-
     @SuppressWarnings("unused")
     private Button Aceptar;
     @FXML
@@ -49,13 +43,10 @@ public class SignUpController implements Initializable {
     private TextField Email;
     @FXML
     private TextField SurName;
-
-    @SuppressWarnings("unused")
+    @FXML
     private String Avatar;
     @FXML
     private Button botonVolver;
-    @FXML
-    private ComboBox<String> comboBoxRegistro;
     @FXML
     private PasswordField Rpass;
     @FXML
@@ -65,25 +56,18 @@ public class SignUpController implements Initializable {
 
     // When to strings are equal, compareTo returns zero
     private final int EQUALS = 0;
+    @FXML
+    private ImageView avatar;
+    @FXML
+    private Button Imagen;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        validEmail = new SimpleBooleanProperty();
-        validPassword = new SimpleBooleanProperty();
-        ExistsNickName = new SimpleBooleanProperty();
-        equalPasswords = new SimpleBooleanProperty();
-
-        validPassword.setValue(Boolean.FALSE);
-        validEmail.setValue(Boolean.FALSE);
-        ExistsNickName.setValue(Boolean.FALSE);
-        equalPasswords.setValue(Boolean.FALSE);
-
-        comboBoxRegistro.getItems().add("/avatars/default.png");
-        comboBoxRegistro.setCellFactory(c -> new ImagenTabCell());
+        String image = "/avatars/default.png";
+        avatar.setImage(new Image(image));
     }
 
     private Boolean checkEditEmail() {
@@ -94,33 +78,9 @@ public class SignUpController implements Initializable {
         return User.checkPassword(Pass.getText());
     }
 
-    private void checkEquals() {
-        if (Pass.getText().compareTo(Rpass.getText()) != EQUALS) {
-            equalPasswords.setValue(Boolean.FALSE);
-        }
+    private int checkEquals() {
+        return Pass.getText().compareTo(Rpass.getText());
     }
-
-    /*
-     * private void SelectImage(ActionEvent event) {
-     * try {
-     * FileChooser fileChooser = new FileChooser();
-     * fileChooser.getExtensionFilters().add(new
-     * FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-     * 
-     * // Mostrar el diálogo de selección de archivos
-     * File file;
-     * file = fileChooser.showOpenDialog(((Node)
-     * event.getSource()).getScene().getWindow());
-     * if (file != null) {
-     * // Convertir la ruta del archivo a una URL y cargar la imagen
-     * Avatar = file.toURI().toString();
-     * }
-     * } catch (Exception e) {
-     * System.out.println("Se produjo un error al seleccionar la imagen: " +
-     * e.getMessage());
-     * }
-     * }
-     */
 
     private boolean validarNickname(TextField t) throws IOException, AcountDAOException {
         Acount ac = Acount.getInstance();
@@ -137,11 +97,11 @@ public class SignUpController implements Initializable {
     private void volverClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent userRoot = loader.load();
-        Stage loginStage = new Stage();
-        loginStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        loginStage.setTitle("Expense Tracker");
-        loginStage.setScene(new Scene(userRoot));
-        loginStage.show();
+        Stage inicioStage = new Stage();
+        inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        inicioStage.setTitle("Expense Tracker");
+        inicioStage.setScene(new Scene(userRoot));
+        inicioStage.show();
         Stage stage = (Stage) botonVolver.getScene().getWindow();
         stage.close();
     }
@@ -149,15 +109,16 @@ public class SignUpController implements Initializable {
     @FXML
     private void registrarClicked(ActionEvent event) throws IOException, AcountDAOException {
         Acount acount = Acount.getInstance();
-        checkEquals();
+        int same = checkEquals();
         if (validarDatos(Name) && validarDatos(SurName) && validarNickname(NickName) && checkEditPass()
-                && checkEditEmail()) {
+                && checkEditEmail() && same == EQUALS) {
             Image img;
-            if (comboBoxRegistro.getValue() == null) {
+            if (Avatar == null) {
                 img = new Image("/avatars/default.png");
             } else {
-                img = new Image(comboBoxRegistro.getValue());
+                img = new Image(Avatar);
             }
+
             // registrar el nuevo miembro
             LocalDate date = LocalDate.now();
             Boolean ok = acount.registerUser(Name.getText(), SurName.getText(), Email.getText(), NickName.getText(),
@@ -188,23 +149,23 @@ public class SignUpController implements Initializable {
         }
     }
 
-    class ImagenTabCell extends ComboBoxListCell<String> {
+    @FXML
+    private void SetImage(ActionEvent event) {
+        try {
 
-        private ImageView view = new ImageView();
-        private Image imagen;
+            FileChooser fileChooser = new FileChooser();
+            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
 
-        @Override
-        public void updateItem(String t, boolean bln) {
-            super.updateItem(t, bln);
-            if (t == null || bln) {
-                setText(null);
-                setGraphic(null);
-            } else {
-                imagen = new Image(t, 50, 60, true, true);
-                view.setImage(imagen);
-                setGraphic(view);
-                setText(null);
+            // Mostrar el diálogo de selección de archivos
+            File file;
+            file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
+            if (file != null) {
+                // Convertir la ruta del archivo a una URL y cargar la imagen
+                Avatar = file.toURI().toString();
+                avatar.setImage(new Image(Avatar));
             }
+        } catch (Exception e) {
+            System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
         }
     }
 }

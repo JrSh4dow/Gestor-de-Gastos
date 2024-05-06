@@ -36,7 +36,7 @@ public class InicioController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        // Algo
     }
 
     @FXML
@@ -51,9 +51,7 @@ public class InicioController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        stage.setTitle("INICIO DE SESIÓN");
-        stage.setScene(new Scene(root));
-        stage.show();
+        stage.setTitle("Inicio de sesión");
         Stage currentStage = (Stage) Log.getScene().getWindow();
         currentStage.close();
         // la ventana se muestra modal
@@ -72,8 +70,6 @@ public class InicioController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         stage.setTitle("Registrarse");
-        stage.setScene(new Scene(root));
-        stage.show();
         Stage currentStage = (Stage) Sign.getScene().getWindow();
         currentStage.close();
         // la ventana se muestra modal

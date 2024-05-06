@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane styleClass="body" stylesheets="@../estilos/inicio.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="javafxmlapplication.controlador.InicioController">
+<BorderPane styleClass="body" stylesheets="@../estilos/inicio.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioController">
    <bottom>
       <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" BorderPane.alignment="CENTER">
          <children>

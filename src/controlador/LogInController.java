@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -34,9 +32,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private Button Aceptar;
-    private Button Cancelar;
 
-    private BooleanProperty validAcount;
     @FXML
     private Button botonVolver;
 
@@ -45,12 +41,7 @@ public class LogInController implements Initializable {
      */
 
     public void initialize(URL url, ResourceBundle rb) {
-        validAcount = new SimpleBooleanProperty();
 
-        Aceptar.disableProperty().bind(validAcount);
-        Cancelar.setOnAction((event) -> {
-            Cancelar.getScene().getWindow().hide();
-        });
     }
 
     @FXML
@@ -102,11 +93,11 @@ public class LogInController implements Initializable {
     private void volverClicked(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent userRoot = loader.load();
-        Stage mainStage = new Stage();
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.jpeg")));
-        mainStage.setTitle("Expense Tracker");
-        mainStage.setScene(new Scene(userRoot));
-        mainStage.show();
+        Stage inicioStage = new Stage();
+        inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        inicioStage.setTitle("Expense Tracker");
+        inicioStage.setScene(new Scene(userRoot));
+        inicioStage.show();
         Stage stage = (Stage) botonVolver.getScene().getWindow();
         stage.close();
     }

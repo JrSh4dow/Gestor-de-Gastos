@@ -42,9 +42,17 @@
 #Sign:hover {
     -fx-background-color: white;
     -fx-text-fill: #00C1A4;
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20
 }
 
 #Log:hover {
     -fx-background-color: white;
     -fx-text-fill: #00C1A4;
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20
 }
