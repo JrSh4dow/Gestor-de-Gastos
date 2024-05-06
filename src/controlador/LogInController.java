@@ -1,4 +1,4 @@
-package javafxmlapplication.controlador;
+package controlador;
 
 import java.io.IOException;
 import java.net.URL;
@@ -100,10 +100,10 @@ public class LogInController implements Initializable {
 
     @FXML
     private void volverClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../vista/Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent userRoot = loader.load();
         Stage mainStage = new Stage();
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("../imagenes/logo-sin.jpeg")));
+        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.jpeg")));
         mainStage.setTitle("Expense Tracker");
         mainStage.setScene(new Scene(userRoot));
         mainStage.show();

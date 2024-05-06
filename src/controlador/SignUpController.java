@@ -1,6 +1,5 @@
-package javafxmlapplication.controlador;
+package controlador;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
@@ -12,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -23,7 +21,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -42,6 +39,7 @@ public class SignUpController implements Initializable {
     private BooleanProperty ExistsNickName;
     private BooleanProperty equalPasswords;
 
+    @SuppressWarnings("unused")
     private Button Aceptar;
     @FXML
     private TextField Name;
@@ -52,6 +50,7 @@ public class SignUpController implements Initializable {
     @FXML
     private TextField SurName;
 
+    @SuppressWarnings("unused")
     private String Avatar;
     @FXML
     private Button botonVolver;
@@ -83,7 +82,7 @@ public class SignUpController implements Initializable {
         ExistsNickName.setValue(Boolean.FALSE);
         equalPasswords.setValue(Boolean.FALSE);
 
-        comboBoxRegistro.getItems().add("/avatars/default.PNG");
+        comboBoxRegistro.getItems().add("/avatars/default.png");
         comboBoxRegistro.setCellFactory(c -> new ImagenTabCell());
     }
 
@@ -101,27 +100,31 @@ public class SignUpController implements Initializable {
         }
     }
 
-    private void SelectImage(ActionEvent event) {
-        try {
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-
-            // Mostrar el diálogo de selección de archivos
-            File file;
-            file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-            if (file != null) {
-                // Convertir la ruta del archivo a una URL y cargar la imagen
-                Avatar = file.toURI().toString();
-            }
-        } catch (Exception e) {
-            System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
-        }
-    }
+    /*
+     * private void SelectImage(ActionEvent event) {
+     * try {
+     * FileChooser fileChooser = new FileChooser();
+     * fileChooser.getExtensionFilters().add(new
+     * FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
+     * 
+     * // Mostrar el diálogo de selección de archivos
+     * File file;
+     * file = fileChooser.showOpenDialog(((Node)
+     * event.getSource()).getScene().getWindow());
+     * if (file != null) {
+     * // Convertir la ruta del archivo a una URL y cargar la imagen
+     * Avatar = file.toURI().toString();
+     * }
+     * } catch (Exception e) {
+     * System.out.println("Se produjo un error al seleccionar la imagen: " +
+     * e.getMessage());
+     * }
+     * }
+     */
 
     private boolean validarNickname(TextField t) throws IOException, AcountDAOException {
         Acount ac = Acount.getInstance();
         boolean existe = ac.existsLogin(t.getText());
-        String s = t.getText();
         return validarDatos(t) && !existe;
     }
 
@@ -132,10 +135,10 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void volverClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../vista/Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent userRoot = loader.load();
         Stage loginStage = new Stage();
-        loginStage.getIcons().add(new Image(this.getClass().getResourceAsStream("../imagenes/logo-sin.jpeg")));
+        loginStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         loginStage.setTitle("Expense Tracker");
         loginStage.setScene(new Scene(userRoot));
         loginStage.show();

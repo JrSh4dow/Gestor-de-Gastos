@@ -1,4 +1,4 @@
-package javafxmlapplication.controlador;
+package controlador;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,19 +30,18 @@ public class InicioController implements Initializable {
     private Button Log;
     @FXML
     private Button Sign;
-    
-    
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-    }    
+    }
 
     @FXML
     private void login(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/LogIn.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
         Parent root = miCargador.load();
 
         Scene scene = new Scene(root);
@@ -51,7 +50,7 @@ public class InicioController implements Initializable {
         stage.setTitle("LogIn");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../imagenes/logo-sin.jpeg")));
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         stage.setTitle("INICIO DE SESIÓN");
         stage.setScene(new Scene(root));
         stage.show();
@@ -63,7 +62,7 @@ public class InicioController implements Initializable {
 
     @FXML
     private void signup(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/SignUp.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/SignUp.fxml"));
         Parent root = miCargador.load();
 
         Scene scene = new Scene(root);
@@ -71,7 +70,7 @@ public class InicioController implements Initializable {
         stage.setScene(scene);
         stage.setTitle("Sign Up");
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../imagenes/logo-sin.jpeg")));
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         stage.setTitle("Registrarse");
         stage.setScene(new Scene(root));
         stage.show();
@@ -80,6 +79,5 @@ public class InicioController implements Initializable {
         // la ventana se muestra modal
         stage.showAndWait();
     }
-    
-    
+
 }

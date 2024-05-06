@@ -17,21 +17,21 @@ public class JavaFXMLApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // ======================================================================
+        // ======================================================================git
         // 1- creación del grafo de escena a partir del fichero FXML
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("../vista/Inicio.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent root = loader.load();
         // ======================================================================
         // 2- creación de la escena con el nodo raiz del grafo de escena
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("../estilos/inicio.css").toExternalForm();
+        String css = this.getClass().getResource("/estilos/inicio.css").toExternalForm();
         scene.getStylesheets().add(css);
         // ======================================================================
         // 3- asiganación de la escena al Stage que recibe el metodo
         // - configuracion del stage
         // - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
-        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("../imagenes/logo-sin.png")));
+        stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         stage.setTitle("Expense Tracker");
         stage.show();
     }
