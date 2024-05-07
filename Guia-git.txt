@@ -29,3 +29,16 @@ Abre el repositorio de github en un navegador. en la parte de pull request, soli
 
 
 Hola esto es una prueba
+Si ves esto, significa que todo va perfecto
+
+***********************************************************
+**Entonces desde GitBash, solo usa los siguientes comandos cada vez que hacer **cambios para obtener los cambios que he hecho. 
+**********************************************************
+	git pull origin master
+
+***********************************************************
+**Entonces desde GitBash, solo usa los siguientes comandos despues de hacer **cambios para almacenarlos. 
+**********************************************************
+	git add .
+    git commit -m "Una descripcion del cambio que has hecho"
+	git push origin oscar
