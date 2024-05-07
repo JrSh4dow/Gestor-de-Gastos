@@ -42,3 +42,11 @@ Si ves esto, significa que todo va perfecto
 	git add .
     git commit -m "Una descripcion del cambio que has hecho"
 	git push origin oscar
+	
+mejor aun:
+
+alias go='cd tu direccion_de_repo'
+alias add='git add .'
+alias save='git commit -m "parte oscar"'
+alias send='git push origin oscar'
+alias get='git pull origin master'
