@@ -106,15 +106,7 @@ public class SignUpController implements Initializable {
                 alert.setContentText("Se ha registrado correctamente");
                 alert.showAndWait();
             }
-            Stage stage = (Stage) Registrar.getScene().getWindow();
-            stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
-            Parent userRoot = loader.load();
-            Stage inicioStage = new Stage();
-            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            inicioStage.setTitle("Expense Tracker");
-            inicioStage.setScene(new Scene(userRoot));
-            inicioStage.show();
+
         } else {
             if (acount.existsLogin(NickName.getText())) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
