@@ -1,0 +1,11 @@
+***********************************************************
+**Entonces desde GitBash, solo usa los siguientes comandos cada vez que hacer **cambios para obtener los cambios que he hecho. 
+**********************************************************
+	get
+
+***********************************************************
+**Entonces desde GitBash, solo usa los siguientes comandos despues de hacer **cambios para almacenarlos. 
+**********************************************************
+	add
+	save
+	send

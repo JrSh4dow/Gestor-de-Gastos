@@ -17,7 +17,7 @@ public class JavaFXMLApplication extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        // ======================================================================git
+        // ======================================================================
         // 1- creación del grafo de escena a partir del fichero FXML
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
         Parent root = loader.load();

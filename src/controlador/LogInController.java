@@ -53,6 +53,7 @@ public class LogInController implements Initializable {
         if (nickName.getText().isEmpty() && (nickName.getText().trim().length() != 0)
                 || pass.getText().isEmpty() && (pass.getText().trim().length() != 0)) {
             mostrarAlerta("Por favor rellena los campos para poder iniciar sesión");
+
         } else if (!acount.existsLogin(nickName.getText())) {
             mostrarAlerta("No existe el nickname. Por favor regístrate");
         } else if (ok == true) {
