@@ -26,3 +26,6 @@ Cada vez que quieras editar usa el siguiente comando actualizar tu proyecto loca
 *****************************************************
 Abre el repositorio de github en un navegador. en la parte de pull request, solicita un pull request con la rama oscar a la rama master.
 ******************************************************
+
+
+Hola esto es una prueba
