@@ -1,52 +1,11 @@
-******************************************************
-*****Solo la primera vez para clonar el repositorio. ****
-******************************************************
-    git clone https://github.com/JrSh4dow/Gastos.git
-
-******************************************************
-*****Para crear una rama para tus cambios que no afecten al original. ****
-******************************************************
-     git checkout -b oscar
-
-*****************************************************
-Cada vez que quieras editar usa el siguiente comando actualizar tu proyecto local con los cambios que se han hecho.
-******************************************************
-     git  pull origin master
-
-*****************************************************
-***** Despues de hacer cambios, usar las siguientes comandos para añadir tus cambios. ******************************************************
-    git add .
-    git commit -m "Una descripcion del cambio que has hecho"
-
-*****************************************************
-***** Guarda tus cambios en tu rama. ****
-******************************************************
-    git push origin oscar
-
-*****************************************************
-Abre el repositorio de github en un navegador. en la parte de pull request, solicita un pull request con la rama oscar a la rama master.
-******************************************************
-
-
-Hola esto es una prueba
-Si ves esto, significa que todo va perfecto
-
 ***********************************************************
 **Entonces desde GitBash, solo usa los siguientes comandos cada vez que hacer **cambios para obtener los cambios que he hecho. 
 **********************************************************
-	git pull origin master
+	get
 
 ***********************************************************
 **Entonces desde GitBash, solo usa los siguientes comandos despues de hacer **cambios para almacenarlos. 
 **********************************************************
-	git add .
-    git commit -m "Una descripcion del cambio que has hecho"
-	git push origin oscar
-	
-mejor aun:
-
-alias go='cd tu direccion_de_repo'
-alias add='git add .'
-alias save='git commit -m "parte oscar"'
-alias send='git push origin oscar'
-alias get='git pull origin master'
+	add
+	save
+	send
