@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<BorderPane styleClass="body" stylesheets="@../estilos/inicio.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.InicioController">
+   <bottom>
+      <HBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="90.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button fx:id="Log" mnemonicParsing="false" onAction="#login" prefHeight="50.0" prefWidth="150.0" text="Iniciar sesión" textFill="WHITE">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+            </Button>
+            <Button fx:id="Sign" mnemonicParsing="false" onAction="#signup" prefHeight="50.0" prefWidth="150.0" text="Registrarse" textFill="WHITE">
+               <HBox.margin>
+                  <Insets left="15.0" />
+               </HBox.margin>
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </HBox>
+   </bottom>
+   <center>
+      <AnchorPane prefHeight="150.0" prefWidth="200.0" BorderPane.alignment="BOTTOM_CENTER">
+         <children>
+            <HBox alignment="CENTER" prefHeight="160.0" prefWidth="600.0" AnchorPane.bottomAnchor="8.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <children>
+                  <Text fx:id="lema" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="lema" text="! Gestiona y mantente al dia con tus gastos ¡" textAlignment="CENTER" wrappingWidth="413.7164707183838">
+                     <font>
+                        <Font name="System Bold" size="36.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </center>
+   <top>
+      <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="137.0" prefWidth="600.0" BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" layoutY="-2.0" prefHeight="160.0" prefWidth="600.0" spacing="30.0" AnchorPane.bottomAnchor="-21.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="-2.0">
+               <children>
+                  <ImageView fitHeight="140.0" fitWidth="169.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../imagenes/logo-sin.png" />
+                     </image>
+                  </ImageView>
+                  <Text fx:id="titulo" boundsType="LOGICAL_VERTICAL_CENTER" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="titulo" text="Expense Tracker" textAlignment="CENTER" wrappingWidth="351.7352523803711">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="38.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+         </children>
+      </AnchorPane>
+   </top>
+</BorderPane>
