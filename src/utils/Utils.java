@@ -1,8 +1,6 @@
 package utils;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;

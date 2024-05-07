@@ -21,7 +21,7 @@
 
 <BorderPane prefHeight="400.0" style="-fx-background-color: #00C1A4;" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PerfilController">
    <center>
-      <GridPane alignment="CENTER" hgap="10.0" prefHeight="178.0" prefWidth="554.0" style="-fx-background-color: #00C1A4;">
+      <GridPane alignment="CENTER" hgap="10.0" prefHeight="178.0" prefWidth="554.0" style="-fx-border-width: 3; -fx-border-color: #ffffff; -fx-border-radius: 10;">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.59998779296876" minWidth="10.0" prefWidth="206.79998779296875" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.1999633789062" minWidth="10.0" prefWidth="301.20001220703125" />
@@ -37,23 +37,17 @@
          </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Apellido(s)" textFill="WHITE" GridPane.rowIndex="2">
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Nombre" textAlignment="CENTER" textFill="WHITE" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Nombre" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
             </Label>
             <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Email" textFill="#f4f4f4" GridPane.rowIndex="3">
                <font>
@@ -67,17 +61,11 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
             </Label>
             <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Contraseña" textFill="#f4f4f4" GridPane.rowIndex="5">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -86,19 +74,31 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
-               <padding>
-                  <Insets left="40.0" />
-               </padding>
             </Label>
-            <TextField fx:id="Name" prefHeight="8.0" prefWidth="314.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextField fx:id="Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font></TextField>
             <TextField fx:id="SurName" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font>
             </TextField>
-            <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="NickName" editable="false" prefHeight="26.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <PasswordField fx:id="Pass" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font></TextField>
+            <TextField fx:id="NickName" disable="true" editable="false" prefHeight="26.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font></TextField>
+            <PasswordField fx:id="Pass" GridPane.columnIndex="1" GridPane.rowIndex="5">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font></PasswordField>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
@@ -119,10 +119,10 @@
             </Text>
          </children>
          <padding>
-            <Insets right="35.0" />
+            <Insets left="20.0" right="20.0" />
          </padding>
          <BorderPane.margin>
-            <Insets top="20.0" />
+            <Insets left="4.0" right="10.0" top="20.0" />
          </BorderPane.margin>
       </GridPane>
    </center>
@@ -145,7 +145,7 @@
       <Insets />
    </opaqueInsets>
    <left>
-      <VBox alignment="CENTER" prefHeight="50.0" prefWidth="140.0" spacing="50.0" style="-fx-background-color: #00C1A4;" BorderPane.alignment="TOP_CENTER">
+      <VBox alignment="CENTER" prefHeight="50.0" prefWidth="140.0" spacing="50.0" BorderPane.alignment="CENTER">
          <children>
             <Button id="button" fx:id="inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
                <font>
@@ -161,7 +161,7 @@
    <bottom>
       <Button fx:id="Registrar" mnemonicParsing="false" onAction="#GuardarCambios" prefHeight="30.0" stylesheets="@../estilos/Sign.css" text="Guardar Cambios" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="20.0" right="30.0" />
+            <Insets bottom="20.0" right="30.0" top="20.0" />
          </BorderPane.margin>
       </Button>
    </bottom>
