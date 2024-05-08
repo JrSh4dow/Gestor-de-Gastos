@@ -17,7 +17,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -40,7 +39,7 @@ public class PerfilController {
     @FXML
     private TextField NickName;
     @FXML
-    private PasswordField Pass;
+    private TextField Pass;
     @FXML
     private Button Registrar;
     @FXML
@@ -75,6 +74,7 @@ public class PerfilController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Boolean ok = Acount.getInstance().logOutUser();
             if (ok) {
+
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
                 Parent userRoot = loader.load();
                 Stage inicioStage = new Stage();

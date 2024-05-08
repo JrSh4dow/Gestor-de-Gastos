@@ -1,10 +1,7 @@
 package utils;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import model.Acount;
 import model.AcountDAOException;
@@ -12,7 +9,7 @@ import model.User;
 
 /**
  *
- * @author sovacu
+ * @author
  */
 public class Utils {
 
@@ -20,11 +17,11 @@ public class Utils {
         return User.checkEmail(Email.getText());
     }
 
-    public static Boolean checkEditPass(PasswordField Pass) {
+    public static Boolean checkEditPass(TextField Pass) {
         return User.checkPassword(Pass.getText());
     }
 
-    public static int checkEquals(PasswordField Pass, PasswordField Rpass) {
+    public static int checkEquals(TextField Pass, TextField Rpass) {
         return Pass.getText().compareTo(Rpass.getText());
     }
 

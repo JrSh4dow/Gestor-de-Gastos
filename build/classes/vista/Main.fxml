@@ -13,9 +13,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.MainController">
+<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #00C1A4;" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.MainController">
    <top>
-      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #00C1A4; -fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
             <Menu mnemonicParsing="false" text="Acount">
                <items>
@@ -33,7 +33,7 @@
       <Insets />
    </opaqueInsets>
    <center>
-      <VBox alignment="CENTER" prefHeight="370.0" prefWidth="486.0" spacing="30.0" style="-fx-background-color: #00C1A4;">
+      <VBox alignment="CENTER" prefHeight="370.0" prefWidth="486.0" spacing="30.0" style="-fx-border-color: #ffffff; -fx-border-radius: 10; -fx-border-width: 3;">
          <children>
             <Text id="Mensaje" fill="WHITE" layoutX="179.0" layoutY="49.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienveido a Expense Tracker">
                <font>
@@ -54,30 +54,38 @@
                </font>
             </Text>
          </children>
+         <BorderPane.margin>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </BorderPane.margin>
       </VBox>
    </center>
    <left>
-      <VBox alignment="CENTER" prefHeight="294.0" prefWidth="140.0" spacing="10.0" style="-fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" prefHeight="294.0" prefWidth="140.0" spacing="10.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets left="8.0" right="3.0" />
          </padding>
          <children>
-            <Button id="button" mnemonicParsing="false" onAction="#VerPerfil" prefHeight="40.0" prefWidth="200.0" text="Ver perfil">
+            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@../estilos/util.css" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Anadir gasto">
+            <Button id="button" fx:id="Perfil" mnemonicParsing="false" onAction="#VerPerfil" prefHeight="40.0" prefWidth="200.0" text="Ver perfil">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
+            <Button id="button" fx:id="añadirGasto" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
             </Button>
-            <Button id="button" mnemonicParsing="false" onAction="#AñadirCategoria" prefHeight="40.0" prefWidth="200.0" text="Añadir categoria">
+            <Button id="button" fx:id="verGasto" mnemonicParsing="false" onAction="#VerGasto" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font>
+            </Button>
+            <Button id="button" fx:id="añadirCategoria" mnemonicParsing="false" onAction="#AñadirCategoria" prefHeight="40.0" prefWidth="200.0" text="Añadir categoria">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
