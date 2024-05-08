@@ -40,7 +40,6 @@ public class SignUpController implements Initializable {
     private TextField Email;
     @FXML
     private TextField SurName;
-    @FXML
     private String Avatar;
     @FXML
     private Button botonVolver;

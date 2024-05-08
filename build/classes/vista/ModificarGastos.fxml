@@ -5,42 +5,20 @@
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.input.KeyCodeCombination?>
-<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="450.0" prefWidth="650.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.AñadirGastoController">
-   <top>
-      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
-         <menus>
-            <Menu mnemonicParsing="false" text="Acount">
-               <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
-                     <accelerator>
-                        <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
-                     </accelerator>
-                  </MenuItem>
-               </items>
-            </Menu>
-         </menus>
-      </MenuBar>
-   </top>
-   <opaqueInsets>
-      <Insets />
-   </opaqueInsets>
-   <center>
-      <GridPane alignment="CENTER" hgap="10.0" prefHeight="178.0" prefWidth="554.0" styleClass="Vbox" BorderPane.alignment="CENTER">
+
+<Pane styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ModificarGastoController">
+   <children>
+      <GridPane alignment="CENTER" hgap="10.0" layoutY="3.3144898414611816" styleClass="Vbox" stylesheets="@../estilos/Main.css">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.59998779296876" minWidth="10.0" prefWidth="185.80003662109374" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.1999633789062" minWidth="10.0" prefWidth="252.9999633789063" />
@@ -99,7 +77,8 @@
             <TextField fx:id="NameGasto" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font></TextField>
+               </font>
+            </TextField>
             <TextField fx:id="DescriptionGasto" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
@@ -111,11 +90,13 @@
             <TextField fx:id="CosteGasto" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font></TextField>
+               </font>
+            </TextField>
             <TextField fx:id="UnidadeGasto" prefHeight="26.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font></TextField>
+               </font>
+            </TextField>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
                   <ImageView fx:id="Factura" fitHeight="60.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
@@ -129,7 +110,7 @@
                   </Button>
                </children>
             </HBox>
-            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: #000000; -fx-stroke-width: 2;" text="Añadir gasto:" textAlignment="CENTER" wrappingWidth="449.6615753173828" GridPane.columnSpan="2147483647">
+            <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: #000000; -fx-stroke-width: 2;" text="Modificar gasto:" textAlignment="CENTER" wrappingWidth="449.6615753173828" GridPane.columnSpan="2147483647">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
@@ -143,7 +124,7 @@
             <ChoiceBox fx:id="CategoriaGasto" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox alignment="CENTER_RIGHT" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button id="button" fx:id="añadir" mnemonicParsing="false" onAction="#Añadir" prefHeight="50.0" prefWidth="80.0" text="Añadir" />
+                  <Button id="button" fx:id="modificar" mnemonicParsing="false" onAction="#Modificar" prefHeight="50.0" prefWidth="80.0" text="Modificar" />
                </children>
                <GridPane.margin>
                   <Insets bottom="10.0" />
@@ -153,43 +134,6 @@
          <padding>
             <Insets left="20.0" right="20.0" />
          </padding>
-         <BorderPane.margin>
-            <Insets bottom="20.0" left="5.0" right="10.0" top="20.0" />
-         </BorderPane.margin>
       </GridPane>
-   </center>
-   <left>
-      <VBox alignment="CENTER" prefHeight="294.0" prefWidth="140.0" spacing="10.0" BorderPane.alignment="CENTER">
-         <padding>
-            <Insets left="8.0" right="3.0" />
-         </padding>
-         <children>
-            <Button id="button" fx:id="Inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button id="button" fx:id="Perfil" mnemonicParsing="false" onAction="#VerPerfil" prefHeight="40.0" prefWidth="200.0" text="Ver perfil">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button id="button" fx:id="verGasto" mnemonicParsing="false" onAction="#VerGasto" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
-            <Button id="button" fx:id="añadirCategoria" mnemonicParsing="false" onAction="#AñadirCategoria" prefHeight="40.0" prefWidth="200.0" text="Añadir categoria">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
-         </children>
-      </VBox>
-   </left>
-</BorderPane>
+   </children>
+</Pane>

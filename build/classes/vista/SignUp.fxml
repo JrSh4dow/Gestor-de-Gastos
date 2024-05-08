@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -15,7 +14,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="616.0" style="-fx-background-color: #00C1A4;" stylesheets="@../estilos/Sign.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.SignUpController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="616.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.SignUpController">
    <children>
       <VBox alignment="CENTER" layoutY="1.0" prefHeight="421.0" prefWidth="616.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -23,17 +22,17 @@
                <children>
                   <AnchorPane prefHeight="71.0" prefWidth="616.0">
                      <children>
-                        <Text fill="WHITE" layoutX="162.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-stroke: black; -fx-stroke-width: 0.5px;" text="Registro de Usuario" textAlignment="CENTER">
+                        <Text id="Mensaje" fill="WHITE" layoutX="162.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Registro de Usuario" textAlignment="CENTER">
                            <font>
                               <Font name="FiraCode Nerd Font Bold" size="25.0" />
                            </font>
                         </Text>
-                        <Button fx:id="botonVolver" layoutX="28.0" layoutY="20.0" mnemonicParsing="false" onAction="#volverClicked" stylesheets="@../estilos/Sign.css" text="Volver" textFill="WHITE" />
+                        <Button id="button" fx:id="botonVolver" layoutX="28.0" layoutY="20.0" mnemonicParsing="false" onAction="#volverClicked" stylesheets="@../estilos/Main.css" text="Volver" textFill="WHITE" />
                      </children>
                   </AnchorPane>
                </children>
             </HBox>
-            <GridPane alignment="CENTER" hgap="10.0" prefHeight="342.0" prefWidth="496.0" style="-fx-border-color: #ffffff; -fx-border-radius: 10; -fx-border-width: 3;">
+            <GridPane alignment="CENTER" hgap="10.0" prefHeight="342.0" prefWidth="496.0" styleClass="Vbox">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="312.59998779296876" minWidth="10.0" prefWidth="176.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.1999633789062" minWidth="10.0" prefWidth="344.0" />
@@ -106,28 +105,24 @@
                   </Label>
                   <TextField fx:id="Name" prefHeight="8.0" prefWidth="314.0" promptText="Tu nombre" GridPane.columnIndex="1">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
                      </font></TextField>
                   <TextField fx:id="SurName" promptText="Tu(s) apellidos" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
                      </font>
                   </TextField>
                   <TextField fx:id="Email" promptText="Tuemail@dominio.com" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
                      </font></TextField>
                   <TextField fx:id="NickName" prefHeight="26.0" prefWidth="348.0" promptText="! No podrás cambiarlo después ¡" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
                      </font></TextField>
-                  <PasswordField fx:id="Pass" promptText="Debe contener mínimo 6 carácteres." GridPane.columnIndex="1" GridPane.rowIndex="4">
-                     <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
-                     </font></PasswordField>
                   <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="209.0" text="Repetir Contraseña" textFill="#f4f4f4" GridPane.rowIndex="5">
                      <font>
                         <Font name="FiraCode Nerd Font Bold" size="14.0" />
@@ -136,13 +131,9 @@
                         <Insets />
                      </opaqueInsets>
                   </Label>
-                  <PasswordField fx:id="Rpass" promptText="Por favor, repita su contraseña." GridPane.columnIndex="1" GridPane.rowIndex="5">
-                     <font>
-                        <Font name="FiraCode Nerd Font Bold" size="11.0" />
-                     </font></PasswordField>
                   <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                      <children>
-                        <Button fx:id="Registrar" mnemonicParsing="false" onAction="#registrarClicked" prefHeight="30.0" prefWidth="96.0" stylesheets="@../estilos/Sign.css" text="Registrarse" textFill="WHITE">
+                        <Button id="button" fx:id="Registrar" mnemonicParsing="false" onAction="#registrarClicked" prefHeight="30.0" prefWidth="96.0" stylesheets="@../estilos/Main.css" text="Registrarse" textFill="WHITE">
                            <HBox.margin>
                               <Insets left="220.0" />
                            </HBox.margin>
@@ -152,7 +143,7 @@
                   <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
                      <children>
                         <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                        <Button fx:id="Imagen" mnemonicParsing="false" onAction="#SetImage" prefHeight="30.0" stylesheets="@../estilos/Sign.css" text="Seleccionar Imagen" textFill="WHITE">
+                        <Button id="button" fx:id="Imagen" mnemonicParsing="false" onAction="#SetImage" prefHeight="30.0" text="Seleccionar Imagen" textFill="WHITE">
                            <font>
                               <Font name="FiraCode Nerd Font Bold" size="12.0" />
                            </font>
@@ -162,6 +153,15 @@
                         </Button>
                      </children>
                   </HBox>
+                  <TextField fx:id="Pass" promptText="Debe contener mínimo 6 carácteres." GridPane.columnIndex="1" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="Rpass" prefHeight="28.0" prefWidth="344.0" promptText="Por favor, repita su contraseña." GridPane.columnIndex="1" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                     </font></TextField>
                </children>
                <padding>
                   <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />

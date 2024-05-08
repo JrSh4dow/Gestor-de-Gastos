@@ -18,6 +18,15 @@
     -fx-background-radius: 10
 }
 
+#button:pressed {
+    -fx-background-color: #d7e41f;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
 #Mensaje {
     -fx-font-color: white;
     -fx-stroke-width: 1px;
@@ -29,4 +38,22 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: 100% 100%;
     -fx-background-position: center;
+}
+
+#buttonDisable {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+    -fx-background-radius: 10
+}
+
+.background {
+    -fx-background-color: #00C1A4;
+}
+
+.Vbox {
+    -fx-border-color: white;
+    -fx-border-width: 3 3 3 3;
+    -fx-border-radius: 10;
 }
