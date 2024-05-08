@@ -5,7 +5,10 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 
 
 public class AñadirGastoController {
@@ -19,21 +22,29 @@ public class AñadirGastoController {
     @FXML
     private Button añadir;
     @FXML
-    private Button añadirGasto;
+    private Button añadirCategoria;
     @FXML
-    private TextField NameCategoria;
+    private TextField NameGasto;
     @FXML
-    private TextField DescriptionCategoria;
+    private TextField DescriptionGasto;
+    @FXML
+    private TextField CosteGasto;
+    @FXML
+    private TextField UnidadeGasto;
+    @FXML
+    private ImageView Factura;
+    @FXML
+    private Button Imagen;
+    @FXML
+    private DatePicker FechaGasto;
+    @FXML
+    private ChoiceBox<?> CategoriaGasto;
 
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-    // Esto es para añadir el gasto a la base de datos.
-    void Anadir(ActionEvent event) {
-
-    }
-
+    @FXML
     void AñadirCategoria(ActionEvent event) {
 
     }
@@ -43,6 +54,7 @@ public class AñadirGastoController {
 
     }
 
+    @FXML
     void SetImage(ActionEvent event) {
 
     }
@@ -62,10 +74,7 @@ public class AñadirGastoController {
 
     }
 
-    @FXML
-    private void AñadirGasto(ActionEvent event) {
-    }
-
+    // Esto es para añadir el gasto a la base de datos.
     @FXML
     private void Añadir(ActionEvent event) {
     }
