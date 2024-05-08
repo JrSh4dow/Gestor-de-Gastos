@@ -62,4 +62,8 @@ public class AñadirCategoriaController {
 
     }
 
+    @FXML
+    private void Añadir(ActionEvent event) {
+    }
+
 }

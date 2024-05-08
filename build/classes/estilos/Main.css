@@ -51,3 +51,9 @@
 .background {
     -fx-background-color: #00C1A4;
 }
+
+.Vbox {
+    -fx-border-color: white;
+    -fx-border-width: 3 3 3 3;
+    -fx-border-radius: 10;
+}

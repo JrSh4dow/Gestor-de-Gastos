@@ -74,10 +74,11 @@ public class AñadirGastoController {
 
     }
 
-    // Esto es para añadir el gasto a la base de datos.
     @FXML
     private void Añadir(ActionEvent event) {
     }
+
+    
 
 
 }
