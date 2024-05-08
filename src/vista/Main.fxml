@@ -65,7 +65,7 @@
             <Insets left="8.0" right="3.0" />
          </padding>
          <children>
-            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@../estilos/util.css" text="Inicio">
+            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@../estilos/Main.css" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>

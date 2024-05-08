@@ -14,7 +14,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -46,9 +45,9 @@ public class SignUpController implements Initializable {
     @FXML
     private Button botonVolver;
     @FXML
-    private PasswordField Rpass;
+    private TextField Rpass;
     @FXML
-    private PasswordField Pass;
+    private TextField Pass;
     @FXML
     private Button Registrar;
 
@@ -142,5 +141,6 @@ public class SignUpController implements Initializable {
         } catch (Exception e) {
             System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
         }
+
     }
 }

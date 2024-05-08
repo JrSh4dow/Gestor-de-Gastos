@@ -1,24 +1,50 @@
 package controlador;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class MainController {
 
     @FXML
-    private void TerminarSesion(ActionEvent event) {
+    private Button Perfil;
+    @FXML
+    private Button añadirCategoria;
+    @FXML
+    private Button añadirGasto;
+    @FXML
+    private Button verGasto;
+
+    public void initialize(URL url, ResourceBundle rb) {
+
     }
 
     @FXML
-    private void VerPerfil(ActionEvent event) {
+    void AñadirCategoria(ActionEvent event) {
+
     }
 
     @FXML
-    private void AñadirGasto(ActionEvent event) {
+    void AñadirGasto(ActionEvent event) {
+
     }
 
     @FXML
-    private void AñadirCategoria(ActionEvent event) {
+    void TerminarSesion(ActionEvent event) {
+
+    }
+
+    @FXML
+    void VerGasto(ActionEvent event) {
+
+    }
+
+    @FXML
+    void VerPerfil(ActionEvent event) {
+
     }
 
 }
