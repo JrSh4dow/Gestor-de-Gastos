@@ -30,3 +30,11 @@
     -fx-background-size: 100% 100%;
     -fx-background-position: center;
 }
+
+#buttonDisable {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+    -fx-background-radius: 10
+}
