@@ -1,7 +1,6 @@
 package utils;
 
 import java.io.IOException;
-
 import javafx.scene.control.TextField;
 import model.Acount;
 import model.AcountDAOException;
