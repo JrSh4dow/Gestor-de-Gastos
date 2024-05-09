@@ -170,7 +170,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="button" fx:id="añadir1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Añadir">
+                  <Button id="button" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

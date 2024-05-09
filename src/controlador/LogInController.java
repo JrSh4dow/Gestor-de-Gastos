@@ -56,17 +56,9 @@ public class LogInController implements Initializable {
 
         } else if (!acount.existsLogin(nickName.getText())) {
             mostrarAlerta("No existe el nickname. Por favor regístrate");
-            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/SignUp.fxml"));
-            Parent root = miCargador.load();
-            Stage mainStage = new Stage();
-            mainStage.setScene(new Scene(root));
-            mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            mainStage.setTitle("Registrarse");
-            mainStage.setResizable(false);
-            mainStage.initModality(Modality.APPLICATION_MODAL);
-            mainStage.show();
-            Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
-            mainStage2.close();
+            pass.clear();
+            nickName.clear();
+            nickName.requestFocus();
         } else if (ok == true) {
             mostrarAlerta("Inicio de sesión con éxito, bienvenido " + nickName.getText());
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));

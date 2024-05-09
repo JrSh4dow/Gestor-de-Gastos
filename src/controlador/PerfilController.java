@@ -3,7 +3,6 @@ package controlador;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javafx.event.ActionEvent;
@@ -13,15 +12,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.Acount;
 import model.AcountDAOException;
 import model.User;
@@ -54,8 +52,16 @@ public class PerfilController {
     @FXML
     private Button guardarCambios;
 
-    public void initialize(URL url, ResourceBundle rb) throws AcountDAOException, IOException {
-        logged = Acount.getInstance().getLoggedUser();
+    public void initialize(URL url, ResourceBundle rb) {
+        restablecer();
+    }
+
+    public void restablecer() {
+        try {
+            logged = Acount.getInstance().getLoggedUser();
+        } catch (AcountDAOException | IOException e) {
+            e.printStackTrace();
+        }
         Name.setText(logged.getName());
         SurName.setText(logged.getSurname());
         Email.setText(logged.getEmail());
@@ -65,27 +71,20 @@ public class PerfilController {
     }
 
     @FXML
-    private void TerminarSesion(ActionEvent event) throws IOException, AcountDAOException {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Diálogo de confirmación");
-        alert.setHeaderText("Cabecera");
-        alert.setContentText("¿Seguro que quieres cerrar sesión?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            Boolean ok = Acount.getInstance().logOutUser();
-            if (ok) {
-
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
-                Parent userRoot = loader.load();
-                Stage inicioStage = new Stage();
-                inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-                inicioStage.setTitle("Expense Tracker");
-                inicioStage.setScene(new Scene(userRoot));
-                inicioStage.show();
-                Stage stage = (Stage) inicio.getScene().getWindow();
-                stage.close();
-            }
+    private void TerminarSesion(ActionEvent event) throws AcountDAOException, IOException {
+        Boolean ok = Utils.AcabarSesion();
+        if (ok) {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
+            Parent userRoot = loader.load();
+            Stage inicioStage = new Stage();
+            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+            inicioStage.setTitle("Expense Tracker");
+            inicioStage.setScene(new Scene(userRoot));
+            inicioStage.show();
+            Stage stage = (Stage) inicio.getScene().getWindow();
+            stage.close();
         }
+
     }
 
     @FXML
@@ -140,26 +139,16 @@ public class PerfilController {
 
     @FXML
     private void SetImage(ActionEvent event) {
-        try {
-
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-
-            // Mostrar el diálogo de selección de archivos
-            File file;
-            file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-            if (file != null) {
-                // Convertir la ruta del archivo a una URL y cargar la imagen
-                Avatar = file.toURI().toString();
-                avatar.setImage(new Image(Avatar));
-            }
-        } catch (Exception e) {
-            System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
+        Window n = ((Node) event.getSource()).getScene().getWindow();
+        Avatar = Utils.ElegirImagen(n);
+        if (Avatar != null) {
+            avatar.setImage(new Image(Avatar));
         }
     }
 
     @FXML
     private void CancelarCambios(ActionEvent event) {
+        restablecer();
     }
 
 }

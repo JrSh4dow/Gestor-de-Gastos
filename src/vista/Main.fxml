@@ -72,7 +72,7 @@
             <Insets left="8.0" right="3.0" />
          </padding>
          <children>
-            <Button id="button" fx:id="Inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
+            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
@@ -96,7 +96,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
+            <Button id="button" fx:id="añadirGasto" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>

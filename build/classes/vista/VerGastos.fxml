@@ -70,7 +70,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
+            <Button id="button" fx:id="añadirGasto" focusTraversable="false" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
@@ -82,7 +82,7 @@
                   </ImageView>
                </graphic>
             </Button>
-            <Button id="button" fx:id="verGasto" mnemonicParsing="false" onAction="#VerGasto" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
+            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>

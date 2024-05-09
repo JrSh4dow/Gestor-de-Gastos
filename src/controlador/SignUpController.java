@@ -19,6 +19,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 import model.Acount;
 import model.AcountDAOException;
 import utils.*;
@@ -124,22 +125,10 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void SetImage(ActionEvent event) {
-        try {
-
-            FileChooser fileChooser = new FileChooser();
-            fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-
-            // Mostrar el diálogo de selección de archivos
-            File file;
-            file = fileChooser.showOpenDialog(((Node) event.getSource()).getScene().getWindow());
-            if (file != null) {
-                // Convertir la ruta del archivo a una URL y cargar la imagen
-                Avatar = file.toURI().toString();
-                avatar.setImage(new Image(Avatar));
-            }
-        } catch (Exception e) {
-            System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
+        Window n = ((Node) event.getSource()).getScene().getWindow();
+        Avatar = Utils.ElegirImagen(n);
+        if (Avatar != null) {
+            avatar.setImage(new Image(Avatar));
         }
-
     }
 }
