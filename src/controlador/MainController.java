@@ -7,10 +7,12 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.AcountDAOException;
@@ -24,6 +26,8 @@ public class MainController {
     private Button verGasto;
     @FXML
     private Button añadirGasto;
+    @FXML
+    private BorderPane Caja;
 
     public void initialize(URL url, ResourceBundle rb) {
 
@@ -48,6 +52,10 @@ public class MainController {
     private void TerminarSesion(ActionEvent event) throws IOException, AcountDAOException {
         Boolean ok = Utils.AcabarSesion();
         if (ok) {
+            Node sourceNode = Caja.getScene().getRoot();
+            Scene scene = sourceNode.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
             Parent userRoot = loader.load();
             Stage inicioStage = new Stage();
@@ -55,8 +63,6 @@ public class MainController {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
-            stage.close();
         }
 
     }
@@ -88,6 +94,8 @@ public class MainController {
         mainStage.setTitle("PERFIL");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
+        PerfilController user = miCargador.getController();
+        user.establecer();
         mainStage.show();
     }
 

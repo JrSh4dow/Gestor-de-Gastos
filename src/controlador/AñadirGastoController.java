@@ -20,6 +20,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -57,6 +58,8 @@ public class AñadirGastoController {
     private TextArea DescriptionGasto;
     @FXML
     private Button añadirGasto;
+    @FXML
+    private BorderPane Caja;
 
     public void initialize(URL url, ResourceBundle rb) {
         NameGasto.requestFocus();
@@ -73,12 +76,12 @@ public class AñadirGastoController {
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();
-        Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
-        mainStage2.close();
     }
 
     @FXML
     void IrInicio(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
+        mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
@@ -88,8 +91,6 @@ public class AñadirGastoController {
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
-        Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
-        mainStage2.close();
 
     }
 
@@ -105,6 +106,8 @@ public class AñadirGastoController {
 
     @FXML
     void VerGasto(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) verGasto.getScene().getWindow();
+        mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerGastos.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
@@ -114,12 +117,12 @@ public class AñadirGastoController {
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
-        Stage mainStage2 = (Stage) verGasto.getScene().getWindow();
-        mainStage2.close();
     }
 
     @FXML
     void VerPerfil(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) Perfil.getScene().getWindow();
+        mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerPerfil.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
@@ -129,9 +132,6 @@ public class AñadirGastoController {
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
-        Stage mainStage2 = (Stage) Perfil.getScene().getWindow();
-        mainStage2.close();
-
     }
 
     @FXML
@@ -150,7 +150,10 @@ public class AñadirGastoController {
         if (result.isPresent() && result.get() == ButtonType.OK) {
             Boolean ok = Acount.getInstance().logOutUser();
             if (ok) {
-
+                Node sourceNode = Caja.getScene().getRoot();
+                Scene scene = sourceNode.getScene();
+                Stage stage = (Stage) scene.getWindow();
+                stage.close();
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
                 Parent userRoot = loader.load();
                 Stage inicioStage = new Stage();
@@ -158,8 +161,6 @@ public class AñadirGastoController {
                 inicioStage.setTitle("Expense Tracker");
                 inicioStage.setScene(new Scene(userRoot));
                 inicioStage.show();
-                Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
-                stage.close();
             }
         }
     }

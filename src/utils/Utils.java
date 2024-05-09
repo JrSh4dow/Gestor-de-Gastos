@@ -3,52 +3,22 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Acount;
 import model.AcountDAOException;
-import model.User;
 
 /**
  *
  * @author
  */
 public class Utils {
-
-    public static Boolean checkEditEmail(TextField Email) {
-        return User.checkEmail(Email.getText());
-    }
-
-    public static Boolean checkEditPass(TextField Pass) {
-        return User.checkPassword(Pass.getText());
-    }
-
-    public static int checkEquals(TextField Pass, TextField Rpass) {
-        return Pass.getText().compareTo(Rpass.getText());
-    }
-
-    public static boolean validarNickname(TextField t) throws IOException, AcountDAOException {
-        Acount ac = Acount.getInstance();
-        boolean existe = ac.existsLogin(t.getText());
-        return User.checkNickName(t.getText()) && !existe;
-    }
-
-    public static boolean validarDatos(TextField t) {
-        String s = t.getText();
-        return (!s.isEmpty()) && (s.trim().length() != 0);
-    }
 
     public static Boolean AcabarSesion() throws AcountDAOException, IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -78,5 +48,48 @@ public class Utils {
             System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
         }
         return null;
+    }
+
+    public static Boolean checkEmail(String email) {
+        if (email == null) {
+            return false;
+        }
+        // Regex to check valid email.
+        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
+        // Compile the ReGex
+        Pattern pattern = Pattern.compile(regex);
+        // Match ReGex with value to check
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
+    }
+
+    public static Boolean checkPass(String password) {
+
+        // If the password is empty , return false
+        if (password == null) {
+            return false;
+        }
+        // Regex to check valid password.
+        String regex = "^[A-Za-z0-9]{6,15}$";
+
+        // Compile the ReGex
+        Pattern pattern = Pattern.compile(regex);
+        // Match ReGex with value to check
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
+
+    }
+
+    public static boolean validarDatos(String t) {
+        return (!t.isEmpty()) && (t.trim().length() != 0);
+    }
+
+    public static Boolean checkNickName(String nickname) throws AcountDAOException, IOException {
+        Acount ac = Acount.getInstance();
+        boolean existe = ac.existsLogin(nickname);
+        String regex = "^[A-Za-z0-9_-]{6,15}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(nickname);
+        return matcher.matches() && !existe;
     }
 }

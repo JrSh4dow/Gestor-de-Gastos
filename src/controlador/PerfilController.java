@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -40,7 +42,8 @@ public class PerfilController {
     private String Avatar;
     @FXML
     private Button Imagen;
-
+    @FXML
+    private BorderPane Caja;
     User logged;
     @FXML
     private Button Inicio;
@@ -48,12 +51,14 @@ public class PerfilController {
     private Button Cancelar;
     @FXML
     private Button guardarCambios;
+    @FXML
+    Text data;
 
     public void initialize(URL url, ResourceBundle rb) {
-        restablecer();
+
     }
 
-    public void restablecer() {
+    public void establecer() {
         try {
             logged = Acount.getInstance().getLoggedUser();
         } catch (AcountDAOException | IOException e) {
@@ -65,13 +70,17 @@ public class PerfilController {
         Pass.setText(logged.getPassword());
         NickName.setText(logged.getNickName());
         avatar.setImage(logged.getImage());
+        data.setText(logged.getRegisterDate().toString());
     }
 
     @FXML
     private void TerminarSesion(ActionEvent event) throws AcountDAOException, IOException {
         Boolean ok = Utils.AcabarSesion();
         if (ok) {
-
+            Node sourceNode = Caja.getScene().getRoot();
+            Scene scene = sourceNode.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
             Parent userRoot = loader.load();
             Stage inicioStage = new Stage();
@@ -79,8 +88,6 @@ public class PerfilController {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
-            stage.close();
         }
 
     }
@@ -102,9 +109,9 @@ public class PerfilController {
 
     @FXML
     private void GuardarCambios(ActionEvent event) throws AcountDAOException, IOException {
-        if (Utils.validarDatos(Name) && Utils.validarDatos(SurName) && Utils.validarNickname(NickName)
-                && Utils.checkEditPass(Pass)
-                && Utils.checkEditEmail(Email)) {
+        if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
+                && Utils.checkPass(Pass.getText())
+                && Utils.checkEmail(Email.getText())) {
             Image img;
             if (Avatar == null) {
                 img = new Image("/avatars/default.png");
@@ -144,7 +151,7 @@ public class PerfilController {
 
     @FXML
     private void CancelarCambios(ActionEvent event) {
-        restablecer();
+        establecer();
     }
 
 }

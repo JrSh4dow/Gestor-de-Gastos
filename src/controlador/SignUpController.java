@@ -81,10 +81,11 @@ public class SignUpController implements Initializable {
     @FXML
     private void registrarClicked(ActionEvent event) throws IOException, AcountDAOException {
         Acount acount = Acount.getInstance();
-        int same = Utils.checkEquals(Pass, Rpass);
-        if (Utils.validarDatos(Name) && Utils.validarDatos(SurName) && Utils.validarNickname(NickName)
-                && Utils.checkEditPass(Pass)
-                && Utils.checkEditEmail(Email) && same == EQUALS) {
+        int same = Pass.getText().compareTo(Rpass.getText());
+        if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
+                && Utils.checkNickName(NickName.getText())
+                && Utils.checkPass(Pass.getText())
+                && Utils.checkEmail(Email.getText()) && same == EQUALS) {
             Image img;
             if (Avatar == null) {
                 img = new Image("/avatars/default.png");

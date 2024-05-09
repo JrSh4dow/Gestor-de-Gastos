@@ -7,11 +7,13 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.AcountDAOException;
@@ -48,6 +50,8 @@ public class VerGastoController implements Initializable {
     private Button eliminarGasto;
     @FXML
     private Button añadirGasto;
+    @FXML
+    private BorderPane Caja;
 
     /**
      * Initializes the controller class.
@@ -61,7 +65,10 @@ public class VerGastoController implements Initializable {
     private void TerminarSesion(ActionEvent event) throws IOException, AcountDAOException {
         Boolean ok = Utils.AcabarSesion();
         if (ok) {
-
+            Node sourceNode = Caja.getScene().getRoot();
+            Scene scene = sourceNode.getScene();
+            Stage stage = (Stage) scene.getWindow();
+            stage.close();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
             Parent userRoot = loader.load();
             Stage inicioStage = new Stage();
@@ -69,8 +76,6 @@ public class VerGastoController implements Initializable {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
-            stage.close();
         }
     }
 
