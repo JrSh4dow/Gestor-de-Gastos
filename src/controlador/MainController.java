@@ -22,7 +22,6 @@ public class MainController {
     private Button Perfil;
     @FXML
     private Button verGasto;
-    private Button Inicio;
     @FXML
     private Button añadirGasto;
 
@@ -56,7 +55,7 @@ public class MainController {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) Inicio.getScene().getWindow();
+            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
             stage.close();
         }
 
@@ -71,7 +70,7 @@ public class MainController {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("Principal");
+        mainStage.setTitle("GASTOS");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
@@ -86,7 +85,7 @@ public class MainController {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("Principal");
+        mainStage.setTitle("PERFIL");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();

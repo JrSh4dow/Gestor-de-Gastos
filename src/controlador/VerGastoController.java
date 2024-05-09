@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.image.Image;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.AcountDAOException;
 import utils.Utils;
@@ -53,12 +54,14 @@ public class VerGastoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        // Iniciar La TableView con los gastos desde la base de datos
     }
 
     @FXML
     private void TerminarSesion(ActionEvent event) throws IOException, AcountDAOException {
         Boolean ok = Utils.AcabarSesion();
         if (ok) {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
             Parent userRoot = loader.load();
             Stage inicioStage = new Stage();
@@ -66,30 +69,71 @@ public class VerGastoController implements Initializable {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) Inicio.getScene().getWindow();
+            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
             stage.close();
         }
-
     }
 
     @FXML
-    private void IrInicio(ActionEvent event) {
+    private void IrInicio(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
+        mainStage2.close();
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("INICIO");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.show();
     }
 
     @FXML
-    private void VerPerfil(ActionEvent event) {
+    private void VerPerfil(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) Perfil.getScene().getWindow();
+        mainStage2.close();
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerPerfil.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("PERFIL");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.show();
     }
 
     @FXML
-    private void ModificarGasto(ActionEvent event) {
+    private void ModificarGasto(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/ModificarGastos.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("MODIFICAR GASTO");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.showAndWait();
     }
 
+    // Para eliminar un gasto de la base de datos
     @FXML
     private void EliminarGasto(ActionEvent event) {
     }
 
     @FXML
-    private void AñadirGasto(ActionEvent event) {
+    private void AñadirGasto(ActionEvent event) throws IOException {
+        Stage mainStage2 = (Stage) añadirGasto.getScene().getWindow();
+        mainStage2.close();
+        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/AñadirGasto.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("AÑADIR GASTO");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.show();
     }
-
 }

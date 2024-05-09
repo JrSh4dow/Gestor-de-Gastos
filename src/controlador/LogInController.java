@@ -60,7 +60,6 @@ public class LogInController implements Initializable {
             nickName.clear();
             nickName.requestFocus();
         } else if (ok == true) {
-            mostrarAlerta("Inicio de sesión con éxito, bienvenido " + nickName.getText());
             FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
             Parent root = miCargador.load();
             Stage mainStage = new Stage();

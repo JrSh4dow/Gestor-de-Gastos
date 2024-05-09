@@ -43,37 +43,33 @@ public class InicioController implements Initializable {
     private void login(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
         Parent root = miCargador.load();
-
+        Stage currentStage = (Stage) Log.getScene().getWindow();
+        currentStage.close();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("LogIn");
+        stage.setTitle("INICIO DE SESIÓN");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setResizable(false);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        stage.setTitle("Inicio de sesión");
-        Stage currentStage = (Stage) Log.getScene().getWindow();
-        currentStage.close();
         // la ventana se muestra modal
-        stage.showAndWait();
+        stage.show();
     }
 
     @FXML
     private void signup(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/SignUp.fxml"));
         Parent root = miCargador.load();
-
+        Stage currentStage = (Stage) Sign.getScene().getWindow();
+        currentStage.close();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.setScene(scene);
-        stage.setTitle("Sign Up");
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        stage.setTitle("Registrarse");
-        Stage currentStage = (Stage) Sign.getScene().getWindow();
-        currentStage.close();
+        stage.setTitle("REGISTRAR-SE");
         // la ventana se muestra modal
-        stage.showAndWait();
+        stage.show();
     }
 
 }

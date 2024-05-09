@@ -31,12 +31,11 @@ public class AñadirCategoriaController {
 
     @FXML
     private void Cancelar(ActionEvent event) {
-        NameCategoria.clear();
-        DescriptionCategoria.clear();
         Stage a = (Stage) cancelar.getScene().getWindow();
         a.close();
     }
 
+    // Añadir la categoria a la base de datos
     @FXML
     private void AñadirCategoria(ActionEvent event) {
     }

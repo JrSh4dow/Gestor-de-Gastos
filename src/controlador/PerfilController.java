@@ -1,6 +1,5 @@
 package controlador;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,7 +15,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -42,7 +40,6 @@ public class PerfilController {
     private String Avatar;
     @FXML
     private Button Imagen;
-    private Button inicio;
 
     User logged;
     @FXML
@@ -74,6 +71,7 @@ public class PerfilController {
     private void TerminarSesion(ActionEvent event) throws AcountDAOException, IOException {
         Boolean ok = Utils.AcabarSesion();
         if (ok) {
+
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
             Parent userRoot = loader.load();
             Stage inicioStage = new Stage();
@@ -81,7 +79,7 @@ public class PerfilController {
             inicioStage.setTitle("Expense Tracker");
             inicioStage.setScene(new Scene(userRoot));
             inicioStage.show();
-            Stage stage = (Stage) inicio.getScene().getWindow();
+            Stage stage = (Stage) ((Scene) event.getSource()).getWindow();
             stage.close();
         }
 
@@ -89,19 +87,17 @@ public class PerfilController {
 
     @FXML
     private void IrInicio(ActionEvent event) throws IOException {
-        Stage stage = (Stage) inicio.getScene().getWindow();
-        stage.close();
+        Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
+        mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("Principal");
+        mainStage.setTitle("INICIO");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
-        Stage mainStage2 = (Stage) inicio.getScene().getWindow();
-        mainStage2.close();
     }
 
     @FXML

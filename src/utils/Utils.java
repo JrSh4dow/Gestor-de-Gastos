@@ -57,7 +57,7 @@ public class Utils {
         alert.setContentText("¿Seguro que quieres cerrar sesión?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
-            return Acount.getInstance().logOutUser();
+            return true;
         }
         return false;
     }
