@@ -25,6 +25,13 @@
                      </accelerator>
                   </MenuItem>
                </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Acount.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Menu>
          </menus>
       </MenuBar>
@@ -65,30 +72,53 @@
             <Insets left="8.0" right="3.0" />
          </padding>
          <children>
-            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" stylesheets="@../estilos/Main.css" text="Inicio">
+            <Button id="button" fx:id="Inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button id="button" fx:id="Perfil" mnemonicParsing="false" onAction="#VerPerfil" prefHeight="40.0" prefWidth="200.0" text="Ver perfil">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/perfil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button id="button" fx:id="añadirGasto" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
+            <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/gasto.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button id="button" fx:id="verGasto" mnemonicParsing="false" onAction="#VerGasto" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
-            </Button>
-            <Button id="button" fx:id="añadirCategoria" mnemonicParsing="false" onAction="#AñadirCategoria" prefHeight="40.0" prefWidth="200.0" text="Añadir categoria">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/historial.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </VBox>

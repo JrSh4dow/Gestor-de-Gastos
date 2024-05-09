@@ -12,22 +12,18 @@ public class MainController {
     @FXML
     private Button Perfil;
     @FXML
-    private Button añadirCategoria;
-    @FXML
-    private Button añadirGasto;
-    @FXML
     private Button verGasto;
+    @FXML
+    private Button Inicio;
 
     public void initialize(URL url, ResourceBundle rb) {
 
     }
 
-    @FXML
     void AñadirCategoria(ActionEvent event) {
 
     }
 
-    @FXML
     void AñadirGasto(ActionEvent event) {
 
     }
@@ -45,6 +41,10 @@ public class MainController {
     @FXML
     void VerPerfil(ActionEvent event) {
 
+    }
+
+    @FXML
+    private void IrInicio(ActionEvent event) {
     }
 
 }

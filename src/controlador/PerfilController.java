@@ -16,7 +16,6 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -41,18 +40,19 @@ public class PerfilController {
     @FXML
     private TextField Pass;
     @FXML
-    private Button Registrar;
-    @FXML
     private ImageView avatar;
     private String Avatar;
     @FXML
     private Button Imagen;
-    @FXML
     private Button inicio;
 
     User logged;
     @FXML
-    private MenuItem Terminar;
+    private Button Inicio;
+    @FXML
+    private Button Cancelar;
+    @FXML
+    private Button guardarCambios;
 
     public void initialize(URL url, ResourceBundle rb) throws AcountDAOException, IOException {
         logged = Acount.getInstance().getLoggedUser();
@@ -156,6 +156,10 @@ public class PerfilController {
         } catch (Exception e) {
             System.out.println("Se produjo un error al seleccionar la imagen: " + e.getMessage());
         }
+    }
+
+    @FXML
+    private void CancelarCambios(ActionEvent event) {
     }
 
 }

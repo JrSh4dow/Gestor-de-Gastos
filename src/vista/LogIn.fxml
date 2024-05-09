@@ -58,10 +58,17 @@
                               <Font name="FiraCode Nerd Font Reg" size="13.0" />
                            </font>
                         </Button>
-                        <Button id="button" fx:id="botonVolver" layoutX="23.0" layoutY="20.0" mnemonicParsing="false" onAction="#volverClicked" text="Volver" textFill="WHITE">
+                        <Button id="button" fx:id="botonVolver" layoutX="23.0" layoutY="20.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#volverClicked" prefHeight="30.5" prefWidth="58.0" textFill="WHITE">
                            <font>
                               <Font name="FiraCode Nerd Font Reg" size="12.0" />
-                           </font></Button>
+                           </font>
+                           <graphic>
+                              <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../icons/volver.png" />
+                                 </image>
+                              </ImageView>
+                           </graphic></Button>
                         <ImageView fitHeight="159.0" fitWidth="159.0" layoutX="157.0" layoutY="60.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@../imagenes/logo-sin.png" />

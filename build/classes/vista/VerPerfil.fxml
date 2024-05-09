@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
@@ -126,16 +127,23 @@
       </GridPane>
    </center>
    <top>
-      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #00C1A4; -fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Cuenta">
+            <Menu mnemonicParsing="false" text="Acount">
                <items>
-                  <MenuItem fx:id="Terminar" mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
+                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Acount.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Menu>
          </menus>
       </MenuBar>
@@ -146,10 +154,17 @@
    <left>
       <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="504.0" prefWidth="140.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="button" fx:id="inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
+            <Button id="button" fx:id="Inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
          <padding>
@@ -158,10 +173,14 @@
       </VBox>
    </left>
    <bottom>
-      <Button id="button" fx:id="Registrar" mnemonicParsing="false" onAction="#GuardarCambios" prefHeight="30.0" text="Guardar Cambios" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+      <HBox alignment="CENTER_RIGHT" spacing="20.0" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="20.0" right="30.0" top="20.0" />
+            <Insets bottom="20.0" right="10.0" top="20.0" />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <Button id="button" fx:id="Cancelar" mnemonicParsing="false" onAction="#CancelarCambios" prefHeight="30.0" text="Cancelar" textFill="WHITE" />
+            <Button id="button" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" prefHeight="30.0" text="Guardar Cambios" textFill="WHITE" />
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>

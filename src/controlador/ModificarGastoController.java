@@ -6,10 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 
 /**
  * FXML Controller class
@@ -19,23 +17,11 @@ import javafx.scene.image.ImageView;
 public class ModificarGastoController implements Initializable {
 
     @FXML
-    private TextField NameGasto;
+    private TextField NameCategoria;
     @FXML
-    private TextField DescriptionGasto;
+    private Button añadir;
     @FXML
-    private TextField CosteGasto;
-    @FXML
-    private TextField UnidadeGasto;
-    @FXML
-    private ImageView Factura;
-    @FXML
-    private Button Imagen;
-    @FXML
-    private DatePicker FechaGasto;
-    @FXML
-    private ChoiceBox<?> CategoriaGasto;
-    @FXML
-    private Button modificar;
+    private TextArea DescriptionCategoria;
 
     /**
      * Initializes the controller class.
@@ -46,11 +32,9 @@ public class ModificarGastoController implements Initializable {
     }    
 
     @FXML
-    private void SetImage(ActionEvent event) {
+    private void Añadir(ActionEvent event) {
     }
 
-    @FXML
-    private void Modificar(ActionEvent event) {
-    }
+
     
 }
