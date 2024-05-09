@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="450.0" prefWidth="700.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.AñadirGastoController">
+<BorderPane prefHeight="450.0" prefWidth="700.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>

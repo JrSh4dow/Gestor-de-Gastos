@@ -63,7 +63,7 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="68.80000000000001" minHeight="10.0" prefHeight="68.80000000000001" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="40.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Descripción:" textFill="WHITE" GridPane.rowIndex="2">
@@ -160,13 +160,27 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <HBox alignment="CENTER_RIGHT" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar" prefHeight="50.0" prefWidth="80.0" text="Cancelar" />
-                  <Button id="button" fx:id="añadir1" mnemonicParsing="false" onAction="#Añadir" prefHeight="50.0" prefWidth="80.0" text="Añadir" />
+                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/cancelar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button id="button" fx:id="añadir1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Añadir">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/aceptar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
                <GridPane.margin>
-                  <Insets bottom="10.0" />
+                  <Insets />
                </GridPane.margin>
             </HBox>
             <TextArea fx:id="DescriptionGasto" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">

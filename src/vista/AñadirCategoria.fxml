@@ -5,6 +5,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
@@ -13,9 +15,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<Pane style="-fx-background-radius: 20;" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ModificarGastoController">
+<Pane style="-fx-background-radius: 20;" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.ModificarCategoriaController">
    <children>
-      <GridPane alignment="CENTER" hgap="10.0" prefWidth="464.0" styleClass="Vbox" vgap="10.0">
+      <GridPane alignment="CENTER" hgap="10.0" prefHeight="293.0" prefWidth="443.0" styleClass="Vbox" vgap="10.0">
          <columnConstraints>
             <ColumnConstraints halignment="RIGHT" hgrow="SOMETIMES" maxWidth="312.59998779296876" minWidth="10.0" prefWidth="185.80003662109374" />
             <ColumnConstraints halignment="LEFT" hgrow="SOMETIMES" maxWidth="474.1999633789062" minWidth="10.0" prefWidth="252.9999633789063" />
@@ -23,9 +25,10 @@
          <rowConstraints>
             <RowConstraints maxHeight="52.000006103515624" minHeight="10.0" prefHeight="44.799993896484374" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="37.599981689453124" minHeight="10.0" prefHeight="32.000006103515624" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="64.0000244140625" minHeight="10.0" prefHeight="63.199975585937494" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="10.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="64.0000244140625" minHeight="10.0" prefHeight="64.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="0.0" minHeight="0.0" prefHeight="0.0" />
+            <RowConstraints maxHeight="48.00002441406252" minHeight="36.80001220703127" prefHeight="40.00002441406252" valignment="BASELINE" />
          </rowConstraints>
          <children>
             <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" text="Descripción:" textFill="WHITE" GridPane.rowIndex="2">
@@ -51,14 +54,28 @@
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
             </Text>
-            <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="248.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
                <children>
-                  <Button id="button" fx:id="añadir" mnemonicParsing="false" onAction="#Añadir" prefHeight="45.0" prefWidth="82.0" text="Añadir">
-                     <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
-                     </font>
-                  </Button>
+                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/cancelar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
+                  <Button id="button" fx:id="añadir1" contentDisplay="CENTER" mnemonicParsing="false" onAction="#Añadir">
+                     <graphic>
+                        <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../icons/aceptar.png" />
+                           </image>
+                        </ImageView>
+                     </graphic></Button>
                </children>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
             </HBox>
             <TextArea fx:id="DescriptionCategoria" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
