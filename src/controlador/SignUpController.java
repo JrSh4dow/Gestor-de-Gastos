@@ -16,10 +16,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Acount;
 import model.AcountDAOException;
+import model.User;
 import utils.*;
 
 /**
@@ -83,9 +85,9 @@ public class SignUpController implements Initializable {
         Acount acount = Acount.getInstance();
         int same = Pass.getText().compareTo(Rpass.getText());
         if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
-                && Utils.checkNickName(NickName.getText())
-                && Utils.checkPass(Pass.getText())
-                && Utils.checkEmail(Email.getText()) && same == EQUALS) {
+                && User.checkNickName(NickName.getText())
+                && User.checkPassword(Pass.getText())
+                && User.checkEmail(Email.getText()) && same == EQUALS) {
             Image img;
             if (Avatar == null) {
                 img = new Image("/avatars/default.png");
@@ -103,21 +105,28 @@ public class SignUpController implements Initializable {
                 alert.setTitle("Información");
                 alert.setContentText("Se ha registrado correctamente");
                 alert.showAndWait();
+                FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
+                Parent root = miCargador.load();
+                Stage currentStage = (Stage) Registrar.getScene().getWindow();
+                currentStage.close();
+                Scene scene = new Scene(root);
+                Stage stage = new Stage();
+                stage.setScene(scene);
+                stage.setTitle("INICIO DE SESIÓN");
+                stage.initModality(Modality.APPLICATION_MODAL);
+                stage.setResizable(false);
+                stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+                // la ventana se muestra modal
+                stage.show();
             }
 
         } else {
             if (acount.existsLogin(NickName.getText())) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText("Nickname ya existe");
-                alert.showAndWait();
+                Utils.mostrarError("Nickname ya existe, elije otro");
+            } else if ((Pass == null && Pass.getText().isEmpty()) || (Rpass == null || Rpass.getText().isEmpty())) {
+                Utils.mostrarError("Completa correctamente los campos de registro");
             } else {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setHeaderText(null);
-                alert.setTitle("Error");
-                alert.setContentText("Completa correctamente los campos de registro");
-                alert.showAndWait();
+                Utils.mostrarError("Introduce una contraseña valida");
             }
         }
     }

@@ -11,7 +11,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
-import model.Acount;
 import model.AcountDAOException;
 
 /**
@@ -50,46 +49,40 @@ public class Utils {
         return null;
     }
 
-    public static Boolean checkEmail(String email) {
-        if (email == null) {
-            return false;
-        }
-        // Regex to check valid email.
-        String regex = "^[\\w!#$%&'*+/=?`{|}~^-]+(?:\\.[\\w!#$%&'*+/=?`{|}~^-]+)*@(?:[a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$";
-        // Compile the ReGex
-        Pattern pattern = Pattern.compile(regex);
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
-    }
-
-    public static Boolean checkPass(String password) {
+    public static Boolean checkNames(String n) {
 
         // If the password is empty , return false
-        if (password == null) {
+        if (n == null) {
             return false;
         }
         // Regex to check valid password.
-        String regex = "^[A-Za-z0-9]{6,15}$";
+        String regex = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$";
 
         // Compile the ReGex
         Pattern pattern = Pattern.compile(regex);
         // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(password);
+        Matcher matcher = pattern.matcher(n);
         return matcher.matches();
 
     }
 
     public static boolean validarDatos(String t) {
-        return (!t.isEmpty()) && (t.trim().length() != 0);
+        return (!t.isEmpty()) && (t.trim().length() != 0) && checkNames(t);
     }
 
-    public static Boolean checkNickName(String nickname) throws AcountDAOException, IOException {
-        Acount ac = Acount.getInstance();
-        boolean existe = ac.existsLogin(nickname);
-        String regex = "^[A-Za-z0-9_-]{6,15}$";
-        Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(nickname);
-        return matcher.matches() && !existe;
+    public static void mostrarAlerta(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Información");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    public static void mostrarError(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        alert.setHeaderText(null);
+        alert.setContentText(mensaje);
+        alert.showAndWait();
     }
 }

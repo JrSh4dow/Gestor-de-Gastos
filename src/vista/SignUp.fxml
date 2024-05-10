@@ -113,23 +113,23 @@
                   </Label>
                   <TextField fx:id="Name" prefHeight="8.0" prefWidth="314.0" promptText="Tu nombre" GridPane.columnIndex="1">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font></TextField>
                   <TextField fx:id="SurName" promptText="Tu(s) apellidos" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets />
                      </GridPane.margin>
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font>
                   </TextField>
                   <TextField fx:id="Email" promptText="Tuemail@dominio.com" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font></TextField>
-                  <TextField fx:id="NickName" prefHeight="26.0" prefWidth="348.0" promptText="! No podrás cambiarlo después ¡" GridPane.columnIndex="1" GridPane.rowIndex="3">
+                  <TextField fx:id="NickName" prefHeight="26.0" prefWidth="348.0" promptText="! No podrás cambiarlo después ¡ +6 letras" GridPane.columnIndex="1" GridPane.rowIndex="3">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font></TextField>
                   <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="209.0" text="Repetir Contraseña" textFill="#f4f4f4" GridPane.rowIndex="5">
                      <font>
@@ -161,14 +161,14 @@
                         </Button>
                      </children>
                   </HBox>
-                  <TextField fx:id="Pass" promptText="Debe contener mínimo 6 carácteres." GridPane.columnIndex="1" GridPane.rowIndex="4">
+                  <TextField fx:id="Pass" promptText="Más de 8, minúsculas, mayúsculas, dígitos y carácter especial" GridPane.columnIndex="1" GridPane.rowIndex="4">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="11.0" />
                      </font>
                   </TextField>
                   <TextField fx:id="Rpass" prefHeight="28.0" prefWidth="344.0" promptText="Por favor, repita su contraseña." GridPane.columnIndex="1" GridPane.rowIndex="5">
                      <font>
-                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                        <Font name="System Bold" size="12.0" />
                      </font></TextField>
                </children>
                <padding>

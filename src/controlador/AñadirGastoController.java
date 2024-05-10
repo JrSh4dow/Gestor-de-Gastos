@@ -136,8 +136,14 @@ public class AñadirGastoController {
 
     @FXML
     private void Cancelar(ActionEvent event) {
-        Stage a = (Stage) cancelar.getScene().getWindow();
-        a.close();
+        NameGasto.clear();
+        CosteGasto.clear();
+        UnidadeGasto.clear();
+        DescriptionGasto.clear();
+        CategoriaGasto.setSelectionModel(null);
+        Factura.setImage(null);
+        FechaGasto.setValue(null);
+
     }
 
     @FXML

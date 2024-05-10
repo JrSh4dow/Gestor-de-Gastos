@@ -10,7 +10,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -18,6 +17,8 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
+import model.User;
+import utils.Utils;
 
 /**
  * FXML Controller class
@@ -50,30 +51,32 @@ public class LogInController implements Initializable {
         Acount acount = Acount.getInstance();
         Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
 
-        if (nickName.getText().isEmpty() && (nickName.getText().trim().length() != 0)
-                || pass.getText().isEmpty() && (pass.getText().trim().length() != 0)) {
-            mostrarAlerta("Por favor rellena los campos para poder iniciar sesión");
+        if (User.checkNickName(nickName.getText())
+                && User.checkPassword(pass.getText())) {
+            if (!acount.existsLogin(nickName.getText())) {
+                Utils.mostrarError("No existe el nickname. Por favor regístrate");
+                pass.clear();
+                nickName.clear();
+                nickName.requestFocus();
 
-        } else if (!acount.existsLogin(nickName.getText())) {
-            mostrarAlerta("No existe el nickname. Por favor regístrate");
-            pass.clear();
-            nickName.clear();
-            nickName.requestFocus();
-        } else if (ok == true) {
-            FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
-            Parent root = miCargador.load();
-            Stage mainStage = new Stage();
-            mainStage.setScene(new Scene(root));
-            mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            mainStage.setTitle("Principal");
-            mainStage.setResizable(false);
-            mainStage.initModality(Modality.APPLICATION_MODAL);
-            mainStage.show();
-            Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
-            mainStage2.close();
+            } else if (ok == true) {
+                FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
+                Parent root = miCargador.load();
+                Stage mainStage = new Stage();
+                mainStage.setScene(new Scene(root));
+                mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
+                mainStage.setTitle("Principal");
+                mainStage.setResizable(false);
+                mainStage.initModality(Modality.APPLICATION_MODAL);
+                mainStage.show();
+                Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
+                mainStage2.close();
 
+            }
+        } else if (pass == null || pass.getText().isEmpty()) {
+            Utils.mostrarAlerta("Por favor rellena los campos para poder iniciar sesión");
         } else {
-            mostrarAlerta("Por favor proporciona los datos necesarios");
+            Utils.mostrarError("Contraseña incorrecta");
         }
 
     }
@@ -91,11 +94,4 @@ public class LogInController implements Initializable {
         stage.close();
     }
 
-    private void mostrarAlerta(String mensaje) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Información");
-        alert.setHeaderText(null);
-        alert.setContentText(mensaje);
-        alert.showAndWait();
-    }
 }

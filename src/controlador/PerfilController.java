@@ -110,8 +110,8 @@ public class PerfilController {
     @FXML
     private void GuardarCambios(ActionEvent event) throws AcountDAOException, IOException {
         if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
-                && Utils.checkPass(Pass.getText())
-                && Utils.checkEmail(Email.getText())) {
+                && User.checkPassword(Pass.getText())
+                && User.checkEmail(Email.getText())) {
             Image img;
             if (Avatar == null) {
                 img = new Image("/avatars/default.png");
@@ -132,11 +132,11 @@ public class PerfilController {
             alert.showAndWait();
 
         } else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setHeaderText(null);
-            alert.setTitle("Error");
-            alert.setContentText("Completa correctamente los campos de registro");
-            alert.showAndWait();
+            if (!User.checkPassword(Pass.getText()) && !(Pass == null || Pass.getText().isEmpty())) {
+                Utils.mostrarError("Introduce una contraseña valida");
+            } else {
+                Utils.mostrarError("Completa correctamente los campos");
+            }
         }
     }
 

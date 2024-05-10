@@ -101,7 +101,7 @@
       
    </center>
    <center>
-      <TableView style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
+      <TableView fx:id="Gastos" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idGasto" editable="false" minWidth="7.0" prefWidth="-1.0" sortable="false" text="Id" />
                 <TableColumn fx:id="nombreGasto" editable="false" prefWidth="-1.0" sortable="false" text="Nombre" />
@@ -138,6 +138,15 @@
                      </image>
                   </ImageView>
                </graphic></Button>
+            <Button id="button" fx:id="imprimirGastos" mnemonicParsing="false" onAction="#ImprimirGastos">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/imprimir.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
          <BorderPane.margin>
             <Insets right="10.0" top="10.0" />
