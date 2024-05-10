@@ -56,7 +56,7 @@ public class Utils {
             return false;
         }
         // Regex to check valid password.
-        String regex = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\s]+$";
+        String regex = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]+$";
 
         // Compile the ReGex
         Pattern pattern = Pattern.compile(regex);
