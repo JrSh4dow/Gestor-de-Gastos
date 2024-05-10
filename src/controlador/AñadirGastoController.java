@@ -65,6 +65,12 @@ public class AñadirGastoController {
         NameGasto.requestFocus();
     }
 
+    // añadir el gasto a la base de datos
+    @FXML
+    private void AñadirGasto(ActionEvent event) throws IOException {
+
+    }
+
     @FXML
     void AñadirCategoria(ActionEvent event) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/AñadirCategoria.fxml"));
@@ -79,12 +85,15 @@ public class AñadirGastoController {
     }
 
     @FXML
-    void IrInicio(ActionEvent event) throws IOException {
+    void IrInicio(ActionEvent event) throws IOException, AcountDAOException {
         Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
         mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
+        MainController r = miCargador.getController();
+        r.Pie();
+        r.main();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("Inicio");
@@ -169,21 +178,6 @@ public class AñadirGastoController {
                 inicioStage.show();
             }
         }
-    }
-
-    @FXML
-    private void AñadirGasto(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/AñadirGasto.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("AÑADIR GASTO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
-        Stage mainStage2 = (Stage) añadirGasto.getScene().getWindow();
-        mainStage2.close();
     }
 
 }

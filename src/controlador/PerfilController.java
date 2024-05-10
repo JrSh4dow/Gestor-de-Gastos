@@ -93,12 +93,15 @@ public class PerfilController {
     }
 
     @FXML
-    private void IrInicio(ActionEvent event) throws IOException {
+    private void IrInicio(ActionEvent event) throws IOException, AcountDAOException {
         Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
         mainStage2.close();
         FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
+        MainController r = miCargador.getController();
+        r.Pie();
+        r.main();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("INICIO");

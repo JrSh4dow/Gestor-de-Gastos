@@ -63,10 +63,13 @@ public class LogInController implements Initializable {
                 FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
                 Parent root = miCargador.load();
                 Stage mainStage = new Stage();
+                MainController r = miCargador.getController();
+                r.Pie();
+                r.main();
                 mainStage.setScene(new Scene(root));
                 mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
                 mainStage.setTitle("Principal");
-                mainStage.setResizable(false);
+                mainStage.setResizable(true);
                 mainStage.initModality(Modality.APPLICATION_MODAL);
                 mainStage.show();
                 Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
