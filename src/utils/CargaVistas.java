@@ -2,7 +2,6 @@ package utils;
 
 import java.io.IOException;
 
-import controlador.PerfilController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -42,8 +41,6 @@ public class CargaVistas {
         mainStage.setTitle("PERFIL");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
-        PerfilController user = miCargador.getController();
-        user.establecer();
         mainStage.show();
     }
 
@@ -108,7 +105,7 @@ public class CargaVistas {
     }
 
     public static void REGISTRO() throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../SignUp.fxml"));
+        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/SignUp.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
