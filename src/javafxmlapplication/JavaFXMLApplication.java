@@ -31,6 +31,7 @@ public class JavaFXMLApplication extends Application {
         // - configuracion del stage
         // - se muestra el stage de manera no modal mediante el metodo show()
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
         stage.setTitle("Expense Tracker");
         stage.show();

@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
@@ -18,7 +19,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="400.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PerfilController">
+<BorderPane fx:id="Caja" prefHeight="430.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PerfilController">
    <center>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="178.0" prefWidth="554.0" styleClass="Vbox" vgap="10.0">
          <columnConstraints>
@@ -33,22 +34,15 @@
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="68.80000000000001" minHeight="10.0" prefHeight="68.80000000000001" valignment="CENTER" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="10.0" prefHeight="30.0" valignment="CENTER" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Apellido(s)" textFill="WHITE" GridPane.rowIndex="2">
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Apellido(s):" textFill="WHITE" GridPane.rowIndex="2">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Nombre" textFill="WHITE" GridPane.rowIndex="1">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
-               </font>
-               <GridPane.margin>
-                  <Insets />
-               </GridPane.margin>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Email" textFill="#f4f4f4" GridPane.rowIndex="3">
+            <Label alignment="CENTER_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="209.0" text="Nombre:" textFill="WHITE" GridPane.rowIndex="1">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
@@ -56,12 +50,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Nombre de usuario" textFill="#f4f4f4" GridPane.rowIndex="4">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Contraseña" textFill="#f4f4f4" GridPane.rowIndex="5">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Email:" textFill="WHITE" GridPane.rowIndex="3">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
@@ -69,16 +58,29 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="213.0" text="Imagen de perfil" textFill="#f4f4f4" GridPane.rowIndex="6">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Nombre de usuario:" textFill="WHITE" GridPane.rowIndex="4">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
             </Label>
-            <TextField fx:id="Name" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Contraseña:" textFill="WHITE" GridPane.rowIndex="5">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="213.0" text="Imagen de perfil:" textFill="WHITE" GridPane.rowIndex="6">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="14.0" />
+               </font>
+            </Label>
+            <TextField fx:id="Name" maxWidth="-Infinity" prefWidth="120.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="SurName" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="SurName" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets />
                </GridPane.margin>
@@ -86,18 +88,18 @@
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="Email" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="Email" maxWidth="-Infinity" prefWidth="180.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
-            <TextField fx:id="NickName" editable="false" focusTraversable="false" prefHeight="26.0" prefWidth="348.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="NickName" editable="false" focusTraversable="false" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
             <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <children>
                   <ImageView fx:id="avatar" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true" />
-                  <Button id="button" fx:id="Imagen" mnemonicParsing="false" onAction="#SetImage" prefHeight="30.0" text="Seleccionar Imgen" textFill="WHITE">
+                  <Button id="button" fx:id="Imagen" mnemonicParsing="false" onAction="#SetImage" prefHeight="30.0" text="Seleccionar Imagen" textFill="WHITE">
                      <font>
                         <Font name="FiraCode Nerd Font Bold" size="12.0" />
                      </font>
@@ -111,14 +113,26 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
+               <GridPane.margin>
+                  <Insets top="5.0" />
+               </GridPane.margin>
             </Text>
-            <TextField fx:id="Pass" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <TextField fx:id="Pass" maxWidth="-Infinity" prefWidth="150.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
+            <Text fx:id="data" strokeType="OUTSIDE" strokeWidth="0.0" text="Fecha" GridPane.columnIndex="1" GridPane.rowIndex="7">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font></Text>
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="203.0" text="Fecha de registro:" textFill="WHITE" GridPane.rowIndex="7">
+               <font>
+                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
+               </font>
+            </Label>
          </children>
          <padding>
-            <Insets left="20.0" right="20.0" />
+            <Insets bottom="10.0" left="20.0" right="20.0" />
          </padding>
          <BorderPane.margin>
             <Insets left="4.0" right="10.0" top="20.0" />
@@ -126,16 +140,23 @@
       </GridPane>
    </center>
    <top>
-      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-background-color: #00C1A4; -fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2;" BorderPane.alignment="CENTER">
+      <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Cuenta">
+            <Menu mnemonicParsing="false" text="Acount">
                <items>
-                  <MenuItem fx:id="Terminar" mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
+                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
                   </MenuItem>
                </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Acount.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Menu>
          </menus>
       </MenuBar>
@@ -146,10 +167,17 @@
    <left>
       <VBox alignment="CENTER" maxHeight="-Infinity" prefHeight="504.0" prefWidth="140.0" BorderPane.alignment="CENTER">
          <children>
-            <Button id="button" fx:id="inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
+            <Button id="button" fx:id="Inicio" mnemonicParsing="false" onAction="#IrInicio" prefHeight="40.0" prefWidth="200.0" text="Inicio">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
          <padding>
@@ -158,10 +186,28 @@
       </VBox>
    </left>
    <bottom>
-      <Button id="button" fx:id="Registrar" mnemonicParsing="false" onAction="#GuardarCambios" prefHeight="30.0" text="Guardar Cambios" textFill="WHITE" BorderPane.alignment="BOTTOM_RIGHT">
+      <HBox alignment="CENTER_RIGHT" spacing="30.0" BorderPane.alignment="CENTER_RIGHT">
          <BorderPane.margin>
-            <Insets bottom="20.0" right="30.0" top="20.0" />
+            <Insets bottom="20.0" right="10.0" top="10.0" />
          </BorderPane.margin>
-      </Button>
+         <children>
+            <Button id="button" fx:id="Cancelar" mnemonicParsing="false" onAction="#CancelarCambios" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/cancelar.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button id="button" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" textFill="WHITE">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/aceptar.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+         </children>
+      </HBox>
    </bottom>
 </BorderPane>

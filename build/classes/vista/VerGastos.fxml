@@ -7,12 +7,14 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane prefHeight="450.0" prefWidth="650.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.AñadirGastoController">
+<BorderPane fx:id="Caja" prefHeight="450.0" prefWidth="700.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
@@ -24,6 +26,13 @@
                      </accelerator>
                   </MenuItem>
                </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/Acount.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Menu>
          </menus>
       </MenuBar>
@@ -41,26 +50,49 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/inicio.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button id="button" fx:id="Perfil" mnemonicParsing="false" onAction="#VerPerfil" prefHeight="40.0" prefWidth="200.0" text="Ver perfil">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/perfil.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
-            <Button id="button" fx:id="añadirGasto" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
+            <Button id="button" fx:id="añadirGasto" focusTraversable="false" mnemonicParsing="false" onAction="#AñadirGasto" prefHeight="40.0" prefWidth="200.0" text="Añadir gasto">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/gasto.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
             <Button id="buttonDisable" focusTraversable="false" mnemonicParsing="false" prefHeight="40.0" prefWidth="200.0" text="Ver gastos">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
-            </Button>
-            <Button id="button" fx:id="añadirCategoria" mnemonicParsing="false" onAction="#AñadirCategoria" prefHeight="40.0" prefWidth="200.0" text="Añadir categoria">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/historial.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
             </Button>
          </children>
       </VBox>
@@ -69,12 +101,12 @@
       
    </center>
    <center>
-      <TableView style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
+      <TableView fx:id="Gastos" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idGasto" editable="false" prefWidth="-1.0" sortable="false" text="Id" />
+          <TableColumn fx:id="idGasto" editable="false" minWidth="7.0" prefWidth="-1.0" sortable="false" text="Id" />
                 <TableColumn fx:id="nombreGasto" editable="false" prefWidth="-1.0" sortable="false" text="Nombre" />
-                <TableColumn fx:id="descripcionGasto" editable="false" prefWidth="-1.0" sortable="false" text="Descripción" />
-                <TableColumn fx:id="categoriaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Categoría" />
+                <TableColumn fx:id="descripcionGasto" editable="false" minWidth="13.0" prefWidth="-1.0" sortable="false" text="Descripción" />
+                <TableColumn fx:id="categoriaGasto" editable="false" minWidth="13.0" prefWidth="-1.0" sortable="false" text="Categoría" />
                 <TableColumn fx:id="costeGasto" editable="false" prefWidth="-1.0" sortable="false" text="Coste" />
                 <TableColumn fx:id="unidadesGasto" editable="false" prefWidth="-1.0" sortable="false" text="Unidades" />
                 <TableColumn fx:id="facturaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Factura" />
@@ -88,16 +120,39 @@
       </TableView>
    </center>
    <right>
-      <VBox alignment="TOP_CENTER" maxHeight="-Infinity" prefHeight="125.0" prefWidth="100.0" spacing="20.0" styleClass="Vbox" BorderPane.alignment="TOP_CENTER">
+       <VBox alignment="TOP_CENTER" maxHeight="125.0" spacing="20.0" styleClass="Vbox" BorderPane.alignment="TOP_CENTER">
          <children>
-            <Button id="button" fx:id="modificarGasto" mnemonicParsing="false" onAction="#ModificarGasto" prefHeight="40.0" prefWidth="80.0" text="Modificar" />
-            <Button id="button" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto" prefHeight="40.0" prefWidth="80.0" text="Eliminar" />
+            <Button id="button" fx:id="modificarGasto" mnemonicParsing="false" onAction="#ModificarGasto">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/editar.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button id="button" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/eliminar.png" />
+                     </image>
+                  </ImageView>
+               </graphic></Button>
+            <Button id="button" fx:id="imprimirGastos" mnemonicParsing="false" onAction="#ImprimirGastos">
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/imprimir.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
          </children>
          <BorderPane.margin>
             <Insets right="10.0" top="10.0" />
          </BorderPane.margin>
          <padding>
-            <Insets top="10.0" />
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
    </right>
