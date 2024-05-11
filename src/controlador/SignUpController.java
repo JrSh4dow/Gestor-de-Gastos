@@ -4,19 +4,16 @@ import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
+
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Acount;
@@ -50,13 +47,11 @@ public class SignUpController implements Initializable {
     private TextField Pass;
     @FXML
     private Button Registrar;
-
-    // When to strings are equal, compareTo returns zero
-    private final int EQUALS = 0;
     @FXML
     private ImageView avatar;
     @FXML
     private Button Imagen;
+    Acount acount;
 
     /**
      * Initializes the controller class.
@@ -65,69 +60,129 @@ public class SignUpController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         String image = "/avatars/default.png";
         avatar.setImage(new Image(image));
+        Acount acount;
+
+        try {
+            acount = Acount.getInstance();
+
+            // Añadir un ChangeListener a los campos TextField
+            NickName.focusedProperty()
+                    .addListener(
+                            (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                                if (!newValue) { // focus lost.
+                                    String t = NickName.getText();
+                                    if (!User.checkNickName(t)) {
+                                        Utils.error(NickName);
+                                        NickName.requestFocus();
+                                    } else if (acount.existsLogin(NickName.getText())) {
+                                        Utils.mostrarError("Nickname ya existe, elije otro");
+                                        NickName.clear();
+                                        NickName.requestFocus();
+
+                                    } else {
+                                        Utils.correct(NickName);
+                                    }
+                                }
+                            });
+        } catch (AcountDAOException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Inicialmente, el botón Aceptar está deshabilitado
+        Registrar.setDisable(true);
+        Pass.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
+                        String t = Pass.getText();
+                        if (!User.checkPassword(t)) {
+                            Utils.error(Pass);
+                            Utils.mostrarError("Introduce una contraseña valida");
+                            Pass.requestFocus();
+                        } else {
+                            Utils.correct(Pass);
+                        }
+                    }
+                });
+        Rpass.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue && !Rpass.getText().isEmpty()) { // focus lost.
+                        String t = Rpass.getText();
+                        if (Pass.getText().compareTo(t) != 0) {
+                            Utils.error(Rpass);
+                            Rpass.requestFocus();
+                        } else {
+                            Utils.correct(Rpass);
+                            Registrar.setDisable(false);
+                        }
+                    }
+                });
+        Name.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = Name.getText();
+                        if (!Utils.checkNames(t)) {
+                            Utils.error(Name);
+                            Name.requestFocus();
+                        } else {
+                            Utils.correct(Name);
+                        }
+                    }
+                });
+        SurName.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = SurName.getText();
+                        if (!Utils.checkNames(t)) {
+                            Utils.error(SurName);
+                            SurName.requestFocus();
+                        } else {
+                            Utils.correct(SurName);
+                        }
+                    }
+                });
+        Email.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = Email.getText();
+                        if (!User.checkEmail(t)) {
+                            Utils.error(Email);
+                            Email.requestFocus();
+                        } else {
+                            Utils.correct(Email);
+                        }
+                    }
+                });
+
     }
 
     @FXML
     private void volverClicked(ActionEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
-        Parent userRoot = loader.load();
-        Stage inicioStage = new Stage();
-        inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        inicioStage.setTitle("Expense Tracker");
-        inicioStage.setScene(new Scene(userRoot));
-        inicioStage.show();
         Stage stage = (Stage) botonVolver.getScene().getWindow();
         stage.close();
+        CargaVistas.INICIO();
     }
 
     @FXML
     private void registrarClicked(ActionEvent event) throws IOException, AcountDAOException {
-        Acount acount = Acount.getInstance();
-        int same = Pass.getText().compareTo(Rpass.getText());
-        if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
-                && User.checkNickName(NickName.getText())
-                && User.checkPassword(Pass.getText())
-                && User.checkEmail(Email.getText()) && same == EQUALS) {
-            Image img;
-            if (Avatar == null) {
-                img = new Image("/avatars/default.png");
-            } else {
-                img = new Image(Avatar);
-            }
 
-            // registrar el nuevo miembro
-            LocalDate date = LocalDate.now();
-            Boolean ok = acount.registerUser(Name.getText(), SurName.getText(), Email.getText(), NickName.getText(),
-                    Pass.getText(), img, date);
-            if (ok) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setHeaderText(null);
-                alert.setTitle("Información");
-                alert.setContentText("Se ha registrado correctamente");
-                alert.showAndWait();
-                FXMLLoader miCargador = new FXMLLoader(getClass().getResource("/vista/LogIn.fxml"));
-                Parent root = miCargador.load();
-                Stage currentStage = (Stage) Registrar.getScene().getWindow();
-                currentStage.close();
-                Scene scene = new Scene(root);
-                Stage stage = new Stage();
-                stage.setScene(scene);
-                stage.setTitle("INICIO DE SESIÓN");
-                stage.initModality(Modality.APPLICATION_MODAL);
-                stage.setResizable(false);
-                stage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-                // la ventana se muestra modal
-                stage.show();
-            }
-
+        Image img;
+        if (Avatar == null) {
+            img = new Image("/avatars/default.png");
         } else {
-            if (acount.existsLogin(NickName.getText())) {
-                Utils.mostrarError("Nickname ya existe, elije otro");
-            } else if ((Pass == null && Pass.getText().isEmpty()) || (Rpass == null || Rpass.getText().isEmpty())) {
-                Utils.mostrarError("Completa correctamente los campos de registro");
-            } else {
-                Utils.mostrarError("Introduce una contraseña valida");
-            }
+            img = new Image(Avatar);
+        }
+
+        // registrar el nuevo miembro
+        LocalDate date = LocalDate.now();
+        Boolean ok = acount.registerUser(Name.getText(), SurName.getText(), Email.getText(), NickName.getText(),
+                Pass.getText(), img, date);
+        if (ok) {
+            Utils.mostrarInfo("Se ha registrado correctamente");
+            Stage currentStage = (Stage) Registrar.getScene().getWindow();
+            currentStage.close();
+            CargaVistas.LOGIN();
         }
     }
 

@@ -9,6 +9,7 @@ import java.util.regex.Pattern;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.AcountDAOException;
@@ -66,10 +67,6 @@ public class Utils {
 
     }
 
-    public static boolean validarDatos(String t) {
-        return (!t.isEmpty()) && (t.trim().length() != 0) && checkNames(t);
-    }
-
     public static void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Información");
@@ -85,4 +82,21 @@ public class Utils {
         alert.setContentText(mensaje);
         alert.showAndWait();
     }
+
+    public static void mostrarInfo(String mensaje) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setHeaderText(null);
+        alert.setTitle("Información");
+        alert.setContentText(mensaje);
+        alert.showAndWait();
+    }
+
+    public static void error(TextField n) {
+        n.styleProperty().setValue("-fx-background-color: #ea4343");
+    }
+
+    public static void correct(TextField n) {
+        n.styleProperty().setValue("-fx-background-color: #ffffff");
+    }
+
 }

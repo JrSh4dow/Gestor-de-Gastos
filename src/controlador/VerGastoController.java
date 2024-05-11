@@ -6,23 +6,20 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.AcountDAOException;
 import model.Category;
 import model.Charge;
+import utils.CargaVistas;
 import utils.Utils;
 
 /**
@@ -84,13 +81,7 @@ public class VerGastoController implements Initializable {
             Scene scene = sourceNode.getScene();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
-            Parent userRoot = loader.load();
-            Stage inicioStage = new Stage();
-            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            inicioStage.setTitle("Expense Tracker");
-            inicioStage.setScene(new Scene(userRoot));
-            inicioStage.show();
+            CargaVistas.INICIO();
         }
     }
 
@@ -98,61 +89,26 @@ public class VerGastoController implements Initializable {
     private void IrInicio(ActionEvent event) throws IOException, AcountDAOException {
         Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
         mainStage2.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        MainController r = miCargador.getController();
-        r.Pie();
-        r.main();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("INICIO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.MAIN();
     }
 
     @FXML
     private void VerPerfil(ActionEvent event) throws IOException {
         Stage mainStage2 = (Stage) Perfil.getScene().getWindow();
         mainStage2.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerPerfil.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("PERFIL");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.PERFIL();
     }
 
     @FXML
     private void ModificarGasto(ActionEvent event) throws IOException {
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/ModificarGastos.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("MODIFICAR GASTO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.showAndWait();
+        CargaVistas.MODIFICARGASTO();
     }
 
     @FXML
     private void AñadirGasto(ActionEvent event) throws IOException {
         Stage mainStage2 = (Stage) añadirGasto.getScene().getWindow();
         mainStage2.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/AñadirGasto.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("AÑADIR GASTO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.AÑADIRGASTO();
     }
 
     // para imprimir los gastos como un documento pdf
