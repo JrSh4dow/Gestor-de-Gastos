@@ -67,7 +67,7 @@
                         <HBox alignment="CENTER_LEFT" spacing="14.0">
                            <children>
                               <ChoiceBox fx:id="fecha" prefHeight="26.0" prefWidth="246.0" />
-                              <Button id="button" fx:id="AplicarFiltro" mnemonicParsing="false">
+                              <Button id="buttona" fx:id="AplicarFiltro" mnemonicParsing="false">
                                  <graphic>
                                     <ImageView fitHeight="2250.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                                        <image>

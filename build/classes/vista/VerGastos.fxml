@@ -124,13 +124,13 @@
          <children>
             <Button id="button" fx:id="modificarGasto" mnemonicParsing="false" onAction="#ModificarGasto">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="tipm" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/editar.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="button" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
+            <Button id="buttone" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

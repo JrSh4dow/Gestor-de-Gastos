@@ -96,12 +96,14 @@ public class Utils {
     static Tooltip tooltip = new Tooltip("Formato no válido");
 
     public static void error(TextField n) {
-        n.styleProperty().setValue("-fx-background-color: #ea4343");
+        n.styleProperty().setValue("-fx-background-color: #EC7063");
         // Asociar el Tooltip con el TextField
         n.setTooltip(tooltip);
+        tooltip.setStyle("-fx-background-color: #ea4343; -fx-text-fill: white");
         Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
                 n.getLayoutBounds().getMaxY()); // Posición del TextField
         tooltip.show(n, p.getX(), p.getY());
+
     }
 
     public static void correct(TextField n) {
