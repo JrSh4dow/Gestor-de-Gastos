@@ -123,7 +123,7 @@
                   <Insets bottom="10.0" />
                </GridPane.margin>
             </HBox>
-            <TextArea prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextArea fx:id="DescriptionGasto" prefHeight="200.0" prefWidth="200.0" wrapText="true" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="11.0" />
                </font>
