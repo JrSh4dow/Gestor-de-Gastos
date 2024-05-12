@@ -62,8 +62,6 @@ public class PerfilController implements Initializable {
                         String t = Pass.getText();
                         if (!User.checkPassword(t)) {
                             Utils.error(Pass);
-                            Utils.mostrarError("Introduce una contraseña valida");
-                            Pass.requestFocus();
                         } else {
                             Utils.correct(Pass);
                             guardarCambios.setDisable(false);
@@ -77,7 +75,6 @@ public class PerfilController implements Initializable {
                         String t = Name.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(Name);
-                            Name.requestFocus();
                         } else {
                             Utils.correct(Name);
                         }
@@ -89,7 +86,6 @@ public class PerfilController implements Initializable {
                         String t = SurName.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(SurName);
-                            SurName.requestFocus();
                         } else {
                             Utils.correct(SurName);
                         }
@@ -101,7 +97,6 @@ public class PerfilController implements Initializable {
                         String t = Email.getText();
                         if (!User.checkEmail(t)) {
                             Utils.error(Email);
-                            Email.requestFocus();
                         } else {
                             Utils.correct(Email);
                         }
@@ -160,7 +155,7 @@ public class PerfilController implements Initializable {
         logged.setEmail(Email.getText());
         logged.setPassword(Pass.getText());
 
-        Utils.mostrarInfo("Se han gurdado los cambios correctamente");
+        Utils.mostrarInfo("Se han guardado los cambios correctamente");
     }
 
     @FXML

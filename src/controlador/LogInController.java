@@ -52,7 +52,6 @@ public class LogInController implements Initializable {
                                     String t = nickName.getText();
                                     if (!User.checkNickName(t)) {
                                         Utils.error(nickName);
-                                        nickName.requestFocus();
                                     } else if (!acount.existsLogin(nickName.getText())) {
                                         Utils.mostrarError("No existe el nickname. Por favor regístrate");
                                         nickName.clear();
@@ -97,6 +96,8 @@ public class LogInController implements Initializable {
 
         } else {
             Utils.mostrarError("Contraseña incorrecta");
+            pass.clear();
+            pass.requestFocus();
         }
     }
 

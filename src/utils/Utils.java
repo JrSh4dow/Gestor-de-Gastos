@@ -103,6 +103,7 @@ public class Utils {
         Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
                 n.getLayoutBounds().getMaxY()); // Posición del TextField
         tooltip.show(n, p.getX(), p.getY());
+        n.requestFocus();
 
     }
 
