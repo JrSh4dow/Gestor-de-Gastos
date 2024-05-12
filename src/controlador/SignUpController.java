@@ -73,7 +73,6 @@ public class SignUpController implements Initializable {
                                     String t = NickName.getText();
                                     if (!User.checkNickName(t)) {
                                         Utils.error(NickName);
-                                        NickName.requestFocus();
                                     } else if (acount.existsLogin(NickName.getText())) {
                                         Utils.mostrarError("Nickname ya existe, elije otro");
                                         NickName.clear();
@@ -98,8 +97,6 @@ public class SignUpController implements Initializable {
                         String t = Pass.getText();
                         if (!User.checkPassword(t)) {
                             Utils.error(Pass);
-                            Utils.mostrarError("Introduce una contraseña valida");
-                            Pass.requestFocus();
                         } else {
                             Utils.correct(Pass);
                         }
@@ -111,7 +108,6 @@ public class SignUpController implements Initializable {
                         String t = Rpass.getText();
                         if (Pass.getText().compareTo(t) != 0) {
                             Utils.error(Rpass);
-                            Rpass.requestFocus();
                         } else {
                             Utils.correct(Rpass);
                             Registrar.setDisable(false);
@@ -124,7 +120,6 @@ public class SignUpController implements Initializable {
                         String t = Name.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(Name);
-                            Name.requestFocus();
                         } else {
                             Utils.correct(Name);
                         }
@@ -136,7 +131,6 @@ public class SignUpController implements Initializable {
                         String t = SurName.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(SurName);
-                            SurName.requestFocus();
                         } else {
                             Utils.correct(SurName);
                         }
@@ -148,7 +142,6 @@ public class SignUpController implements Initializable {
                         String t = Email.getText();
                         if (!User.checkEmail(t)) {
                             Utils.error(Email);
-                            Email.requestFocus();
                         } else {
                             Utils.correct(Email);
                         }

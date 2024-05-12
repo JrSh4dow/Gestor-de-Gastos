@@ -162,7 +162,7 @@
             </HBox>
             <HBox alignment="CENTER_RIGHT" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
+                  <Button id="buttone" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -170,7 +170,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="button" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
+                  <Button id="buttona" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

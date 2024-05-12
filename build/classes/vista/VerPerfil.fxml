@@ -191,7 +191,7 @@
             <Insets bottom="20.0" right="10.0" top="10.0" />
          </BorderPane.margin>
          <children>
-            <Button id="button" fx:id="Cancelar" mnemonicParsing="false" onAction="#CancelarCambios" textFill="WHITE">
+            <Button id="buttone" fx:id="Cancelar" mnemonicParsing="false" onAction="#CancelarCambios" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -199,7 +199,7 @@
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="button" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" textFill="WHITE">
+            <Button id="buttona" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

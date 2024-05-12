@@ -6,10 +6,12 @@ import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
 import model.AcountDAOException;
@@ -91,12 +93,23 @@ public class Utils {
         alert.showAndWait();
     }
 
+    static Tooltip tooltip = new Tooltip("Formato no válido");
+
     public static void error(TextField n) {
-        n.styleProperty().setValue("-fx-background-color: #ea4343");
+        n.styleProperty().setValue("-fx-background-color: #EC7063");
+        // Asociar el Tooltip con el TextField
+        n.setTooltip(tooltip);
+        tooltip.setStyle("-fx-background-color: #ea4343; -fx-text-fill: white");
+        Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
+                n.getLayoutBounds().getMaxY()); // Posición del TextField
+        tooltip.show(n, p.getX(), p.getY());
+        n.requestFocus();
+
     }
 
     public static void correct(TextField n) {
         n.styleProperty().setValue("-fx-background-color: #ffffff");
+        tooltip.hide();
     }
 
 }
