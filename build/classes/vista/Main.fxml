@@ -53,7 +53,7 @@
             </Text>
             <HBox alignment="BASELINE_CENTER" spacing="10.0">
                <children>
-                  <PieChart fx:id="Pie" minWidth="216.4" styleClass="Vbox" />
+                  <PieChart fx:id="Pie" legendSide="LEFT" minWidth="216.4" styleClass="Vbox" />
                   <VBox minHeight="155.0" minWidth="216.4" prefHeight="155.0" prefWidth="217.0" spacing="20.0" styleClass="Vbox">
                      <children>
                         <Text id="Mensaje" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro de gastos:" wrappingWidth="203.73670387268066">
