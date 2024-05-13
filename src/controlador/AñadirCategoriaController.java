@@ -24,6 +24,7 @@ public class AñadirCategoriaController {
     private Button cancelar;
     @FXML
     private Button añadirCategoria;
+    private Boolean ok;
 
     /**
      * Initializes the controller class.
@@ -31,6 +32,11 @@ public class AñadirCategoriaController {
     public void initialize(URL url, ResourceBundle rb) {
         // Algo
         NameCategoria.requestFocus();
+        ok = false;
+    }
+
+    public Boolean getOk() {
+        return ok;
     }
 
     @FXML
@@ -57,7 +63,10 @@ public class AñadirCategoriaController {
                 Utils.mostrarInfo("Se ha añadido la categoria");
                 Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
                 mainStage2.close();
+                ok = true;
 
+            } else {
+                Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
             }
         } else {
             Utils.mostrarAlerta("Por favor rellena los campos obligatorios");

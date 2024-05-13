@@ -2,6 +2,7 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,7 +15,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import model.Acount;
 import model.AcountDAOException;
+import model.Category;
+import model.Charge;
 
 /**
  *
@@ -112,4 +116,14 @@ public class Utils {
         tooltip.hide();
     }
 
+    public static Boolean exist(Category cat) throws AcountDAOException, IOException {
+        int elem = 0;
+        List<Charge> charges = Acount.getInstance().getUserCharges();
+        for (Charge charge : charges) {
+            if (charge.getCategory().getName().equals(cat.getName())) {
+                elem+=1;
+            }
+        }
+        return elem>0;
+    }
 }

@@ -97,13 +97,6 @@ public class AñadirGastoController implements Initializable {
                 break;
             }
         }
-
-        // Verificar si se encontró la categoría
-        if (categoria == null) {
-            Utils.mostrarError("La categoría seleccionada no es válida.");
-            return;
-        }
-
         // Registrar el gasto en la base de datos
         boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
                 imagenFactura, fechaGasto, categoria);
@@ -125,7 +118,16 @@ public class AñadirGastoController implements Initializable {
 
     @FXML
     void AñadirCategoria(ActionEvent event) throws IOException {
-        CargaVistas.CATEGORIA();
+        Boolean ok = CargaVistas.CATEGORIA();
+        if (ok) {
+            try {
+                llenarChoiceBoxConCategorias();
+            } catch (AcountDAOException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @FXML

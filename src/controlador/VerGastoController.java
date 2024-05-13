@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
@@ -72,6 +71,8 @@ public class VerGastoController implements Initializable {
     private BorderPane Caja;
     @FXML
     private Button imprimirGastos;
+    @FXML
+    private TableColumn<Charge, LocalDate> FechaGasto;
 
     /**
      * Initializes the controller class.
@@ -79,9 +80,6 @@ public class VerGastoController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // Iniciar La TableView con los gastos desde la base de datos
-        idGasto.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nombreGasto.setCellValueFactory(new PropertyValueFactory<>("name"));
-        descripcionGasto.setCellValueFactory(new PropertyValueFactory<>("description"));
         categoriaGasto.setCellFactory(column -> {
             return new TableCell<Charge, Category>() {
                 @Override
@@ -96,21 +94,35 @@ public class VerGastoController implements Initializable {
                 }
             };
         });
+        FechaGasto.setCellFactory(column -> new TableCell<Charge, LocalDate>() {
+            @Override
+            protected void updateItem(LocalDate date, boolean empty) {
+                super.updateItem(date, empty);
+                if (empty || date == null) {
+                    setText(null);
+                } else {
+                    setText(date.toString());
+                }
+            }
+        });
         facturaGasto.setCellFactory(column -> new TableCell<Charge, Image>() {
             @Override
             protected void updateItem(Image image, boolean empty) {
                 super.updateItem(image, empty);
                 if (empty || image == null) {
-                    setText(null);
                     setGraphic(null);
                 } else {
                     ImageView imageView = new ImageView(image);
-                    imageView.setFitWidth(115);
+                    imageView.setFitWidth(100);
                     imageView.setFitHeight(60);
                     setGraphic(imageView);
                 }
             }
         });
+        idGasto.setCellValueFactory(new PropertyValueFactory<>("id"));
+        FechaGasto.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        nombreGasto.setCellValueFactory(new PropertyValueFactory<>("name"));
+        descripcionGasto.setCellValueFactory(new PropertyValueFactory<>("description"));
         categoriaGasto.setCellValueFactory(new PropertyValueFactory<>("category"));
         costeGasto.setCellValueFactory(new PropertyValueFactory<>("cost"));
         unidadesGasto.setCellValueFactory(new PropertyValueFactory<>("units"));
@@ -132,11 +144,12 @@ public class VerGastoController implements Initializable {
     }
 
     // Para eliminar un gasto de la base de datos
+    @SuppressWarnings("unused")
     @FXML
     private void EliminarGasto(ActionEvent event) throws AcountDAOException, IOException {
         // Obtener el gasto seleccionado en la TableView
         Charge gastoSeleccionado = Gastos.getSelectionModel().getSelectedItem();
-
+        Category act = gastoSeleccionado.getCategory();
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
             // Mostrar un diálogo de confirmación
@@ -167,6 +180,9 @@ public class VerGastoController implements Initializable {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("El gasto se ha eliminado correctamente.");
                     successAlert.showAndWait();
+                    if (!Utils.exist(act)) {
+                        Acount.getInstance().removeCategory(act);
+                    }
                 } else {
                     // Mostrar un mensaje de error si no se pudo eliminar el gasto
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -220,10 +236,7 @@ public class VerGastoController implements Initializable {
 
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
-            CargaVistas.MODIFICARGASTO();
-            FXMLLoader miCargador = new FXMLLoader(this.getClass().getResource("../vista/ModificarGastos.fxml"));
-            ModificarGastoController cont = miCargador.getController();
-            cont.initGasto(gastoSeleccionado);
+            CargaVistas.MODIFICARGASTO(gastoSeleccionado);
         } else {
             // Mostrar un mensaje si no se seleccionó ningún gasto
             Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);

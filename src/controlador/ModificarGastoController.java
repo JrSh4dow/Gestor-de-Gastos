@@ -54,6 +54,16 @@ public class ModificarGastoController implements Initializable {
 
     public void initGasto(Charge c) {
         this.act = c;
+        // Aqui hay que inicializar con los campos del gasto seleccionado
+        NameGasto.setText(act.getName());
+        DescriptionGasto.setText(act.getDescription());
+        CosteGasto.setText(String.valueOf(act.getCost()));
+        UnidadeGasto.setText(String.valueOf(act.getUnits()));
+        // Establecer la categoría seleccionada en el ChoiceBox
+        CategoriaGasto.getSelectionModel().select(act.getCategory().getName());
+        // Establecer la fecha seleccionada en el DatePicker
+        FechaGasto.setValue(act.getDate());
+        Factura.setImage(act.getImageScan());
     }
 
     /**
@@ -68,16 +78,6 @@ public class ModificarGastoController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Aqui hay que inicializar con los campos del gasto seleccionado
-        NameGasto.setText(act.getName());
-        DescriptionGasto.setText(act.getDescription());
-        CosteGasto.setText(String.valueOf(act.getCost()));
-        UnidadeGasto.setText(String.valueOf(act.getUnits()));
-        // Establecer la categoría seleccionada en el ChoiceBox
-        CategoriaGasto.getSelectionModel().select(act.getCategory().getName());
-        // Establecer la fecha seleccionada en el DatePicker
-        FechaGasto.setValue(act.getDate());
-        Factura.setImage(act.getImageScan());
 
     }
 

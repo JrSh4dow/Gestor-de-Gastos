@@ -2,12 +2,15 @@ package utils;
 
 import java.io.IOException;
 
+import controlador.AñadirCategoriaController;
+import controlador.ModificarGastoController;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import model.Charge;
 
 public class CargaVistas {
     public static void MAIN() throws IOException {
@@ -39,7 +42,7 @@ public class CargaVistas {
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("PERFIL");
-        mainStage.setResizable(false);
+        mainStage.setResizable(true);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
     }
@@ -51,7 +54,7 @@ public class CargaVistas {
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("AÑADIR GASTO");
-        mainStage.setResizable(false);
+        mainStage.setResizable(true);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
     }
@@ -63,26 +66,30 @@ public class CargaVistas {
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("GASTOS");
-        mainStage.setResizable(false);
+        mainStage.setResizable(true);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
     }
 
-    public static void CATEGORIA() throws IOException {
+    public static Boolean CATEGORIA() throws IOException {
         FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/AñadirCategoria.fxml"));
         Parent root = miCargador.load();
         Stage mainStage = new Stage();
+        AñadirCategoriaController controller = miCargador.getController();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("Inicio");
+        mainStage.setTitle("AÑDIR CATEGORIA");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();
+        return controller.getOk();
     }
 
-    public static void MODIFICARGASTO() throws IOException {
+    public static void MODIFICARGASTO(Charge c) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/ModificarGastos.fxml"));
         Parent root = miCargador.load();
+        ModificarGastoController cont = miCargador.getController();
+        cont.initGasto(c);
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
