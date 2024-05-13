@@ -230,16 +230,19 @@ public class VerGastoController implements Initializable {
     }
 
     @FXML
-    private void ModificarGasto(ActionEvent event) throws IOException {
+    private void ModificarGasto(ActionEvent event) throws IOException, AcountDAOException {
         // Obtener el gasto seleccionado en la TableView
         Charge gastoSeleccionado = Gastos.getSelectionModel().getSelectedItem();
 
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
-            Boolean ok = CargaVistas.MODIFICARGASTO(gastoSeleccionado);
-            if (ok) {
-                Gastos.refresh();
-            }
+            CargaVistas.MODIFICARGASTO(gastoSeleccionado);
+            Gastos.getItems().clear();
+            Gastos.refresh();
+            List<Charge> gastos = Acount.getInstance().getUserCharges();
+            // Agregar los datos a la TableView
+            Gastos.getItems().addAll(gastos);
+
         } else {
             // Mostrar un mensaje si no se seleccionó ningún gasto
             Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
@@ -296,11 +299,6 @@ public class VerGastoController implements Initializable {
         tablaTemporal.setItems(Gastos.getItems());
 
         return tablaTemporal;
-    }
-
-    @FXML
-    private void refresh(ActionEvent event) {
-        this.Gastos.refresh();
     }
 
 }

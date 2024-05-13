@@ -85,7 +85,7 @@ public class CargaVistas {
         return controller.getOk();
     }
 
-    public static Boolean MODIFICARGASTO(Charge c) throws IOException {
+    public static void MODIFICARGASTO(Charge c) throws IOException {
         FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/ModificarGastos.fxml"));
         Parent root = miCargador.load();
         ModificarGastoController cont = miCargador.getController();
@@ -97,7 +97,6 @@ public class CargaVistas {
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();
-        return cont.getModificado();
     }
 
     public static void LOGIN() throws IOException {

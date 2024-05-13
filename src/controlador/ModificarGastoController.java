@@ -52,7 +52,6 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private Button GuardarCambios;
     private Charge act;
-    private boolean modificado;
 
     public void initGasto(Charge c) {
         this.act = c;
@@ -128,19 +127,20 @@ public class ModificarGastoController implements Initializable {
                 break;
             }
         }
-        // Registrar el gasto en la base de datos
-        modificado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
-                imagenFactura, fechaGasto, categoria);
-
+        // modificar el gasto en la base de datos
+        act.setCategory(categoria);
+        act.setCost(costeGasto);
+        act.setDate(fechaGasto);
+        act.setDescription(descripcionGasto);
+        act.setImageScan(imagenFactura);
+        act.setName(nombreGasto);
+        act.setUnits(unidadesGasto);
         // Verificar si el gasto se registró correctamente
-        if (modificado) {
-            account.removeCharge(act);
-            Utils.mostrarInfo("El gasto se ha modificado correctamente.");
-            Stage mainStage2 = (Stage) GuardarCambios.getScene().getWindow();
-            mainStage2.close();
-        } else {
-            Utils.mostrarError("No se pudo modificar el gasto.");
-        }
+
+        Utils.mostrarInfo("Se ha modificado el gasto  correctamente.");
+        Stage mainStage2 = (Stage) GuardarCambios.getScene().getWindow();
+        mainStage2.close();
+
     }
 
     private void llenarChoiceBoxConCategorias() throws AcountDAOException, IOException {
@@ -158,7 +158,4 @@ public class ModificarGastoController implements Initializable {
         }
     }
 
-    public Boolean getModificado() {
-        return modificado;
-    }
 }
