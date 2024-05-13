@@ -9,6 +9,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -94,39 +95,38 @@ public class VerGastoController implements Initializable {
                 }
             };
         });
-        FechaGasto.setCellFactory(column -> new TableCell<Charge, LocalDate>() {
-            @Override
-            protected void updateItem(LocalDate date, boolean empty) {
-                super.updateItem(date, empty);
-                if (empty || date == null) {
-                    setText(null);
-                } else {
-                    setText(date.toString());
-                }
-            }
-        });
+
         facturaGasto.setCellFactory(column -> new TableCell<Charge, Image>() {
+
             @Override
-            protected void updateItem(Image image, boolean empty) {
-                super.updateItem(image, empty);
-                if (empty || image == null) {
+            protected void updateItem(Image scanImage, boolean empty) {
+                super.updateItem(scanImage, empty);
+                if (empty || scanImage == null) {
                     setGraphic(null);
                 } else {
-                    ImageView imageView = new ImageView(image);
+                    ImageView imageView = new ImageView(scanImage);
                     imageView.setFitWidth(100);
                     imageView.setFitHeight(60);
                     setGraphic(imageView);
                 }
             }
         });
+
         idGasto.setCellValueFactory(new PropertyValueFactory<>("id"));
-        FechaGasto.setCellValueFactory(new PropertyValueFactory<>("fecha"));
+        FechaGasto.setCellValueFactory(new PropertyValueFactory<>("date"));
         nombreGasto.setCellValueFactory(new PropertyValueFactory<>("name"));
         descripcionGasto.setCellValueFactory(new PropertyValueFactory<>("description"));
         categoriaGasto.setCellValueFactory(new PropertyValueFactory<>("category"));
         costeGasto.setCellValueFactory(new PropertyValueFactory<>("cost"));
         unidadesGasto.setCellValueFactory(new PropertyValueFactory<>("units"));
-        facturaGasto.setCellValueFactory(new PropertyValueFactory<>("scanImage"));
+        facturaGasto.setCellValueFactory(cellData -> {
+            Charge charge = cellData.getValue();
+            if (charge != null) {
+                return new SimpleObjectProperty<>(charge.getImageScan());
+            } else {
+                return new SimpleObjectProperty<>(null);
+            }
+        });
 
         // Obtener los datos de la base de datos
         Acount account;
@@ -236,7 +236,10 @@ public class VerGastoController implements Initializable {
 
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
-            CargaVistas.MODIFICARGASTO(gastoSeleccionado);
+            Boolean ok = CargaVistas.MODIFICARGASTO(gastoSeleccionado);
+            if (ok) {
+                Gastos.refresh();
+            }
         } else {
             // Mostrar un mensaje si no se seleccionó ningún gasto
             Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
@@ -293,6 +296,11 @@ public class VerGastoController implements Initializable {
         tablaTemporal.setItems(Gastos.getItems());
 
         return tablaTemporal;
+    }
+
+    @FXML
+    private void refresh(ActionEvent event) {
+        this.Gastos.refresh();
     }
 
 }

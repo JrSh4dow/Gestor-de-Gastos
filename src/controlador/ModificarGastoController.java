@@ -49,8 +49,10 @@ public class ModificarGastoController implements Initializable {
     private Button CancelarCambios;
     @FXML
     private TextArea DescriptionGasto;
+    @FXML
     private Button GuardarCambios;
     private Charge act;
+    private boolean modificado;
 
     public void initGasto(Charge c) {
         this.act = c;
@@ -64,6 +66,7 @@ public class ModificarGastoController implements Initializable {
         // Establecer la fecha seleccionada en el DatePicker
         FechaGasto.setValue(act.getDate());
         Factura.setImage(act.getImageScan());
+        
     }
 
     /**
@@ -125,20 +128,13 @@ public class ModificarGastoController implements Initializable {
                 break;
             }
         }
-        /*
-         * // Verificar si se encontró la categoría
-         * if (categoria == null) {
-         * Utils.mostrarError("La categoría seleccionada no es válida.");
-         * return;
-         * }
-         */
-
         // Registrar el gasto en la base de datos
-        boolean modificado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
+        modificado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
                 imagenFactura, fechaGasto, categoria);
 
         // Verificar si el gasto se registró correctamente
         if (modificado) {
+            account.removeCharge(act);
             Utils.mostrarInfo("El gasto se ha modificado correctamente.");
             Stage mainStage2 = (Stage) GuardarCambios.getScene().getWindow();
             mainStage2.close();
@@ -160,5 +156,9 @@ public class ModificarGastoController implements Initializable {
                 CategoriaGasto.getItems().add(categoria.getName());
             }
         }
+    }
+
+    public Boolean getModificado() {
+        return modificado;
     }
 }
