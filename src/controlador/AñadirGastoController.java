@@ -2,6 +2,8 @@ package controlador;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +20,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import model.Acount;
 import model.AcountDAOException;
+import model.Category;
 import utils.CargaVistas;
 import utils.Utils;
 
@@ -57,12 +61,66 @@ public class AñadirGastoController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         NameGasto.requestFocus();
+        try {
+            llenarChoiceBoxConCategorias();
+        } catch (AcountDAOException | IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // añadir el gasto a la base de datos
     @FXML
-    private void AñadirGasto(ActionEvent event) throws IOException {
+    private void AñadirGasto(ActionEvent event) throws IOException, AcountDAOException {
+        // Obtener los valores del formulario
+        String nombreGasto = NameGasto.getText();
+        String descripcionGasto = DescriptionGasto.getText();
+        double costeGasto = Double.parseDouble(CosteGasto.getText());
+        int unidadesGasto = Integer.parseInt(UnidadeGasto.getText());
+        String categoriaSeleccionada = CategoriaGasto.getValue();
+        LocalDate fechaGasto = FechaGasto.getValue();
+        Image imagenFactura = Factura.getImage();
 
+        // Verificar si se han ingresado todos los datos obligatorios
+        if (nombreGasto.isEmpty() || costeGasto <= 0 || unidadesGasto <= 0 || categoriaSeleccionada == null
+                || fechaGasto == null) {
+            Utils.mostrarAlerta("Por favor, complete todos los campos obligatorios.");
+            return;
+        }
+
+        // Obtener la categoría seleccionada por su nombre
+        Acount account = Acount.getInstance();
+        List<Category> categorias = account.getUserCategories();
+        Category categoria = null;
+        for (Category c : categorias) {
+            if (c.getName().equals(categoriaSeleccionada)) {
+                categoria = c;
+                break;
+            }
+        }
+
+        // Verificar si se encontró la categoría
+        if (categoria == null) {
+            Utils.mostrarError("La categoría seleccionada no es válida.");
+            return;
+        }
+
+        // Registrar el gasto en la base de datos
+        boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
+                imagenFactura, fechaGasto, categoria);
+
+        // Verificar si el gasto se registró correctamente
+        if (registrado) {
+            Utils.mostrarInfo("El gasto se ha registrado correctamente.");
+            NameGasto.clear();
+            CosteGasto.clear();
+            UnidadeGasto.clear();
+            DescriptionGasto.clear();
+            CategoriaGasto.getSelectionModel().clearSelection();
+            Factura.setImage(null);
+            FechaGasto.setValue(null);
+        } else {
+            Utils.mostrarError("No se pudo registrar el gasto.");
+        }
     }
 
     @FXML
@@ -126,4 +184,18 @@ public class AñadirGastoController implements Initializable {
         }
     }
 
+    protected void llenarChoiceBoxConCategorias() throws AcountDAOException, IOException {
+        Acount account = Acount.getInstance();
+        List<Category> categorias = account.getUserCategories();
+
+        if (categorias != null) {
+            // Limpiar el ChoiceBox
+            CategoriaGasto.getItems().clear();
+
+            // Llenar el ChoiceBox con los nombres de las categorías
+            for (Category categoria : categorias) {
+                CategoriaGasto.getItems().add(categoria.getName());
+            }
+        }
+    }
 }

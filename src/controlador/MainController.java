@@ -66,7 +66,6 @@ public class MainController implements Initializable {
             Pie.setData(pieChartData);
             Pie.setTitle("Distribución de gastos:");
         } catch (AcountDAOException | IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
