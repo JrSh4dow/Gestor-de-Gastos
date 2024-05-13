@@ -66,7 +66,7 @@ public class ModificarGastoController implements Initializable {
         // Establecer la fecha seleccionada en el DatePicker
         FechaGasto.setValue(act.getDate());
         Factura.setImage(act.getImageScan());
-        
+
     }
 
     /**
@@ -93,7 +93,7 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private void SetImage(ActionEvent event) {
         Window n = ((Node) event.getSource()).getScene().getWindow();
-        String facturaPath = utils.Utils.ElegirImagen(n);
+        String facturaPath = Utils.ElegirImagen(n);
         if (facturaPath != null) {
             Factura.setImage(new Image(facturaPath));
         }
