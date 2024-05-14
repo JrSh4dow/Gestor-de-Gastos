@@ -73,6 +73,23 @@ public class Utils {
 
     }
 
+    public static Boolean checkDigit(String n) {
+
+        // If the password is empty , return false
+        if (n == null) {
+            return false;
+        }
+        // Regex to check valid password.
+        String regex = "^\\d+(\\.\\d+)?$";
+
+        // Compile the ReGex
+        Pattern pattern = Pattern.compile(regex);
+        // Match ReGex with value to check
+        Matcher matcher = pattern.matcher(n);
+        return matcher.matches();
+
+    }
+
     public static void mostrarAlerta(String mensaje) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Información");
@@ -98,6 +115,7 @@ public class Utils {
     }
 
     static Tooltip tooltip = new Tooltip("Formato no válido");
+    static Tooltip vacio = new Tooltip("Campo vacio");
 
     public static void error(TextField n) {
         n.styleProperty().setValue("-fx-background-color: #EC7063");
@@ -121,9 +139,9 @@ public class Utils {
         List<Charge> charges = Acount.getInstance().getUserCharges();
         for (Charge charge : charges) {
             if (charge.getCategory().getName().equals(cat.getName())) {
-                elem+=1;
+                elem += 1;
             }
         }
-        return elem>0;
+        return elem > 0;
     }
 }

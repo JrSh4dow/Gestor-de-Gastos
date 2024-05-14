@@ -5,6 +5,8 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,11 +55,30 @@ public class SignUpController implements Initializable {
     private Button Imagen;
     Acount acount;
 
+    private BooleanProperty validPassword;
+    private BooleanProperty validNick;
+    private BooleanProperty validRpass;
+    private BooleanProperty validEmail;
+    private BooleanProperty validName;
+    private BooleanProperty validSurname;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        validNick = new SimpleBooleanProperty();
+        validPassword = new SimpleBooleanProperty();
+        validEmail = new SimpleBooleanProperty();
+        validName = new SimpleBooleanProperty();
+        validSurname = new SimpleBooleanProperty();
+        validRpass = new SimpleBooleanProperty();
+        validPassword.setValue(Boolean.FALSE);
+        validNick.setValue(Boolean.FALSE);
+        validEmail.setValue(Boolean.FALSE);
+        validName.setValue(Boolean.FALSE);
+        validSurname.setValue(Boolean.FALSE);
+        validRpass.setValue(Boolean.FALSE);
         String image = "/avatars/default.png";
         avatar.setImage(new Image(image));
         Acount acount;
@@ -80,6 +101,7 @@ public class SignUpController implements Initializable {
 
                                     } else {
                                         Utils.correct(NickName);
+                                        validNick.setValue(Boolean.TRUE);
                                     }
                                 }
                             });
@@ -90,7 +112,6 @@ public class SignUpController implements Initializable {
         }
 
         // Inicialmente, el botón Aceptar está deshabilitado
-        Registrar.setDisable(true);
         Pass.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
@@ -99,6 +120,7 @@ public class SignUpController implements Initializable {
                             Utils.error(Pass);
                         } else {
                             Utils.correct(Pass);
+                            validPassword.setValue(Boolean.TRUE);
                         }
                     }
                 });
@@ -110,7 +132,7 @@ public class SignUpController implements Initializable {
                             Utils.error(Rpass);
                         } else {
                             Utils.correct(Rpass);
-                            Registrar.setDisable(false);
+                            validRpass.setValue(Boolean.TRUE);
                         }
                     }
                 });
@@ -122,6 +144,7 @@ public class SignUpController implements Initializable {
                             Utils.error(Name);
                         } else {
                             Utils.correct(Name);
+                            validName.setValue(Boolean.TRUE);
                         }
                     }
                 });
@@ -133,6 +156,7 @@ public class SignUpController implements Initializable {
                             Utils.error(SurName);
                         } else {
                             Utils.correct(SurName);
+                            validSurname.setValue(Boolean.TRUE);
                         }
                     }
                 });
@@ -144,9 +168,12 @@ public class SignUpController implements Initializable {
                             Utils.error(Email);
                         } else {
                             Utils.correct(Email);
+                            validEmail.setValue(Boolean.TRUE);
                         }
                     }
                 });
+        Registrar.disableProperty().bind(validNick.not().or(validPassword.not()
+                .or(validName.not().or(validSurname.not().or(validEmail.not().or(validRpass.not()))))));
 
     }
 

@@ -80,6 +80,22 @@ public class VerGastoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        eliminarGasto.setDisable(true);
+        modificarGasto.setDisable(true);
+        imprimirGastos.setDisable(false);
+        Gastos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Habilitar botones cuando se selecciona una fila
+                eliminarGasto.setDisable(false);
+                modificarGasto.setDisable(false);
+                imprimirGastos.setDisable(true);
+            } else {
+                // Deshabilitar botones cuando no hay ninguna fila seleccionada
+                eliminarGasto.setDisable(true);
+                modificarGasto.setDisable(true);
+                imprimirGastos.setDisable(false);
+            }
+        });
         // Iniciar La TableView con los gastos desde la base de datos
         categoriaGasto.setCellFactory(column -> {
             return new TableCell<Charge, Category>() {
@@ -192,13 +208,6 @@ public class VerGastoController implements Initializable {
                     errorAlert.showAndWait();
                 }
             }
-        } else {
-            // Mostrar un mensaje si no se seleccionó ningún gasto
-            Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
-            noSelectionAlert.setTitle("Advertencia");
-            noSelectionAlert.setHeaderText(null);
-            noSelectionAlert.setContentText("Por favor, selecciona un gasto para eliminar.");
-            noSelectionAlert.showAndWait();
         }
         Gastos.refresh();
     }
@@ -243,13 +252,6 @@ public class VerGastoController implements Initializable {
             // Agregar los datos a la TableView
             Gastos.getItems().addAll(gastos);
 
-        } else {
-            // Mostrar un mensaje si no se seleccionó ningún gasto
-            Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
-            noSelectionAlert.setTitle("Advertencia");
-            noSelectionAlert.setHeaderText(null);
-            noSelectionAlert.setContentText("Por favor, selecciona un gasto para modificar.");
-            noSelectionAlert.showAndWait();
         }
     }
 
