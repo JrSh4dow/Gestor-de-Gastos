@@ -37,6 +37,22 @@
                   </ImageView>
                </graphic>
             </Menu>
+            <Menu mnemonicParsing="false" text="Opciones">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#Vercategorias" text="Ver categorias">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/opcion.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
          </menus>
       </MenuBar>
    </top>
@@ -51,7 +67,7 @@
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
             </Text>
-            <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <HBox alignment="BASELINE_CENTER" spacing="30.0">
                <children>
                   <PieChart fx:id="Pie" legendSide="LEFT" minWidth="216.4" styleClass="Vbox" />
                   <VBox minHeight="155.0" minWidth="216.4" prefHeight="155.0" prefWidth="217.0" spacing="20.0" styleClass="Vbox">
