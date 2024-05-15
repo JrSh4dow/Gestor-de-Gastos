@@ -14,6 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PageLayout;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -103,6 +108,7 @@ public class VerGastoController implements Initializable {
                     if (empty || category == null) {
                         setText(null);
                     } else {
+                        setWrapText(true);
                         setText(category.getName());
                     }
                 }
@@ -118,13 +124,45 @@ public class VerGastoController implements Initializable {
                     setGraphic(null);
                 } else {
                     ImageView imageView = new ImageView(scanImage);
-                    imageView.setFitWidth(100);
-                    imageView.setFitHeight(60);
+                    imageView.setFitWidth(80);
+                    imageView.setFitHeight(40);
                     setGraphic(imageView);
                 }
             }
         });
+        descripcionGasto.setCellFactory(column -> {
+            return new TableCell<Charge, String>() {
+                @Override
+                protected void updateItem(String description, boolean empty) {
+                    super.updateItem(description, empty);
 
+                    if (empty || description == null) {
+                        setText(null);
+                    } else {
+                        // Permitir el ajuste del texto
+                        setWrapText(true);
+                        setText(description);
+                    }
+                }
+            };
+        });
+
+        nombreGasto.setCellFactory(column -> {
+            return new TableCell<Charge, String>() {
+                @Override
+                protected void updateItem(String name, boolean empty) {
+                    super.updateItem(name, empty);
+
+                    if (empty || name == null) {
+                        setText(null);
+                    } else {
+                        // Permitir el ajuste del texto
+                        setWrapText(true);
+                        setText(name);
+                    }
+                }
+            };
+        });
         idGasto.setCellValueFactory(new PropertyValueFactory<>("id"));
         FechaGasto.setCellValueFactory(new PropertyValueFactory<>("date"));
         nombreGasto.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -133,6 +171,7 @@ public class VerGastoController implements Initializable {
         costeGasto.setCellValueFactory(new PropertyValueFactory<>("cost"));
         unidadesGasto.setCellValueFactory(new PropertyValueFactory<>("units"));
         facturaGasto.setCellValueFactory(cellData -> {
+
             Charge charge = cellData.getValue();
             if (charge != null) {
                 return new SimpleObjectProperty<>(charge.getImageScan());
@@ -140,7 +179,6 @@ public class VerGastoController implements Initializable {
                 return new SimpleObjectProperty<>(null);
             }
         });
-
         // Obtener los datos de la base de datos
         Acount account;
         try {
@@ -262,12 +300,27 @@ public class VerGastoController implements Initializable {
     // para imprimir los gastos como un documento pdf
     @FXML
     void ImprimirGastos(ActionEvent event) {
+
         PrinterJob printerJob = PrinterJob.createPrinterJob();
-        if (printerJob != null && printerJob.showPrintDialog(imprimirGastos.getScene().getWindow())) {
-            Node imprimir = Gastos;
-            if (printerJob.printPage(imprimir))
+        if (printerJob != null) {
+
+            Printer printer = Printer.getDefaultPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, javafx.print.PageOrientation.PORTRAIT,
+                    MarginType.HARDWARE_MINIMUM);
+
+            Node node = Gastos;
+            node.getTransforms().add(new Scale(0.6, 0.6));
+
+            // Imprimir el nodo en el archivo PDF
+            boolean printed = printerJob.printPage(pageLayout, node);
+            if (printed) {
                 printerJob.endJob();
+            }
+
+            // Restaurar la escala original después de imprimir
+            node.getTransforms().clear();
         }
+
     }
 
 }

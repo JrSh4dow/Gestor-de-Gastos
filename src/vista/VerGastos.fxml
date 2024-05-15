@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Caja" prefHeight="450.0" prefWidth="700.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
+<BorderPane fx:id="Caja" prefHeight="450.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
@@ -101,16 +101,16 @@
       
    </center>
    <center>
-      <TableView id="Tabla" fx:id="Gastos" BorderPane.alignment="CENTER">
+      <TableView id="Tabla" fx:id="Gastos" minWidth="470.0" prefHeight="397.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idGasto" editable="false" minWidth="7.0" prefWidth="-1.0" sortable="false" text="Id" />
-                <TableColumn fx:id="nombreGasto" editable="false" prefWidth="-1.0" sortable="false" text="Nombre" />
-                <TableColumn fx:id="descripcionGasto" editable="false" minWidth="13.0" prefWidth="-1.0" sortable="false" text="Descripción" />
-                <TableColumn fx:id="categoriaGasto" editable="false" minWidth="13.0" prefWidth="-1.0" sortable="false" text="Categoría" />
-                <TableColumn fx:id="costeGasto" editable="false" prefWidth="-1.0" sortable="false" text="Coste" />
-                <TableColumn fx:id="unidadesGasto" editable="false" prefWidth="-1.0" sortable="false" text="Unidades" />
-                <TableColumn fx:id="facturaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Factura" />
-            <TableColumn fx:id="FechaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Fecha" />
+          <TableColumn fx:id="idGasto" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="-1.0" sortable="false" text="Id" />
+                <TableColumn fx:id="nombreGasto" editable="false" maxWidth="110.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Nombre" />
+                <TableColumn fx:id="descripcionGasto" editable="false" maxWidth="1.7976931348623157E308" minWidth="185.0" prefWidth="-1.0" sortable="false" text="Descripción" />
+                <TableColumn fx:id="categoriaGasto" editable="false" maxWidth="85.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Categoría" />
+                <TableColumn fx:id="costeGasto" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" sortable="false" text="Coste" />
+                <TableColumn fx:id="unidadesGasto" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="-1.0" sortable="false" text="Unidades" />
+                <TableColumn fx:id="facturaGasto" editable="false" maxWidth="85.0" minWidth="85.0" prefWidth="-1.0" sortable="false" text="Factura" />
+            <TableColumn fx:id="FechaGasto" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" sortable="false" text="Fecha" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="4.0" right="10.0" top="10.0" />
