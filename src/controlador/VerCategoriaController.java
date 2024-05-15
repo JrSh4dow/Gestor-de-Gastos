@@ -40,13 +40,14 @@ public class VerCategoriaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Eliminar.setDisable(true); Modificar.setDisable(true);
-        lista.setCellFactory(c-> new CatListCell());
+        Eliminar.setDisable(true);
+        Modificar.setDisable(true);
+        lista.setCellFactory(c -> new CatListCell());
         lista.focusedProperty().addListener((a, b, c) -> {
 
         });
         try {
-            List<Category> cat=Acount.getInstance().getUserCategories();
+            List<Category> cat = Acount.getInstance().getUserCategories();
             lista.getItems().addAll(cat);
         } catch (AcountDAOException ex) {
             Logger.getLogger(VerCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
@@ -56,13 +57,22 @@ public class VerCategoriaController implements Initializable {
         lista.getSelectionModel().selectedIndexProperty().addListener((obs, oldIndex, newIndex) -> {
             if (newIndex.intValue() != -1) {
                 // Habilitar botones cuando se selecciona una fila
+<<<<<<< HEAD
                 Eliminar.setDisable(false); Modificar.setDisable(false);
             } else {
                 // Deshabilitar botones cuando no hay ninguna fila seleccionada
                 Eliminar.setDisable(true); Modificar.setDisable(true);
+=======
+                Eliminar.setDisable(false);
+                Modificar.setDisable(false);
+            } else {
+                // Deshabilitar botones cuando no hay ninguna fila seleccionada
+                Eliminar.setDisable(true);
+                Modificar.setDisable(true);
+>>>>>>> 1ec132104f5c048c6b853809843d6a574a0a6d02
             }
         });
-    }    
+    }
 
     @FXML
     private void añadir(ActionEvent event) throws IOException, AcountDAOException {
@@ -83,7 +93,8 @@ public class VerCategoriaController implements Initializable {
     private void modificar(ActionEvent event) {
         Category act = lista.getSelectionModel().getSelectedItem();
         FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/AñadirCategoria.fxml"));
-        AñadirCategoriaController controller = miCargador.getController(); controller.init(act);
+        AñadirCategoriaController controller = miCargador.getController();
+        controller.init(act);
         lista.refresh();
     }
 
@@ -96,16 +107,19 @@ public class VerCategoriaController implements Initializable {
         }
         lista.refresh();
     }
+
     class CatListCell extends ListCell<Category> {
 
-    @Override
-    protected void updateItem(Category t, boolean bln) {
-        super.updateItem(t, bln); 
-        if (t==null || bln) setText(null); 
-        else setText(t.getName() + " : " + t.getDescription());
+        @Override
+        protected void updateItem(Category t, boolean bln) {
+            super.updateItem(t, bln);
+            if (t == null || bln)
+                setText(null);
+            else
+                setText(t.getName() + " : " + t.getDescription());
+
+        }
 
     }
-    
-}
-    
+
 }

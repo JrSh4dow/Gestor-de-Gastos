@@ -81,7 +81,10 @@ public class SignUpController implements Initializable {
         validRpass.setValue(Boolean.FALSE);
         String image = "/avatars/default.png";
         avatar.setImage(new Image(image));
+<<<<<<< HEAD
         
+=======
+>>>>>>> 1ec132104f5c048c6b853809843d6a574a0a6d02
 
         try {
             acount = Acount.getInstance();

@@ -82,7 +82,6 @@ public class VerGastoController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         eliminarGasto.setDisable(true);
         modificarGasto.setDisable(true);
-        imprimirGastos.setDisable(false);
         Gastos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
             if (newSelection != null) {
                 // Habilitar botones cuando se selecciona una fila
@@ -264,41 +263,11 @@ public class VerGastoController implements Initializable {
     @FXML
     void ImprimirGastos(ActionEvent event) {
         PrinterJob printerJob = PrinterJob.createPrinterJob();
-
         if (printerJob != null && printerJob.showPrintDialog(imprimirGastos.getScene().getWindow())) {
             Node imprimir = Gastos;
             if (printerJob.printPage(imprimir))
                 printerJob.endJob();
         }
-    }
-
-    @SuppressWarnings("unchecked")
-    private Node contenidoPDF() {
-        // Crear una tabla temporal para copiar el contenido de la TableView
-        TableView<Charge> tablaTemporal = new TableView<>();
-        TableColumn<Charge, Category> columnaNombre = new TableColumn<>("Nombre");
-        TableColumn<Charge, String> columnaDescripcion = new TableColumn<>("Descripción");
-        TableColumn<Charge, Category> columnaCategoria = new TableColumn<>("Categoría");
-        TableColumn<Charge, LocalDate> columnaFecha = new TableColumn<>("Fecha");
-        TableColumn<Charge, Double> columnaCoste = new TableColumn<>("Coste");
-        TableColumn<Charge, Integer> columnaUnidades = new TableColumn<>("Unidades");
-
-        // Asignar las propiedades de las entidades a las columnas
-        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        columnaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        columnaCoste.setCellValueFactory(new PropertyValueFactory<>("Coste"));
-        columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("concepto"));
-        columnaUnidades.setCellValueFactory(new PropertyValueFactory<>("unidades"));
-
-        // Agregar las columnas a la tabla
-        tablaTemporal.getColumns().addAll(columnaNombre, columnaDescripcion, columnaCategoria, columnaFecha,
-                columnaCoste, columnaUnidades);
-
-        // Copiar los datos de la TableView original a la tabla temporal
-        tablaTemporal.setItems(Gastos.getItems());
-
-        return tablaTemporal;
     }
 
 }
