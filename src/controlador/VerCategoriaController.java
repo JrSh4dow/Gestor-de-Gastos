@@ -8,7 +8,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
@@ -42,12 +41,8 @@ public class VerCategoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         Eliminar.setDisable(true);
         Modificar.setDisable(true);
+        Añadir.setDisable(false);
         lista.setCellFactory(c -> new CatListCell());
-        lista.focusedProperty().addListener((a, b, c) -> {
-            if (lista.isFocused()) {
-                Añadir.setDisable(true);
-            }
-        });
         try {
             List<Category> cat = Acount.getInstance().getUserCategories();
             lista.getItems().addAll(cat);
@@ -80,12 +75,14 @@ public class VerCategoriaController implements Initializable {
     }
 
     @FXML
-    private void modificar(ActionEvent event) {
+    private void modificar(ActionEvent event) throws IOException, AcountDAOException {
         Category act = lista.getSelectionModel().getSelectedItem();
-        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/AñadirCategoria.fxml"));
-        AñadirCategoriaController controller = miCargador.getController();
-        controller.init(act);
+        CargaVistas.CATEGORIAM(act);
+        lista.getItems().clear();
+        List<Category> cat = Acount.getInstance().getUserCategories();
+        lista.getItems().addAll(cat);
         lista.refresh();
+
     }
 
     @FXML
@@ -94,6 +91,9 @@ public class VerCategoriaController implements Initializable {
         Boolean ok = Acount.getInstance().removeCategory(act);
         if (ok) {
             Utils.mostrarInfo("Categoria eliminada con éxito");
+            lista.getItems().clear();
+            List<Category> cat = Acount.getInstance().getUserCategories();
+            lista.getItems().addAll(cat);
         }
         lista.refresh();
     }

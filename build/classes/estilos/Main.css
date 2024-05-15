@@ -90,10 +90,6 @@
     -fx-border-radius: 10;
 }
 
-#Tabla:hover {
-    -fx-background-color: #FFFFCC;
-}
-
 #Tabla {
     -fx-background-color: lightgray;
 }

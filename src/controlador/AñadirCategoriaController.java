@@ -12,7 +12,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
-import model.Category;
 import utils.Utils;
 
 public class AñadirCategoriaController {
@@ -26,8 +25,6 @@ public class AñadirCategoriaController {
     @FXML
     private Button añadirCategoria;
     private Boolean ok;
-    @SuppressWarnings("unused")
-    private Category act;
 
     /**
      * Initializes the controller class.
@@ -36,12 +33,6 @@ public class AñadirCategoriaController {
         // Algo
         NameCategoria.requestFocus();
         ok = false;
-    }
-
-    public void init(Category cat) {
-        act = cat;
-        NameCategoria.setText(cat.getName());
-        DescriptionCategoria.setText(cat.getDescription());
     }
 
     public Boolean getOk() {
