@@ -42,10 +42,10 @@ public class Utils {
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-
+            File initialDirectory = new File(System.getProperty("user.home") + "/Downloads");
+            fileChooser.setInitialDirectory(initialDirectory);
             // Mostrar el diálogo de selección de archivos
-            File file;
-            file = fileChooser.showOpenDialog(n);
+            File file = fileChooser.showOpenDialog(n);
             if (file != null) {
                 // Convertir la ruta del archivo a una URL y cargar la imagen
                 return file.toURI().toString();
