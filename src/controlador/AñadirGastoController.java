@@ -64,6 +64,8 @@ public class AñadirGastoController {
     private Button añadirGasto;
     @FXML
     private BorderPane Caja;
+    @FXML
+    private Button eliminarCategoria;
 
     public void initialize(URL url, ResourceBundle rb) throws AcountDAOException, IOException {
         NameGasto.requestFocus();
@@ -253,6 +255,64 @@ public class AñadirGastoController {
                 }
             }
         }
+    }
+
+    @FXML
+    private void EliminarCategoria(ActionEvent event) throws AcountDAOException, IOException {
+        // Obtener la categoría seleccionada
+    String nombreCategoriaSeleccionada = CategoriaGasto.getValue();
+    
+    // Verificar si se ha seleccionado una categoría
+    if (nombreCategoriaSeleccionada != null) {
+        // Obtener la instancia de la cuenta
+        Acount account = Acount.getInstance();
+        
+        // Obtener la categoría seleccionada
+        Category categoriaSeleccionada = null;
+        List<Category> categorias = account.getUserCategories();
+        for (Category categoria : categorias) {
+            if (categoria.getName().equals(nombreCategoriaSeleccionada)) {
+                categoriaSeleccionada = categoria;
+                break;
+            }
+        }
+        
+        // Verificar si se encontró la categoría seleccionada
+        if (categoriaSeleccionada != null) {
+            // Mostrar un diálogo de confirmación
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Confirmar eliminación");
+            alert.setHeaderText("Eliminar categoría");
+            alert.setContentText("¿Seguro que quieres eliminar la categoría seleccionada?");
+            
+            // Obtener la respuesta del usuario
+            Optional<ButtonType> result = alert.showAndWait();
+            
+            // Verificar si el usuario confirmó la eliminación
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // Eliminar la categoría de la cuenta
+                boolean eliminada = account.removeCategory(categoriaSeleccionada);
+                
+                // Verificar si la categoría se eliminó correctamente
+                if (eliminada) {
+                    // Mostrar un mensaje de éxito
+                    Utils.mostrarAlerta("La categoría ha sido eliminada correctamente.");
+                    
+                    // Actualizar el ChoiceBox después de eliminar la categoría
+                    llenarChoiceBoxConCategorias();
+                } else {
+                    // Mostrar un mensaje de error
+                    Utils.mostrarError("No se pudo eliminar la categoría.");
+                }
+            }
+        } else {
+            // Mostrar un mensaje de error si no se encontró la categoría seleccionada
+            Utils.mostrarError("No se encontró la categoría seleccionada.");
+        }
+    } else {
+        // Mostrar un mensaje de advertencia si no se ha seleccionado una categoría
+        Utils.mostrarAlerta("Por favor, selecciona una categoría para eliminar.");
+    }
     }
 
 }

@@ -3,14 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/VerGastoController.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/utils/Utils.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/AñadirCategoriaController.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/SignUpController.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/MainController.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/javafxmlapplication/JavaFXMLApplication.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/AñadirGastoController.java</file>
-            <file>file:/C:/Users/Oscar/Downloads/Gastos/src/controlador/ModificarGastoController.java</file>
+            <file>file:/C:/Users/oscar/Downloads/IPC/Gastos/src/estilos/Main.css</file>
+            <file>file:/C:/Users/oscar/Downloads/IPC/Gastos/src/controlador/InicioController.java</file>
+            <file>file:/C:/Users/oscar/Downloads/IPC/Gastos/src/controlador/AñadirGastoController.java</file>
+            <file>file:/C:/Users/oscar/Downloads/IPC/Gastos/src/controlador/SignUpController.java</file>
         </group>
     </open-files>
 </project-private>
