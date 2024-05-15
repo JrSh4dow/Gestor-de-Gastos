@@ -40,7 +40,7 @@ public class VerCategoriaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Eliminar.setDisable(true); Modificar.setDisable(true);Añadir.setDisable(false);
+        Eliminar.setDisable(true); Modificar.setDisable(true);
         lista.setCellFactory(c-> new CatListCell());
         lista.focusedProperty().addListener((a, b, c) -> {
             if (lista.isFocused()) {

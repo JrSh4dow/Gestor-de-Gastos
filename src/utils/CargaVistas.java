@@ -20,7 +20,7 @@ public class CargaVistas {
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("Principal");
-        mainStage.setResizable(true);
+        mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
     }
