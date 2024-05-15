@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
-import model.User;
+import model.Category;
 import utils.Utils;
 
 public class AñadirCategoriaController {
@@ -25,6 +25,9 @@ public class AñadirCategoriaController {
     private Button cancelar;
     @FXML
     private Button añadirCategoria;
+    private Boolean ok;
+    @SuppressWarnings("unused")
+    private Category act;
 
     /**
      * Initializes the controller class.
@@ -32,6 +35,17 @@ public class AñadirCategoriaController {
     public void initialize(URL url, ResourceBundle rb) {
         // Algo
         NameCategoria.requestFocus();
+        ok = false;
+    }
+
+    public void init(Category cat) {
+        act = cat;
+        NameCategoria.setText(cat.getName());
+        DescriptionCategoria.setText(cat.getDescription());
+    }
+
+    public Boolean getOk() {
+        return ok;
     }
 
     @FXML
@@ -42,32 +56,31 @@ public class AñadirCategoriaController {
 
     // Añadir la categoria a la base de datos
     @FXML
-    private void AñadirCategoria(ActionEvent event) throws AcountDAOException, IOException{
+    private void AñadirCategoria(ActionEvent event) throws AcountDAOException, IOException {
         // Obtener instancia de Acount
         Acount account = Acount.getInstance();
-        
-        // Verificar si hay un usuario logueado
-        User user = account.getLoggedUser();
-        if (user != null) {
-            // Obtener los valores de la nueva categoría desde la interfaz de usuario
-            String nombreCategoria = NameCategoria.getText();
-            String descripcionCategoria = DescriptionCategoria.getText();
-            
+
+        // Obtener los valores de la nueva categoría desde la interfaz de usuario
+        String nombreCategoria = NameCategoria.getText();
+        String descripcionCategoria = DescriptionCategoria.getText();
+        if (!nombreCategoria.isEmpty() && !descripcionCategoria.isEmpty()) {
             // Registrar la categoría
             boolean registrado = account.registerCategory(nombreCategoria, descripcionCategoria);
-            
+
             // Verificar si se registró correctamente
             if (registrado) {
-                // Actualizar la lista de categorías en la interfaz de usuario o realizar otras acciones necesarias
-                
+                Utils.mostrarInfo("Se ha añadido la categoria");
+                Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
+                mainStage2.close();
+                ok = true;
+
             } else {
-                // Mostrar un mensaje de error o realizar otras acciones necesarias
-                Utils.mostrarError("No se pudo añadir la categoría.");
+                Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
             }
         } else {
-            // Mostrar un mensaje indicando que no hay usuario logueado
-            Utils.mostrarError("Debe iniciar sesión para añadir una categoría.");
+            Utils.mostrarAlerta("Por favor rellena los campos obligatorios");
         }
+
     }
 
 }

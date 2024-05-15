@@ -18,6 +18,38 @@
     -fx-background-radius: 10
 }
 
+#buttone {
+    -fx-background-color: #00C1A4;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttone:hover {
+    -fx-background-color: rgb(205, 82, 82);
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttona {
+    -fx-background-color: #00C1A4;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttona:hover {
+    -fx-background-color: rgb(60, 162, 104);
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
 #button:pressed {
     -fx-background-color: #d7e41f;
     -fx-text-fill: black;
@@ -56,4 +88,12 @@
     -fx-border-color: white;
     -fx-border-width: 3 3 3 3;
     -fx-border-radius: 10;
+}
+
+#Tabla:hover {
+    -fx-background-color: #FFFFCC;
+}
+
+#Tabla {
+    -fx-background-color: lightgray;
 }

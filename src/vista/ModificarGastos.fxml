@@ -116,8 +116,14 @@
             <ChoiceBox fx:id="CategoriaGasto" prefHeight="26.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <HBox alignment="CENTER_RIGHT" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button id="button" fx:id="CancelarCambios" mnemonicParsing="false" onAction="#Cancelar" prefHeight="50.0" prefWidth="80.0" text="Cancelar" />
-                  <Button id="button" fx:id="GuardarCambios" mnemonicParsing="false" onAction="#Modificar" prefHeight="50.0" prefWidth="80.0" text="Modificar" />
+                  <Button id="buttone" fx:id="CancelarCambios" mnemonicParsing="false" onAction="#Cancelar" prefHeight="50.0" prefWidth="80.0" text="Cancelar" textFill="#efefef">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                     </font></Button>
+                  <Button id="buttona" fx:id="GuardarCambios" mnemonicParsing="false" onAction="#Modificar" prefHeight="30.0" prefWidth="90.0" text="Modificar" textFill="WHITE">
+                     <font>
+                        <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                     </font></Button>
                </children>
                <GridPane.margin>
                   <Insets bottom="10.0" />

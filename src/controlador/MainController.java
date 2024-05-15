@@ -12,6 +12,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -27,9 +28,10 @@ import model.Acount;
 import model.AcountDAOException;
 import model.Category;
 import model.Charge;
+import utils.CargaVistas;
 import utils.Utils;
 
-public class MainController {
+public class MainController implements Initializable {
 
     @FXML
     private Button Perfil;
@@ -49,7 +51,31 @@ public class MainController {
     private Button AplicarFiltro;
 
     public void initialize(URL url, ResourceBundle rb) {
+        List<Category> categories;
+        List<Charge> charges;
+        ObservableList<PieChart.Data> pieChartData;
+        try {
+            categories = Acount.getInstance().getUserCategories();
+            charges = Acount.getInstance().getUserCharges();
+            pieChartData = FXCollections.observableArrayList();
 
+            for (Category category : categories) {
+                Double total = Total(category, charges);
+                if (total != null && total > 0) {
+                    pieChartData.add(new PieChart.Data(category.getName(), total));
+                }
+            }
+            // Crea el gráfico de pastel
+            Pie.setData(pieChartData);
+            Pie.setTitle("Distribución de gastos:");
+        } catch (AcountDAOException | IOException e) {
+            e.printStackTrace();
+        }
+
+        // Inicializa la ChoiceBox
+        ObservableList<String> options = FXCollections.observableArrayList("Último mes", "Últimos 2 meses",
+                "Últimos 3 meses", "Últimos 6 meses");
+        fecha.setItems(options);
         // Agrega un listener al ChoiceBox para manejar el evento de selección
         // fecha.setOnAction(event -> filtrarGastos());
         AplicarFiltro.setOnAction(event -> {
@@ -61,26 +87,11 @@ public class MainController {
         });
     }
 
-    public void main() {
-        // Inicializa la ChoiceBox
-        ObservableList<String> options = FXCollections.observableArrayList("Último mes", "Últimos 2 meses",
-                "Últimos 3 meses", "Últimos 6 meses");
-        fecha.setItems(options);
-    }
-
     @FXML
     void AñadirGasto(ActionEvent event) throws IOException {
         Stage stage = (Stage) añadirGasto.getScene().getWindow();
         stage.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/AñadirGasto.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("AÑADIR GASTO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.AÑADIRGASTO();
     }
 
     @FXML
@@ -91,65 +102,22 @@ public class MainController {
             Scene scene = sourceNode.getScene();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
-            Parent userRoot = loader.load();
-            Stage inicioStage = new Stage();
-            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            inicioStage.setTitle("Expense Tracker");
-            inicioStage.setScene(new Scene(userRoot));
-            inicioStage.show();
+            CargaVistas.INICIO();
         }
-
     }
 
     @FXML
     void VerGasto(ActionEvent event) throws IOException {
         Stage stage = (Stage) verGasto.getScene().getWindow();
         stage.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerGastos.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("GASTOS");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.GASTOS();
     }
 
     @FXML
     void VerPerfil(ActionEvent event) throws IOException {
         Stage stage = (Stage) Perfil.getScene().getWindow();
         stage.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/VerPerfil.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("PERFIL");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        PerfilController user = miCargador.getController();
-        user.establecer();
-        mainStage.show();
-    }
-
-    protected void Pie() throws AcountDAOException, IOException {
-        List<Category> categories = Acount.getInstance().getUserCategories();
-        List<Charge> charges = Acount.getInstance().getUserCharges();
-
-        ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
-
-        for (Category category : categories) {
-            Double total = Total(category, charges);
-            if (total != null && total > 0) {
-                pieChartData.add(new PieChart.Data(category.getName(), total));
-            }
-        }
-
-        // Crea el gráfico de pastel
-        Pie.setData(pieChartData);
-        Pie.setTitle("Distribución de gastos:");
+        CargaVistas.PERFIL();
     }
 
     private Double Total(Category category, List<Charge> charges) {
@@ -196,6 +164,19 @@ public class MainController {
 
         // Muestra el resultado en TotalGastos
         TotalGastos.setText(String.format("Total de gastos: %.2f", totalGastos));
+    }
+
+    @FXML
+    private void Vercategorias(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/VerCategorias.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("VER CATEGORIAS");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.showAndWait();
     }
 
 }

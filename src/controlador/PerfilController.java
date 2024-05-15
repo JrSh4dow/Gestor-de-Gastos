@@ -4,20 +4,18 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Acount;
@@ -25,7 +23,7 @@ import model.AcountDAOException;
 import model.User;
 import utils.*;
 
-public class PerfilController {
+public class PerfilController implements Initializable {
 
     @FXML
     private TextField Name;
@@ -55,7 +53,55 @@ public class PerfilController {
     Text data;
 
     public void initialize(URL url, ResourceBundle rb) {
+        establecer();
+        // Inicialmente, el botón Aceptar está deshabilitado
+        guardarCambios.setDisable(true);
+        Pass.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
+                        String t = Pass.getText();
+                        if (!User.checkPassword(t)) {
+                            Utils.error(Pass);
+                        } else {
+                            Utils.correct(Pass);
+                            guardarCambios.setDisable(false);
+                        }
+                    }
+                });
 
+        Name.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = Name.getText();
+                        if (!Utils.checkNames(t)) {
+                            Utils.error(Name);
+                        } else {
+                            Utils.correct(Name);
+                        }
+                    }
+                });
+        SurName.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = SurName.getText();
+                        if (!Utils.checkNames(t)) {
+                            Utils.error(SurName);
+                        } else {
+                            Utils.correct(SurName);
+                        }
+                    }
+                });
+        Email.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+                        String t = Email.getText();
+                        if (!User.checkEmail(t)) {
+                            Utils.error(Email);
+                        } else {
+                            Utils.correct(Email);
+                        }
+                    }
+                });
     }
 
     public void establecer() {
@@ -81,13 +127,7 @@ public class PerfilController {
             Scene scene = sourceNode.getScene();
             Stage stage = (Stage) scene.getWindow();
             stage.close();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/vista/Inicio.fxml"));
-            Parent userRoot = loader.load();
-            Stage inicioStage = new Stage();
-            inicioStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-            inicioStage.setTitle("Expense Tracker");
-            inicioStage.setScene(new Scene(userRoot));
-            inicioStage.show();
+            CargaVistas.INICIO();
         }
 
     }
@@ -96,51 +136,26 @@ public class PerfilController {
     private void IrInicio(ActionEvent event) throws IOException, AcountDAOException {
         Stage mainStage2 = (Stage) Inicio.getScene().getWindow();
         mainStage2.close();
-        FXMLLoader miCargador = new FXMLLoader(getClass().getResource("../vista/Main.fxml"));
-        Parent root = miCargador.load();
-        Stage mainStage = new Stage();
-        MainController r = miCargador.getController();
-        r.Pie();
-        r.main();
-        mainStage.setScene(new Scene(root));
-        mainStage.getIcons().add(new Image(this.getClass().getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("INICIO");
-        mainStage.setResizable(false);
-        mainStage.initModality(Modality.APPLICATION_MODAL);
-        mainStage.show();
+        CargaVistas.MAIN();
     }
 
     @FXML
     private void GuardarCambios(ActionEvent event) throws AcountDAOException, IOException {
-        if (Utils.validarDatos(Name.getText()) && Utils.validarDatos(SurName.getText())
-                && User.checkPassword(Pass.getText())
-                && User.checkEmail(Email.getText())) {
-            Image img;
-            if (Avatar == null) {
-                img = new Image("/avatars/default.png");
-            } else {
-                img = logged.getImage();
-            }
 
-            logged.setName(Name.getText());
-            logged.setSurname(SurName.getText());
-            logged.setImage(img);
-            logged.setEmail(Email.getText());
-            logged.setPassword(Pass.getText());
-
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setTitle("Información");
-            alert.setContentText("Se han gurdado los cambios correctamente");
-            alert.showAndWait();
-
+        Image img;
+        if (Avatar == null) {
+            img = new Image("/avatars/default.png");
         } else {
-            if (!User.checkPassword(Pass.getText()) && !(Pass == null || Pass.getText().isEmpty())) {
-                Utils.mostrarError("Introduce una contraseña valida");
-            } else {
-                Utils.mostrarError("Completa correctamente los campos");
-            }
+            img = logged.getImage();
         }
+
+        logged.setName(Name.getText());
+        logged.setSurname(SurName.getText());
+        logged.setImage(avatar.getImage());
+        logged.setEmail(Email.getText());
+        logged.setPassword(Pass.getText());
+
+        Utils.mostrarInfo("Se han guardado los cambios correctamente");
     }
 
     @FXML

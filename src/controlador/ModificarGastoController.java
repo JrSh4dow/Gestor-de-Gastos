@@ -5,18 +5,13 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -39,8 +34,6 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private TextField NameGasto;
     @FXML
-    private TextArea DescriptionGasto;
-    @FXML
     private TextField CosteGasto;
     @FXML
     private TextField UnidadeGasto;
@@ -55,32 +48,39 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private Button CancelarCambios;
     @FXML
+    private TextArea DescriptionGasto;
+    @FXML
     private Button GuardarCambios;
-    
-    private VerGastoController verGastoController;
+    private Charge act;
 
-    public void setVerGastoController(VerGastoController controller) {
-        this.verGastoController = controller;
+    public void initGasto(Charge c) {
+        this.act = c;
+        // Aqui hay que inicializar con los campos del gasto seleccionado
+        NameGasto.setText(act.getName());
+        DescriptionGasto.setText(act.getDescription());
+        CosteGasto.setText(String.valueOf(act.getCost()));
+        UnidadeGasto.setText(String.valueOf(act.getUnits()));
+        // Establecer la categoría seleccionada en el ChoiceBox
+        CategoriaGasto.getSelectionModel().select(act.getCategory().getName());
+        // Establecer la fecha seleccionada en el DatePicker
+        FechaGasto.setValue(act.getDate());
+        Factura.setImage(act.getImageScan());
+
     }
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // Aqui hay que inicializar con los campos del gasto seleccionado
-        Charge gastoSeleccionado = verGastoController.getTableViewGastos().getSelectionModel().getSelectedItem();
-
-        if (gastoSeleccionado != null) {
-            NameGasto.setText(gastoSeleccionado.getName());
-            DescriptionGasto.setText(gastoSeleccionado.getDescription());
-            CosteGasto.setText(String.valueOf(gastoSeleccionado.getCost()));
-            UnidadeGasto.setText(String.valueOf(gastoSeleccionado.getUnits()));
-            // Establecer la categoría seleccionada en el ChoiceBox
-            CategoriaGasto.setValue(gastoSeleccionado.getCategory().toString());
-            // Establecer la fecha seleccionada en el DatePicker
-            FechaGasto.setValue(gastoSeleccionado.getDate());
-            // Aquí necesitarías manejar la imagen de la factura si es necesario
+        try {
+            llenarChoiceBoxConCategorias();
+        } catch (AcountDAOException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+
     }
 
     @FXML
@@ -92,7 +92,7 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private void SetImage(ActionEvent event) {
         Window n = ((Node) event.getSource()).getScene().getWindow();
-        String facturaPath = utils.Utils.ElegirImagen(n);
+        String facturaPath = Utils.ElegirImagen(n);
         if (facturaPath != null) {
             Factura.setImage(new Image(facturaPath));
         }
@@ -111,7 +111,8 @@ public class ModificarGastoController implements Initializable {
         Image imagenFactura = Factura.getImage();
 
         // Verificar si se han ingresado todos los datos obligatorios
-        if (nombreGasto.isEmpty() || costeGasto <= 0 || unidadesGasto <= 0 || categoriaSeleccionada == null || fechaGasto == null) {
+        if (nombreGasto.isEmpty() || costeGasto <= 0 || unidadesGasto <= 0 || categoriaSeleccionada == null
+                || fechaGasto == null) {
             Utils.mostrarAlerta("Por favor, complete todos los campos obligatorios.");
             return;
         }
@@ -126,28 +127,34 @@ public class ModificarGastoController implements Initializable {
                 break;
             }
         }
-
-        // Verificar si se encontró la categoría
-        if (categoria == null) {
-            Utils.mostrarError("La categoría seleccionada no es válida.");
-            return;
-        }
-
-        // Registrar el gasto en la base de datos
-        boolean registrado = account.registerCharge(nombreGasto, descripcionGasto,costeGasto, unidadesGasto,  imagenFactura ,fechaGasto,categoria);
-
+        // modificar el gasto en la base de datos
+        act.setCategory(categoria);
+        act.setCost(costeGasto);
+        act.setDate(fechaGasto);
+        act.setDescription(descripcionGasto);
+        act.setImageScan(imagenFactura);
+        act.setName(nombreGasto);
+        act.setUnits(unidadesGasto);
         // Verificar si el gasto se registró correctamente
-        if (registrado) {
-            Utils.mostrarAlerta("El gasto se ha registrado correctamente.");
-            NameGasto.clear();
-            CosteGasto.clear();
-            UnidadeGasto.clear();
-            DescriptionGasto.clear();
-            CategoriaGasto.getSelectionModel().clearSelection();
-            Factura.setImage(null);
-            FechaGasto.setValue(null);
-        } else {
-            Utils.mostrarError("No se pudo registrar el gasto.");
+
+        Utils.mostrarInfo("Se ha modificado el gasto  correctamente.");
+        Stage mainStage2 = (Stage) GuardarCambios.getScene().getWindow();
+        mainStage2.close();
+
+    }
+
+    private void llenarChoiceBoxConCategorias() throws AcountDAOException, IOException {
+        Acount account = Acount.getInstance();
+        List<Category> categorias = account.getUserCategories();
+
+        if (categorias != null) {
+            // Limpiar el ChoiceBox
+            CategoriaGasto.getItems().clear();
+
+            // Llenar el ChoiceBox con los nombres de las categorías
+            for (Category categoria : categorias) {
+                CategoriaGasto.getItems().add(categoria.getName());
+            }
         }
     }
 

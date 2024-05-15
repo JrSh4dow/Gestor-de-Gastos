@@ -56,7 +56,7 @@
             </Text>
             <HBox alignment="CENTER_RIGHT" prefHeight="38.0" prefWidth="237.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="5" GridPane.valignment="BASELINE">
                <children>
-                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
+                  <Button id="buttone" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -64,7 +64,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="button" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
+                  <Button id="buttona" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>

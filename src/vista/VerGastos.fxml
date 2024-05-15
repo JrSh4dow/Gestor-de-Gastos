@@ -101,7 +101,7 @@
       
    </center>
    <center>
-      <TableView fx:id="Gastos" style="-fx-background-color: lightgray;" BorderPane.alignment="CENTER">
+      <TableView id="Tabla" fx:id="Gastos" BorderPane.alignment="CENTER">
         <columns>
           <TableColumn fx:id="idGasto" editable="false" minWidth="7.0" prefWidth="-1.0" sortable="false" text="Id" />
                 <TableColumn fx:id="nombreGasto" editable="false" prefWidth="-1.0" sortable="false" text="Nombre" />
@@ -110,6 +110,7 @@
                 <TableColumn fx:id="costeGasto" editable="false" prefWidth="-1.0" sortable="false" text="Coste" />
                 <TableColumn fx:id="unidadesGasto" editable="false" prefWidth="-1.0" sortable="false" text="Unidades" />
                 <TableColumn fx:id="facturaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Factura" />
+            <TableColumn fx:id="FechaGasto" editable="false" prefWidth="-1.0" sortable="false" text="Fecha" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="4.0" right="10.0" top="10.0" />
@@ -124,13 +125,13 @@
          <children>
             <Button id="button" fx:id="modificarGasto" mnemonicParsing="false" onAction="#ModificarGasto">
                <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView id="tipm" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../icons/editar.png" />
                      </image>
                   </ImageView>
                </graphic></Button>
-            <Button id="button" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
+            <Button id="buttone" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>

@@ -9,4 +9,3 @@
 	add
 	save
 	send
-go para ir al direcc

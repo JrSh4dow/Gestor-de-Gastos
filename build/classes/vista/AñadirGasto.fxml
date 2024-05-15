@@ -62,7 +62,6 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="68.80000000000001" minHeight="10.0" prefHeight="68.80000000000001" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="50.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
          </rowConstraints>
@@ -80,7 +79,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Coste:" textFill="#f4f4f4" GridPane.rowIndex="5">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Coste:" textFill="#f4f4f4" GridPane.rowIndex="4">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
@@ -88,12 +87,12 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Unidades:" textFill="#f4f4f4" GridPane.rowIndex="6">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Unidades:" textFill="#f4f4f4" GridPane.rowIndex="5">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Fecha de realización:" textFill="#f4f4f4" GridPane.rowIndex="7">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="209.0" text="Fecha de realización:" textFill="#f4f4f4" GridPane.rowIndex="6">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
@@ -101,7 +100,7 @@
                   <Insets />
                </GridPane.margin>
             </Label>
-            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="213.0" text="Factura del gasto:" textFill="#f4f4f4" GridPane.rowIndex="8">
+            <Label alignment="CENTER_RIGHT" prefHeight="18.0" prefWidth="213.0" text="Factura del gasto:" textFill="#f4f4f4" GridPane.rowIndex="7">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
                </font>
@@ -110,7 +109,7 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
-            <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
+            <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <children>
                   <TextField fx:id="CosteGasto" maxWidth="-Infinity" prefHeight="26.0" prefWidth="150.0">
                      <font>
@@ -123,11 +122,11 @@
                      </font></Label>
                </children>
             </HBox>
-            <TextField fx:id="UnidadeGasto" maxWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
+            <TextField fx:id="UnidadeGasto" maxWidth="-Infinity" prefHeight="26.0" prefWidth="100.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font></TextField>
-            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="8">
+            <HBox alignment="CENTER_LEFT" GridPane.columnIndex="1" GridPane.rowIndex="7">
                <children>
                   <ImageView fx:id="Factura" fitHeight="60.0" fitWidth="115.0" pickOnBounds="true" preserveRatio="true" />
                   <Button id="button" fx:id="Imagen" mnemonicParsing="false" onAction="#SetImage" prefHeight="30.0" prefWidth="138.0" text="Adjuntar factura" textFill="WHITE">
@@ -145,7 +144,7 @@
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
             </Text>
-            <DatePicker fx:id="FechaGasto" prefHeight="26.0" prefWidth="110.0" promptText="dd/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <DatePicker fx:id="FechaGasto" prefHeight="26.0" prefWidth="110.0" promptText="dd/mm/aaaa" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="205.0" text="Categoria:" textFill="WHITE" GridPane.rowIndex="3">
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="14.0" />
@@ -161,9 +160,9 @@
                   </Button>
                </children>
             </HBox>
-            <HBox alignment="CENTER_LEFT" spacing="20.0" GridPane.columnIndex="1" GridPane.rowIndex="9">
+            <HBox alignment="CENTER_RIGHT" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
                <children>
-                  <Button id="button" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
+                  <Button id="buttone" fx:id="cancelar" mnemonicParsing="false" onAction="#Cancelar">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -171,7 +170,7 @@
                            </image>
                         </ImageView>
                      </graphic></Button>
-                  <Button id="button" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
+                  <Button id="buttona" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                            <image>
@@ -189,11 +188,6 @@
                   <Font name="FiraCode Nerd Font Bold" size="11.0" />
                </font>
             </TextArea>
-            <Button id="button" fx:id="eliminarCategoria" mnemonicParsing="false" onAction="#EliminarCategoria" prefHeight="29.0" prefWidth="127.0" text="Eliminar categoria" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4">
-               <font>
-                  <Font name="FiraCode Nerd Font Bold" size="12.0" />
-               </font>
-            </Button>
          </children>
          <padding>
             <Insets bottom="5.0" left="20.0" right="20.0" />
