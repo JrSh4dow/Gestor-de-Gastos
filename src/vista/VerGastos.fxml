@@ -103,7 +103,7 @@
    <center>
       <TableView id="Tabla" fx:id="Gastos" minWidth="470.0" prefHeight="397.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idGasto" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="-1.0" sortable="false" text="Id" />
+          <TableColumn fx:id="idGasto" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="-1.0" sortable="false" text="Id" />
                 <TableColumn fx:id="nombreGasto" editable="false" maxWidth="110.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Nombre" />
                 <TableColumn fx:id="descripcionGasto" editable="false" maxWidth="1.7976931348623157E308" minWidth="185.0" prefWidth="-1.0" sortable="false" text="Descripción" />
                 <TableColumn fx:id="categoriaGasto" editable="false" maxWidth="85.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Categoría" />
