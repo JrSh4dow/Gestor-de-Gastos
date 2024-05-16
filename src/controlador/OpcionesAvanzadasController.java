@@ -70,7 +70,7 @@ public class OpcionesAvanzadasController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 elegida = FechaElegida.getValue();
-                TotalMesElegido.setText("Total: " + TotalGastado(elegida) + "€");
+                TotalMesElegido.setText("Total: " + TotalGastado(elegida) + " €");
                 ColumnaTotalMesElegido
                         .setCellValueFactory(
                                 cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), elegida)).asObject());
@@ -112,7 +112,7 @@ public class OpcionesAvanzadasController implements Initializable {
         TablaMesActual.getItems().addAll(categories);
         TablaMesElegido.getItems().addAll(categories);
 
-        TotalMesActual.setText("Total: " + TotalGastado(actual) + "€");
+        TotalMesActual.setText("Total: " + TotalGastado(actual) + " €");
     }
 
     public static double Totales(Category cat, LocalDate m) {

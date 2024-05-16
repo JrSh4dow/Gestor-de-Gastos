@@ -188,7 +188,7 @@ public class MainController implements Initializable {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("VER CATEGORIAS");
+        mainStage.setTitle("OPCIONES AVANZADAS");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();
