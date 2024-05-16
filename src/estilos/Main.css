@@ -93,3 +93,8 @@
 #Tabla {
     -fx-background-color: lightgray;
 }
+
+#Tip {
+    -fx-background-color: rgb(115, 206, 115);
+    -fx-text-fill: black;
+}
