@@ -70,10 +70,12 @@ public class OpcionesAvanzadasController implements Initializable {
             @Override
             public void handle(ActionEvent event) {
                 elegida = FechaElegida.getValue();
-                TotalMesActual.setText("Total: " + TotalGastado(elegida) + "€");
+                TotalMesElegido.setText("Total: " + TotalGastado(elegida) + "€");
                 ColumnaTotalMesElegido
                         .setCellValueFactory(
                                 cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), elegida)).asObject());
+                TablaMesElegido.getItems().clear();
+                TablaMesElegido.getItems().addAll(categories);
             }
         });
         LocalDate minDate = LocalDate.of(2022, 1, 1);
