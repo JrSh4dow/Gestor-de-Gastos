@@ -37,6 +37,22 @@
                   </ImageView>
                </graphic>
             </Menu>
+            <Menu mnemonicParsing="false" text="Opciones">
+               <items>
+                  <MenuItem mnemonicParsing="false" onAction="#Vercategorias" text="Ver categorias">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="B" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator>
+                  </MenuItem>
+               </items>
+               <graphic>
+                  <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../icons/opcion.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Menu>
          </menus>
       </MenuBar>
    </top>
@@ -51,41 +67,47 @@
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
             </Text>
-            <HBox alignment="BASELINE_CENTER" spacing="10.0">
+            <HBox alignment="BASELINE_CENTER" spacing="30.0">
                <children>
                   <PieChart fx:id="Pie" legendSide="LEFT" minWidth="216.4" styleClass="Vbox" />
-                  <VBox minHeight="155.0" minWidth="216.4" prefHeight="155.0" prefWidth="217.0" spacing="20.0" styleClass="Vbox">
+                  <VBox alignment="CENTER" spacing="40.0">
                      <children>
-                        <Text id="Mensaje" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro de gastos:" wrappingWidth="203.73670387268066">
-                           <VBox.margin>
-                              <Insets />
-                           </VBox.margin>
-                           <font>
-                              <Font name="FiraCode Nerd Font Bold" size="17.0" />
-                           </font>
-                        </Text>
-                        <HBox alignment="CENTER_LEFT" spacing="14.0">
+                        <VBox minHeight="155.0" minWidth="216.4" prefHeight="155.0" prefWidth="217.0" spacing="20.0" styleClass="Vbox">
                            <children>
-                              <ChoiceBox fx:id="fecha" prefHeight="26.0" prefWidth="246.0" />
-                              <Button id="buttona" fx:id="AplicarFiltro" mnemonicParsing="false">
-                                 <graphic>
-                                    <ImageView fitHeight="2250.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
-                                       <image>
-                                          <Image url="@../icons/aceptar.png" />
-                                       </image>
-                                    </ImageView>
-                                 </graphic>
-                              </Button>
+                              <Text id="Mensaje" fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Filtro de gastos:" wrappingWidth="203.73670387268066">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <font>
+                                    <Font name="FiraCode Nerd Font Bold" size="17.0" />
+                                 </font>
+                              </Text>
+                              <HBox alignment="CENTER_LEFT" spacing="14.0">
+                                 <children>
+                                    <ChoiceBox fx:id="fecha" prefHeight="26.0" prefWidth="246.0" />
+                                    <Button id="buttona" fx:id="AplicarFiltro" mnemonicParsing="false">
+                                       <graphic>
+                                          <ImageView fitHeight="2250.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+                                             <image>
+                                                <Image url="@../icons/aceptar.png" />
+                                             </image>
+                                          </ImageView>
+                                       </graphic>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                              <Label fx:id="TotalGastos" text="Total:">
+                                 <font>
+                                    <Font name="FiraCode Nerd Font Bold" size="12.0" />
+                                 </font>
+                              </Label>
                            </children>
-                        </HBox>
-                        <Label fx:id="TotalGastos" text="Total:">
-                           <font>
-                              <Font name="FiraCode Nerd Font Bold" size="12.0" />
-                           </font></Label>
+                           <padding>
+                              <Insets left="5.0" right="5.0" top="5.0" />
+                           </padding>
+                        </VBox>
+                        <Button id="button" fx:id="opcionesAvanzadas" mnemonicParsing="false" onAction="#OpcionesAvanzadas" prefHeight="45.0" prefWidth="142.0" text="Opciones Avanzadas" />
                      </children>
-                     <padding>
-                        <Insets left="5.0" right="5.0" top="5.0" />
-                     </padding>
                   </VBox>
                </children>
                <padding>

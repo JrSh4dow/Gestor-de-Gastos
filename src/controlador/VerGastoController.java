@@ -14,6 +14,10 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.print.PageLayout;
+import javafx.print.Paper;
+import javafx.print.Printer;
+import javafx.print.Printer.MarginType;
 import javafx.print.PrinterJob;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -27,6 +31,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -80,6 +85,19 @@ public class VerGastoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        eliminarGasto.setDisable(true);
+        modificarGasto.setDisable(true);
+        Gastos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
+            if (newSelection != null) {
+                // Habilitar botones cuando se selecciona una fila
+                eliminarGasto.setDisable(false);
+                modificarGasto.setDisable(false);
+            } else {
+                // Deshabilitar botones cuando no hay ninguna fila seleccionada
+                eliminarGasto.setDisable(true);
+                modificarGasto.setDisable(true);
+            }
+        });
         // Iniciar La TableView con los gastos desde la base de datos
         categoriaGasto.setCellFactory(column -> {
             return new TableCell<Charge, Category>() {
@@ -90,6 +108,7 @@ public class VerGastoController implements Initializable {
                     if (empty || category == null) {
                         setText(null);
                     } else {
+                        setWrapText(true);
                         setText(category.getName());
                     }
                 }
@@ -105,13 +124,45 @@ public class VerGastoController implements Initializable {
                     setGraphic(null);
                 } else {
                     ImageView imageView = new ImageView(scanImage);
-                    imageView.setFitWidth(100);
-                    imageView.setFitHeight(60);
+                    imageView.setFitWidth(80);
+                    imageView.setFitHeight(40);
                     setGraphic(imageView);
                 }
             }
         });
+        descripcionGasto.setCellFactory(column -> {
+            return new TableCell<Charge, String>() {
+                @Override
+                protected void updateItem(String description, boolean empty) {
+                    super.updateItem(description, empty);
 
+                    if (empty || description == null) {
+                        setText(null);
+                    } else {
+                        // Permitir el ajuste del texto
+                        setWrapText(true);
+                        setText(description);
+                    }
+                }
+            };
+        });
+
+        nombreGasto.setCellFactory(column -> {
+            return new TableCell<Charge, String>() {
+                @Override
+                protected void updateItem(String name, boolean empty) {
+                    super.updateItem(name, empty);
+
+                    if (empty || name == null) {
+                        setText(null);
+                    } else {
+                        // Permitir el ajuste del texto
+                        setWrapText(true);
+                        setText(name);
+                    }
+                }
+            };
+        });
         idGasto.setCellValueFactory(new PropertyValueFactory<>("id"));
         FechaGasto.setCellValueFactory(new PropertyValueFactory<>("date"));
         nombreGasto.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -120,6 +171,7 @@ public class VerGastoController implements Initializable {
         costeGasto.setCellValueFactory(new PropertyValueFactory<>("cost"));
         unidadesGasto.setCellValueFactory(new PropertyValueFactory<>("units"));
         facturaGasto.setCellValueFactory(cellData -> {
+
             Charge charge = cellData.getValue();
             if (charge != null) {
                 return new SimpleObjectProperty<>(charge.getImageScan());
@@ -127,7 +179,6 @@ public class VerGastoController implements Initializable {
                 return new SimpleObjectProperty<>(null);
             }
         });
-
         // Obtener los datos de la base de datos
         Acount account;
         try {
@@ -192,13 +243,6 @@ public class VerGastoController implements Initializable {
                     errorAlert.showAndWait();
                 }
             }
-        } else {
-            // Mostrar un mensaje si no se seleccionó ningún gasto
-            Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
-            noSelectionAlert.setTitle("Advertencia");
-            noSelectionAlert.setHeaderText(null);
-            noSelectionAlert.setContentText("Por favor, selecciona un gasto para eliminar.");
-            noSelectionAlert.showAndWait();
         }
         Gastos.refresh();
     }
@@ -243,13 +287,6 @@ public class VerGastoController implements Initializable {
             // Agregar los datos a la TableView
             Gastos.getItems().addAll(gastos);
 
-        } else {
-            // Mostrar un mensaje si no se seleccionó ningún gasto
-            Alert noSelectionAlert = new Alert(Alert.AlertType.WARNING);
-            noSelectionAlert.setTitle("Advertencia");
-            noSelectionAlert.setHeaderText(null);
-            noSelectionAlert.setContentText("Por favor, selecciona un gasto para modificar.");
-            noSelectionAlert.showAndWait();
         }
     }
 
@@ -263,42 +300,27 @@ public class VerGastoController implements Initializable {
     // para imprimir los gastos como un documento pdf
     @FXML
     void ImprimirGastos(ActionEvent event) {
+
         PrinterJob printerJob = PrinterJob.createPrinterJob();
+        if (printerJob != null) {
 
-        if (printerJob != null && printerJob.showPrintDialog(imprimirGastos.getScene().getWindow())) {
-            Node imprimir = contenidoPDF();
-            if (printerJob.printPage(imprimir))
+            Printer printer = Printer.getDefaultPrinter();
+            PageLayout pageLayout = printer.createPageLayout(Paper.A4, javafx.print.PageOrientation.PORTRAIT,
+                    MarginType.HARDWARE_MINIMUM);
+
+            Node node = Gastos;
+            node.getTransforms().add(new Scale(0.6, 0.6));
+
+            // Imprimir el nodo en el archivo PDF
+            boolean printed = printerJob.printPage(pageLayout, node);
+            if (printed) {
                 printerJob.endJob();
+            }
+
+            // Restaurar la escala original después de imprimir
+            node.getTransforms().clear();
         }
-    }
 
-    @SuppressWarnings("unchecked")
-    private Node contenidoPDF() {
-        // Crear una tabla temporal para copiar el contenido de la TableView
-        TableView<Charge> tablaTemporal = new TableView<>();
-        TableColumn<Charge, Category> columnaNombre = new TableColumn<>("Nombre");
-        TableColumn<Charge, String> columnaDescripcion = new TableColumn<>("Descripción");
-        TableColumn<Charge, Category> columnaCategoria = new TableColumn<>("Categoría");
-        TableColumn<Charge, LocalDate> columnaFecha = new TableColumn<>("Fecha");
-        TableColumn<Charge, Double> columnaCoste = new TableColumn<>("Coste");
-        TableColumn<Charge, Integer> columnaUnidades = new TableColumn<>("Unidades");
-
-        // Asignar las propiedades de las entidades a las columnas
-        columnaNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        columnaCategoria.setCellValueFactory(new PropertyValueFactory<>("categoria"));
-        columnaFecha.setCellValueFactory(new PropertyValueFactory<>("fecha"));
-        columnaCoste.setCellValueFactory(new PropertyValueFactory<>("Coste"));
-        columnaDescripcion.setCellValueFactory(new PropertyValueFactory<>("concepto"));
-        columnaUnidades.setCellValueFactory(new PropertyValueFactory<>("unidades"));
-
-        // Agregar las columnas a la tabla
-        tablaTemporal.getColumns().addAll(columnaNombre, columnaDescripcion, columnaCategoria, columnaFecha,
-                columnaCoste, columnaUnidades);
-
-        // Copiar los datos de la TableView original a la tabla temporal
-        tablaTemporal.setItems(Gastos.getItems());
-
-        return tablaTemporal;
     }
 
 }

@@ -142,16 +142,9 @@ public class PerfilController implements Initializable {
     @FXML
     private void GuardarCambios(ActionEvent event) throws AcountDAOException, IOException {
 
-        Image img;
-        if (Avatar == null) {
-            img = new Image("/avatars/default.png");
-        } else {
-            img = logged.getImage();
-        }
-
         logged.setName(Name.getText());
         logged.setSurname(SurName.getText());
-        logged.setImage(img);
+        logged.setImage(avatar.getImage());
         logged.setEmail(Email.getText());
         logged.setPassword(Pass.getText());
 

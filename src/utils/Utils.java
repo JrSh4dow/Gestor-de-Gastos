@@ -42,10 +42,10 @@ public class Utils {
         try {
             FileChooser fileChooser = new FileChooser();
             fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Imágenes", "*.png", "*.jpg"));
-
+            File initialDirectory = new File(System.getProperty("user.home") + "/Downloads");
+            fileChooser.setInitialDirectory(initialDirectory);
             // Mostrar el diálogo de selección de archivos
-            File file;
-            file = fileChooser.showOpenDialog(n);
+            File file = fileChooser.showOpenDialog(n);
             if (file != null) {
                 // Convertir la ruta del archivo a una URL y cargar la imagen
                 return file.toURI().toString();
@@ -64,6 +64,23 @@ public class Utils {
         }
         // Regex to check valid password.
         String regex = "^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\\s]+$";
+
+        // Compile the ReGex
+        Pattern pattern = Pattern.compile(regex);
+        // Match ReGex with value to check
+        Matcher matcher = pattern.matcher(n);
+        return matcher.matches();
+
+    }
+
+    public static Boolean checkDigit(String n) {
+
+        // If the password is empty , return false
+        if (n == null) {
+            return false;
+        }
+        // Regex to check valid password.
+        String regex = "^\\d+(\\.\\d+)?$";
 
         // Compile the ReGex
         Pattern pattern = Pattern.compile(regex);
@@ -98,6 +115,7 @@ public class Utils {
     }
 
     static Tooltip tooltip = new Tooltip("Formato no válido");
+    static Tooltip vacio = new Tooltip("Campo vacio");
 
     public static void error(TextField n) {
         n.styleProperty().setValue("-fx-background-color: #EC7063");
@@ -121,9 +139,9 @@ public class Utils {
         List<Charge> charges = Acount.getInstance().getUserCharges();
         for (Charge charge : charges) {
             if (charge.getCategory().getName().equals(cat.getName())) {
-                elem+=1;
+                elem += 1;
             }
         }
-        return elem>0;
+        return elem > 0;
     }
 }

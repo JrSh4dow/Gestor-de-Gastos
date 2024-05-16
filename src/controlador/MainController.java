@@ -11,14 +11,18 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -45,8 +49,9 @@ public class MainController implements Initializable {
     private ChoiceBox<String> fecha;
     @FXML
     private Button AplicarFiltro;
-
     @FXML
+    private Button opcionesAvanzadas;
+
     public void initialize(URL url, ResourceBundle rb) {
         List<Category> categories;
         List<Charge> charges;
@@ -161,6 +166,32 @@ public class MainController implements Initializable {
 
         // Muestra el resultado en TotalGastos
         TotalGastos.setText(String.format("Total de gastos: %.2f", totalGastos));
+    }
+
+    @FXML
+    private void Vercategorias(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/VerCategorias.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("VER CATEGORIAS");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.showAndWait();
+    }
+
+    @FXML
+    private void OpcionesAvanzadas(ActionEvent event) throws IOException {
+        FXMLLoader miCargador = new FXMLLoader(CargaVistas.class.getResource("../vista/OpcionesAvanzadas.fxml"));
+        Parent root = miCargador.load();
+        Stage mainStage = new Stage();
+        mainStage.setScene(new Scene(root));
+        mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
+        mainStage.setTitle("VER CATEGORIAS");
+        mainStage.setResizable(false);
+        mainStage.initModality(Modality.APPLICATION_MODAL);
+        mainStage.showAndWait();
     }
 
 }

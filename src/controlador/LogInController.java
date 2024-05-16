@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -34,13 +36,18 @@ public class LogInController implements Initializable {
 
     @FXML
     private Button botonVolver;
-
+    private BooleanProperty validPassword;
+    private BooleanProperty validNick;
     /**
      * Initializes the controller class.
      */
     Acount acount;
 
     public void initialize(URL url, ResourceBundle rb) {
+        validNick = new SimpleBooleanProperty();
+        validPassword = new SimpleBooleanProperty();
+        validPassword.setValue(Boolean.FALSE);
+        validNick.setValue(Boolean.FALSE);
         try {
             acount = Acount.getInstance();
 
@@ -59,6 +66,7 @@ public class LogInController implements Initializable {
 
                                     } else {
                                         Utils.correct(nickName);
+                                        validNick.setValue(Boolean.TRUE);
                                     }
                                 }
                             });
@@ -69,7 +77,8 @@ public class LogInController implements Initializable {
         }
 
         // Inicialmente, el botón Aceptar está deshabilitado
-        Aceptar.setDisable(true);
+        Aceptar.disableProperty().bind(validNick.not().or(validPassword.not()));
+
         pass.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue && !pass.getText().isEmpty()) { // focus lost.
@@ -78,7 +87,7 @@ public class LogInController implements Initializable {
                             Utils.error(pass);
                         } else {
                             Utils.correct(pass);
-                            Aceptar.setDisable(false);
+                            validPassword.setValue(Boolean.TRUE);
                         }
                     }
                 });
