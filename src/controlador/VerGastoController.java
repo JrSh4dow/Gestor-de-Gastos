@@ -206,7 +206,7 @@ public class VerGastoController implements Initializable {
             // Mostrar un diálogo de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar Gasto");
-            alert.setHeaderText("¿Estás seguro de que deseas eliminar este gasto?");
+            alert.setHeaderText("¿Estás seguro de que deseas eliminar el gasto : '" + gastoSeleccionado.getName() + "' ?");
             alert.setContentText("Esta acción no se puede deshacer.");
 
             // Obtener la respuesta del usuario
