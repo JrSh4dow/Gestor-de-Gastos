@@ -5,12 +5,17 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -18,6 +23,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Callback;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -53,6 +59,13 @@ public class ModificarGastoController implements Initializable {
     private Button GuardarCambios;
     private Charge act;
 
+    private BooleanProperty validName;
+    private BooleanProperty validDescripcion;
+    private BooleanProperty validFecha;
+    private BooleanProperty validCoste;
+    private BooleanProperty validUnidade;
+    private BooleanProperty validCategory;
+
     public void initGasto(Charge c) {
         this.act = c;
         // Aqui hay que inicializar con los campos del gasto seleccionado
@@ -73,6 +86,107 @@ public class ModificarGastoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        validCategory = new SimpleBooleanProperty();
+        validCoste = new SimpleBooleanProperty();
+        validDescripcion = new SimpleBooleanProperty();
+        validName = new SimpleBooleanProperty();
+        validFecha = new SimpleBooleanProperty();
+        validUnidade = new SimpleBooleanProperty();
+        validCategory.setValue(Boolean.TRUE);
+        validCoste.setValue(Boolean.TRUE);
+        validDescripcion.setValue(Boolean.TRUE);
+        validFecha.setValue(Boolean.TRUE);
+        validName.setValue(Boolean.TRUE);
+        validUnidade.setValue(Boolean.TRUE);
+        NameGasto.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (NameGasto.getText().isEmpty()) {
+                            Utils.error(NameGasto);
+                            validName.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(NameGasto);
+                            validName.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        DescriptionGasto.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (DescriptionGasto.getText().isEmpty()) {
+                            Utils.error(DescriptionGasto);
+                            validDescripcion.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(DescriptionGasto);
+                            validDescripcion.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        CosteGasto.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (CosteGasto.getText().isEmpty() || !Utils.checkDigit(CosteGasto.getText())) {
+                            Utils.error(CosteGasto);
+                            validCoste.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(CosteGasto);
+                            validCoste.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        UnidadeGasto.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (NameGasto.getText().isEmpty() || !Utils.checkDigit(UnidadeGasto.getText())) {
+                            Utils.error(UnidadeGasto);
+                            validUnidade.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(UnidadeGasto);
+                            validUnidade.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        // Agregar listener al ChoiceBox
+        CategoriaGasto.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                validCategory.setValue(Boolean.TRUE);
+            }
+        });
+
+        // Agregar listener al DatePicker
+        FechaGasto.valueProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                validFecha.setValue(Boolean.TRUE);
+            }
+        });
+        NameGasto.requestFocus();
+
+        LocalDate minDate = LocalDate.of(2022, 1, 1);
+        LocalDate maxDate = LocalDate.now();
+        // formatear las fechas
+        FechaGasto.setDayCellFactory(new Callback<DatePicker, DateCell>() {
+            @Override
+            public DateCell call(final DatePicker datePicker) {
+                return new DateCell() {
+                    @Override
+                    public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+
+                        if (item.isBefore(minDate) || item.isAfter(maxDate)) {
+                            setDisable(true);
+                            setStyle("-fx-background-color: #ffc0cb;"); // Color rosa para las fechas deshabilitadas
+                        }
+                    }
+                };
+            }
+        });
+        GuardarCambios.disableProperty().bind(validCategory.not().or(validCoste.not()
+                .or(validName.not().or(validDescripcion.not().or(validFecha.not().or(validUnidade.not()))))));
+
         try {
             llenarChoiceBoxConCategorias();
         } catch (AcountDAOException e) {
@@ -109,13 +223,6 @@ public class ModificarGastoController implements Initializable {
         String categoriaSeleccionada = CategoriaGasto.getValue();
         LocalDate fechaGasto = FechaGasto.getValue();
         Image imagenFactura = Factura.getImage();
-
-        // Verificar si se han ingresado todos los datos obligatorios
-        if (nombreGasto.isEmpty() || costeGasto <= 0 || unidadesGasto <= 0 || categoriaSeleccionada == null
-                || fechaGasto == null) {
-            Utils.mostrarAlerta("Por favor, complete todos los campos obligatorios.");
-            return;
-        }
 
         // Obtener la categoría seleccionada por su nombre
         Acount account = Acount.getInstance();

@@ -53,6 +53,7 @@ public class MainController implements Initializable {
     private Button opcionesAvanzadas;
 
     public void initialize(URL url, ResourceBundle rb) {
+        AplicarFiltro.setDisable(true);
         List<Category> categories;
         List<Charge> charges;
         ObservableList<PieChart.Data> pieChartData;
@@ -78,8 +79,12 @@ public class MainController implements Initializable {
         ObservableList<String> options = FXCollections.observableArrayList("Último mes", "Últimos 2 meses",
                 "Últimos 3 meses", "Últimos 6 meses");
         fecha.setItems(options);
-        // Agrega un listener al ChoiceBox para manejar el evento de selección
-        // fecha.setOnAction(event -> filtrarGastos());
+        // Agregar listener al ChoiceBox
+        fecha.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                AplicarFiltro.setDisable(false);
+            }
+        });
         AplicarFiltro.setOnAction(event -> {
             try {
                 filtrarGastos();

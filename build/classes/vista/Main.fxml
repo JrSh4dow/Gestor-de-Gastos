@@ -67,7 +67,7 @@
                   <Font name="FiraCode Nerd Font Bold" size="24.0" />
                </font>
             </Text>
-            <HBox alignment="BASELINE_CENTER" spacing="30.0">
+            <HBox alignment="TOP_CENTER" spacing="30.0">
                <children>
                   <PieChart fx:id="Pie" legendSide="LEFT" minWidth="216.4" styleClass="Vbox" />
                   <VBox alignment="CENTER" spacing="40.0">

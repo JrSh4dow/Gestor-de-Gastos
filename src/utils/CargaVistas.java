@@ -80,7 +80,7 @@ public class CargaVistas {
         AñadirCategoriaController controller = miCargador.getController();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("AÑDIR CATEGORIA");
+        mainStage.setTitle("AÑADIR CATEGORIA");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();
@@ -95,7 +95,7 @@ public class CargaVistas {
         controller.init(act);
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("AÑDIR CATEGORIA");
+        mainStage.setTitle("MODIFICAR CATEGORIA");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.showAndWait();

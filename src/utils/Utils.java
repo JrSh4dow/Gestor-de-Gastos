@@ -11,6 +11,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.stage.FileChooser;
@@ -115,7 +116,6 @@ public class Utils {
     }
 
     static Tooltip tooltip = new Tooltip("Formato no válido");
-    static Tooltip vacio = new Tooltip("Campo vacio");
 
     public static void error(TextField n) {
         n.styleProperty().setValue("-fx-background-color: #EC7063");
@@ -129,7 +129,24 @@ public class Utils {
 
     }
 
+    public static void error(TextArea n) {
+        n.styleProperty().setValue("-fx-background-color: #EC7063");
+        // Asociar el Tooltip con el TextField
+        n.setTooltip(tooltip);
+        tooltip.setStyle("-fx-background-color: #ea4343; -fx-text-fill: white");
+        Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
+                n.getLayoutBounds().getMaxY()); // Posición del TextField
+        tooltip.show(n, p.getX(), p.getY());
+        n.requestFocus();
+
+    }
+
     public static void correct(TextField n) {
+        n.styleProperty().setValue("-fx-background-color: #ffffff");
+        tooltip.hide();
+    }
+
+    public static void correct(TextArea n) {
         n.styleProperty().setValue("-fx-background-color: #ffffff");
         tooltip.hide();
     }

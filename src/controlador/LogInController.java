@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -38,10 +39,20 @@ public class LogInController implements Initializable {
     private Button botonVolver;
     private BooleanProperty validPassword;
     private BooleanProperty validNick;
+
     /**
      * Initializes the controller class.
      */
     Acount acount;
+    private boolean passwordVisible = false;
+    @FXML
+    private TextField passHidden;
+    @FXML
+    private Button togglePasswordVisibility;
+    @FXML
+    private ImageView tick;
+    @FXML
+    private ImageView notick;
 
     public void initialize(URL url, ResourceBundle rb) {
         validNick = new SimpleBooleanProperty();
@@ -76,7 +87,6 @@ public class LogInController implements Initializable {
             e.printStackTrace();
         }
 
-        // Inicialmente, el botón Aceptar está deshabilitado
         Aceptar.disableProperty().bind(validNick.not().or(validPassword.not()));
 
         pass.focusedProperty()
@@ -91,6 +101,15 @@ public class LogInController implements Initializable {
                         }
                     }
                 });
+
+        if (passwordVisible) {
+            pass.setText(passHidden.getText());
+        } else {
+            passHidden.setText(pass.getText());
+        }
+        
+        tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
+        notick.setVisible(false);
 
     }
 
@@ -115,6 +134,40 @@ public class LogInController implements Initializable {
         Stage stage = (Stage) botonVolver.getScene().getWindow();
         stage.close();
         CargaVistas.INICIO();
+    }
+
+    @FXML
+    private void togglePasswordVisibility() {
+        // Si la contraseña está oculta, hacerla visible
+        if (passwordVisible) {
+            pass.setText(passHidden.getText());
+            pass.setManaged(true);
+            pass.setVisible(true);
+            passHidden.setManaged(false);
+            passHidden.setVisible(false);
+            tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
+            notick.setVisible(false); // Ocultar notick
+            passwordVisible = false;
+        } else { // Si la contraseña es visible, ocultarla
+            passHidden.setText(pass.getText());
+            passHidden.setManaged(true);
+            passHidden.setVisible(true);
+            pass.setManaged(false);
+            pass.setVisible(false);
+            tick.setVisible(false); // Ocultar tick
+            notick.setVisible(true); // Mostrar notick cuando se muestra el campo de contraseña
+            passwordVisible = true;
+        }
+        synchronizePasswords();
+    }
+
+    private void synchronizePasswords() {
+        // Sincronizar las contraseñas
+        if (passwordVisible) {
+            passHidden.setText(pass.getText());
+        } else {
+            pass.setText(passHidden.getText());
+        }
     }
 
 }

@@ -3,13 +3,16 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import model.Acount;
@@ -88,12 +91,21 @@ public class VerCategoriaController implements Initializable {
     @FXML
     private void eliminar(ActionEvent event) throws AcountDAOException, IOException {
         Category act = lista.getSelectionModel().getSelectedItem();
-        Boolean ok = Acount.getInstance().removeCategory(act);
-        if (ok) {
-            Utils.mostrarInfo("Categoria eliminada con éxito");
-            lista.getItems().clear();
-            List<Category> cat = Acount.getInstance().getUserCategories();
-            lista.getItems().addAll(cat);
+        // Mostrar un diálogo de confirmación
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Eliminar Categoria");
+        alert.setHeaderText("¿Estás seguro de que deseas eliminar la categoria : '" + act.getName() + "' ?");
+        alert.setContentText("Esta acción no se puede deshacer.");
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            Boolean ok = Acount.getInstance().removeCategory(act);
+            if (ok) {
+                Utils.mostrarInfo("Categoria eliminada con éxito");
+                lista.getItems().clear();
+                List<Category> cat = Acount.getInstance().getUserCategories();
+                lista.getItems().addAll(cat);
+            }
         }
         lista.refresh();
     }

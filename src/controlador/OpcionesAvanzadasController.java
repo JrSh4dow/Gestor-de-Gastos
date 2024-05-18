@@ -3,7 +3,9 @@ package controlador;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 import javafx.beans.property.SimpleDoubleProperty;
@@ -13,6 +15,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.BarChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -46,7 +49,7 @@ public class OpcionesAvanzadasController implements Initializable {
     @FXML
     private TableView<Category> TablaMesElegido;
     @FXML
-    private BarChart<Integer, Double> Grafica;
+    private BarChart<String, Double> Grafica;
     @FXML
     private TableColumn<Category, String> CategoriaMesActual;
     @FXML
@@ -71,11 +74,11 @@ public class OpcionesAvanzadasController implements Initializable {
             public void handle(ActionEvent event) {
                 elegida = FechaElegida.getValue();
                 TotalMesElegido.setText("Total: " + TotalGastado(elegida) + " €");
-                ColumnaTotalMesElegido
-                        .setCellValueFactory(
-                                cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), elegida)).asObject());
+                ColumnaTotalMesElegido.setCellValueFactory(
+                        cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), elegida)).asObject());
                 TablaMesElegido.getItems().clear();
                 TablaMesElegido.getItems().addAll(categories);
+                actualizarGrafica();
             }
         });
         LocalDate minDate = LocalDate.of(2022, 1, 1);
@@ -105,14 +108,46 @@ public class OpcionesAvanzadasController implements Initializable {
         }
         CategoriaMesActual.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
         CategoriaMesElegido.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().getName()));
-        ColumnaTotalMesActual
-                .setCellValueFactory(
-                        cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), actual)).asObject());
+        ColumnaTotalMesActual.setCellValueFactory(
+                cellData -> new SimpleDoubleProperty(Totales(cellData.getValue(), actual)).asObject());
         Tip.setShowDelay(Duration.ZERO);
         TablaMesActual.getItems().addAll(categories);
         TablaMesElegido.getItems().addAll(categories);
 
         TotalMesActual.setText("Total: " + TotalGastado(actual) + " €");
+        configurarGrafica();
+    }
+
+    private void configurarGrafica() {
+        Grafica.getXAxis().setLabel("Mes");
+        Grafica.getYAxis().setLabel("Total Gastado (€)");
+    }
+
+    @SuppressWarnings("unchecked")
+    private void actualizarGrafica() {
+        Grafica.getData().clear();
+
+        // Obtener los totales para el mes actual y el mes elegido
+        double totalMesActual = TotalGastado(actual);
+        double totalMesElegido = TotalGastado(elegida);
+
+        // Crear series de datos para la gráfica
+        XYChart.Series<String, Double> seriesActual = new XYChart.Series<>();
+        seriesActual.setName("Mes Actual");
+
+        XYChart.Series<String, Double> seriesElegido = new XYChart.Series<>();
+        seriesElegido.setName(elegida.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault())); // Nombre del mes
+                                                                                                       // elegido
+
+        // Agregar datos para el mes actual y el mes elegido a las series
+        seriesActual.getData().add(new XYChart.Data<>("Actual", totalMesActual));
+        seriesElegido.getData().add(new XYChart.Data<>("Elegido", totalMesElegido));
+
+        // Agregar las series a la gráfica
+        Grafica.getData().addAll(seriesActual, seriesElegido);
+
+        // Cambiar color de las barras del mes elegido a azul
+        Grafica.lookup(".data" + 1 + ".chart-bar").setStyle("-fx-bar-fill: blue;");
     }
 
     public static double Totales(Category cat, LocalDate m) {
