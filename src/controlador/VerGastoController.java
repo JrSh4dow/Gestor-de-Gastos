@@ -195,7 +195,6 @@ public class VerGastoController implements Initializable {
     }
 
     // Para eliminar un gasto de la base de datos
-    @SuppressWarnings("unused")
     @FXML
     private void EliminarGasto(ActionEvent event) throws AcountDAOException, IOException {
         // Obtener el gasto seleccionado en la TableView
@@ -206,7 +205,8 @@ public class VerGastoController implements Initializable {
             // Mostrar un diálogo de confirmación
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar Gasto");
-            alert.setHeaderText("¿Estás seguro de que deseas eliminar el gasto : '" + gastoSeleccionado.getName() + "' ?");
+            alert.setHeaderText(
+                    "¿Estás seguro de que deseas eliminar el gasto : '" + gastoSeleccionado.getName() + "' ?");
             alert.setContentText("Esta acción no se puede deshacer.");
 
             // Obtener la respuesta del usuario

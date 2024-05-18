@@ -4,8 +4,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -14,7 +18,7 @@ import model.Acount;
 import model.AcountDAOException;
 import utils.Utils;
 
-public class AñadirCategoriaController {
+public class AñadirCategoriaController implements Initializable {
 
     @FXML
     private TextArea DescriptionCategoria;
@@ -25,13 +29,45 @@ public class AñadirCategoriaController {
     @FXML
     private Button añadirCategoria;
     private Boolean ok;
+    private BooleanProperty validName;
+    private BooleanProperty validDescripcion;
 
     /**
      * Initializes the controller class.
      */
     public void initialize(URL url, ResourceBundle rb) {
-        // Algo
         NameCategoria.requestFocus();
+
+        validDescripcion = new SimpleBooleanProperty(false);
+        validName = new SimpleBooleanProperty(false);
+
+        DescriptionCategoria.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (DescriptionCategoria.getText().isEmpty()) {
+                            Utils.error(DescriptionCategoria);
+                        } else {
+                            Utils.correct(DescriptionCategoria);
+                            validDescripcion.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        NameCategoria.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (NameCategoria.getText().isEmpty()) {
+                            Utils.error(NameCategoria);
+                        } else {
+                            Utils.correct(NameCategoria);
+                            validDescripcion.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));
+
+        // Algo
         ok = false;
     }
 
@@ -68,8 +104,6 @@ public class AñadirCategoriaController {
             } else {
                 Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
             }
-        } else {
-            Utils.mostrarAlerta("Por favor rellena los campos obligatorios");
         }
 
     }

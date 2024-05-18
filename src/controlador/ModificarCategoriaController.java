@@ -2,6 +2,10 @@ package controlador;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -28,12 +32,49 @@ public class ModificarCategoriaController implements Initializable {
     private Button añadirCategoria;
     @FXML
     private TextArea DescriptionCategoria;
+    private BooleanProperty validName;
+    private BooleanProperty validDescripcion;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        NameCategoria.requestFocus();
+
+        validDescripcion = new SimpleBooleanProperty();
+        validName = new SimpleBooleanProperty();
+
+        validName.setValue(Boolean.TRUE);
+        validDescripcion.setValue(Boolean.TRUE);
+
+        DescriptionCategoria.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (DescriptionCategoria.getText().isEmpty()) {
+                            Utils.error(DescriptionCategoria);
+                            validDescripcion.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(DescriptionCategoria);
+                            validDescripcion.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        NameCategoria.focusedProperty()
+                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
+                    if (!newValue) { // focus lost.
+
+                        if (NameCategoria.getText().isEmpty()) {
+                            Utils.error(NameCategoria);
+                            validName.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(NameCategoria);
+                            validDescripcion.setValue(Boolean.TRUE);
+                        }
+                    }
+                });
+        añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));
     }
 
     private Category act;
@@ -59,8 +100,6 @@ public class ModificarCategoriaController implements Initializable {
             act.setName(nombreCategoria);
             act.setDescription(descripcionCategoria);
             Utils.mostrarInfo("Categoria modificada con éxito");
-        } else {
-            Utils.mostrarAlerta("Por favor rellena los campos obligatorios");
         }
         Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
         mainStage2.close();

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,20 +53,29 @@ public class PerfilController implements Initializable {
     private Button guardarCambios;
     @FXML
     Text data;
+    private BooleanProperty validPassword;
+    private BooleanProperty validEmail;
+    private BooleanProperty validName;
+    private BooleanProperty validSurname;
 
     public void initialize(URL url, ResourceBundle rb) {
+        validPassword = new SimpleBooleanProperty(true);
+        validEmail = new SimpleBooleanProperty(true);
+        validName = new SimpleBooleanProperty(true);
+        validSurname = new SimpleBooleanProperty(true);
+
         establecer();
-        // Inicialmente, el botón Aceptar está deshabilitado
-        guardarCambios.setDisable(true);
+
         Pass.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
                         String t = Pass.getText();
                         if (!User.checkPassword(t)) {
                             Utils.error(Pass);
+                            validPassword.setValue(false);
                         } else {
                             Utils.correct(Pass);
-                            guardarCambios.setDisable(false);
+                            validPassword.setValue(true);
                         }
                     }
                 });
@@ -75,8 +86,10 @@ public class PerfilController implements Initializable {
                         String t = Name.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(Name);
+                            validName.setValue(false);
                         } else {
                             Utils.correct(Name);
+                            validName.setValue(true);
                         }
                     }
                 });
@@ -86,8 +99,10 @@ public class PerfilController implements Initializable {
                         String t = SurName.getText();
                         if (!Utils.checkNames(t)) {
                             Utils.error(SurName);
+                            validSurname.setValue(false);
                         } else {
                             Utils.correct(SurName);
+                            validSurname.setValue(true);
                         }
                     }
                 });
@@ -97,11 +112,15 @@ public class PerfilController implements Initializable {
                         String t = Email.getText();
                         if (!User.checkEmail(t)) {
                             Utils.error(Email);
+                            validEmail.setValue(false);
                         } else {
                             Utils.correct(Email);
+                            validEmail.setValue(true);
                         }
                     }
                 });
+        guardarCambios.disableProperty().bind((validPassword.not()
+                .or(validName.not().or(validSurname.not().or(validEmail.not())))));
     }
 
     public void establecer() {
