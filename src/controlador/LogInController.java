@@ -70,6 +70,7 @@ public class LogInController implements Initializable {
                                     String t = nickName.getText();
                                     if (!User.checkNickName(t)) {
                                         Utils.error(nickName);
+                                        validNick.setValue(Boolean.FALSE);
                                     } else if (!acount.existsLogin(nickName.getText())) {
                                         Utils.mostrarError("No existe el nickname. Por favor regístrate");
                                         nickName.clear();
@@ -95,6 +96,7 @@ public class LogInController implements Initializable {
                         String t = pass.getText();
                         if (!User.checkPassword(t)) {
                             Utils.error(pass);
+                            validPassword.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(pass);
                             validPassword.setValue(Boolean.TRUE);
@@ -107,7 +109,7 @@ public class LogInController implements Initializable {
         } else {
             passHidden.setText(pass.getText());
         }
-        
+
         tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
         notick.setVisible(false);
 
