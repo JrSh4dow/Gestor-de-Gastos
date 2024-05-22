@@ -11,13 +11,16 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.User;
@@ -61,6 +64,10 @@ public class SignUpController implements Initializable {
     private BooleanProperty validEmail;
     private BooleanProperty validName;
     private BooleanProperty validSurname;
+    @FXML
+    private Tooltip m;
+    @FXML
+    private Tooltip a;
 
     /**
      * Initializes the controller class.
@@ -83,6 +90,7 @@ public class SignUpController implements Initializable {
         avatar.setImage(new Image(image));
 
         try {
+            m.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
             acount = Acount.getInstance();
 
             // Añadir un ChangeListener a los campos TextField
@@ -90,6 +98,7 @@ public class SignUpController implements Initializable {
                     .addListener(
                             (ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                                 if (!newValue) { // focus lost.
+                                    m.hide();
                                     String t = NickName.getText();
                                     if (!User.checkNickName(t)) {
                                         Utils.error(NickName);
@@ -102,7 +111,9 @@ public class SignUpController implements Initializable {
                                         Utils.correct(NickName);
                                         validNick.setValue(Boolean.TRUE);
                                     }
-                                }
+                                }else{Point2D p = NickName.localToScreen(NickName.getLayoutBounds().getMaxX(),
+                NickName.getLayoutBounds().getMaxY()); // Posición del TextField
+        m.show(NickName, p.getX(), p.getY());}
                             });
         } catch (AcountDAOException e) {
             e.printStackTrace();
@@ -114,6 +125,7 @@ public class SignUpController implements Initializable {
         Pass.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
+                        a.hide();
                         String t = Pass.getText();
                         if (!User.checkPassword(t)) {
                             Utils.error(Pass);
@@ -121,7 +133,9 @@ public class SignUpController implements Initializable {
                             Utils.correct(Pass);
                             validPassword.setValue(Boolean.TRUE);
                         }
-                    }
+                    }else{Point2D p = Pass.localToScreen(Pass.getLayoutBounds().getMaxX(),
+                Pass.getLayoutBounds().getMaxY()); // Posición del TextField
+        a.show(Pass, p.getX(), p.getY());}
                 });
         Rpass.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {

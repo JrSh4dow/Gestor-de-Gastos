@@ -14,12 +14,14 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.User;
@@ -57,8 +59,13 @@ public class PerfilController implements Initializable {
     private BooleanProperty validEmail;
     private BooleanProperty validName;
     private BooleanProperty validSurname;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip a;
 
     public void initialize(URL url, ResourceBundle rb) {
+        c.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
         validPassword = new SimpleBooleanProperty(true);
         validEmail = new SimpleBooleanProperty(true);
         validName = new SimpleBooleanProperty(true);

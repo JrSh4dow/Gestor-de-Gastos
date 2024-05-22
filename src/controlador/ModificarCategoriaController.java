@@ -13,7 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Category;
 import utils.Utils;
 
@@ -34,12 +36,17 @@ public class ModificarCategoriaController implements Initializable {
     private TextArea DescriptionCategoria;
     private BooleanProperty validName;
     private BooleanProperty validDescripcion;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip m;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        c.setShowDelay(Duration.ZERO);m.setShowDelay(Duration.ZERO);
         NameCategoria.requestFocus();
 
         validDescripcion = new SimpleBooleanProperty();

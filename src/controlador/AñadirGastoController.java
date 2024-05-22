@@ -20,12 +20,14 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -71,8 +73,13 @@ public class AñadirGastoController implements Initializable {
     private BooleanProperty validCoste;
     private BooleanProperty validUnidade;
     private BooleanProperty validCategory;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip a;
 
     public void initialize(URL url, ResourceBundle rb) {
+        c.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
         validCategory = new SimpleBooleanProperty();
         validCoste = new SimpleBooleanProperty();
         validDescripcion = new SimpleBooleanProperty();

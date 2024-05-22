@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -14,7 +15,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Caja" prefHeight="450.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
+<BorderPane fx:id="Caja" minWidth="450.0" prefHeight="450.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
@@ -130,7 +131,10 @@
                         <Image url="@../icons/editar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tipm" fx:id="m" autoHide="true" text="Modificar gasto" wrapText="true" />
+               </tooltip></Button>
             <Button id="buttone" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -138,7 +142,14 @@
                         <Image url="@../icons/eliminar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Eliminar gasto" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip></Button>
             <Button id="button" fx:id="imprimirGastos" mnemonicParsing="false" onAction="#ImprimirGastos">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -147,6 +158,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <tooltip>
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Imprimir historial gastos" wrapText="true" />
+               </tooltip>
             </Button>
          </children>
          <BorderPane.margin>

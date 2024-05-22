@@ -58,6 +58,8 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private Button GuardarCambios;
     private Charge act;
+    @FXML
+    private TextField Idfield;
 
     private BooleanProperty validName;
     private BooleanProperty validDescripcion;
@@ -69,6 +71,7 @@ public class ModificarGastoController implements Initializable {
     public void initGasto(Charge c) {
         this.act = c;
         // Aqui hay que inicializar con los campos del gasto seleccionado
+        Idfield.setText(String.valueOf(act.getId()));
         NameGasto.setText(act.getName());
         DescriptionGasto.setText(act.getDescription());
         CosteGasto.setText(String.valueOf(act.getCost()));

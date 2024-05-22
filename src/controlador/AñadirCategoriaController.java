@@ -13,7 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import utils.Utils;
@@ -31,11 +33,16 @@ public class AñadirCategoriaController implements Initializable {
     private Boolean ok;
     private BooleanProperty validName;
     private BooleanProperty validDescripcion;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip a;
 
     /**
      * Initializes the controller class.
      */
     public void initialize(URL url, ResourceBundle rb) {
+        c.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
         NameCategoria.requestFocus();
 
         validDescripcion = new SimpleBooleanProperty(false);

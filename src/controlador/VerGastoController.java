@@ -27,12 +27,14 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -79,12 +81,21 @@ public class VerGastoController implements Initializable {
     private Button imprimirGastos;
     @FXML
     private TableColumn<Charge, LocalDate> FechaGasto;
+    @FXML
+    private Tooltip m;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip a;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        a.setShowDelay(Duration.ZERO);
+        m.setShowDelay(Duration.ZERO);
+        c.setShowDelay(Duration.ZERO);
         eliminarGasto.setDisable(true);
         modificarGasto.setDisable(true);
         Gastos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
@@ -191,6 +202,7 @@ public class VerGastoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(VerGastoController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
         Gastos.refresh();
     }
 
@@ -203,12 +215,17 @@ public class VerGastoController implements Initializable {
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
             // Mostrar un diálogo de confirmación
+            String css = this.getClass().getResource("/estilos/Alert.css").toExternalForm();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar Gasto");
             alert.setHeaderText(
                     "¿Estás seguro de que deseas eliminar el gasto : '" + gastoSeleccionado.getName() + "' ?");
             alert.setContentText("Esta acción no se puede deshacer.");
-
+            alert.getDialogPane().getStylesheets().add(css);
+            alert.getDialogPane().getStyleClass().add("custom-alert");
+            // Establecer una imagen como icono para la ventana de la alerta
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
             // Obtener la respuesta del usuario
             Optional<ButtonType> result = alert.showAndWait();
 
@@ -230,6 +247,10 @@ public class VerGastoController implements Initializable {
                     successAlert.setTitle("Éxito");
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("El gasto se ha eliminado correctamente.");
+                    successAlert.getDialogPane().getStylesheets().add(css);
+                    successAlert.getDialogPane().getStyleClass().add("custom-alert");
+                    stage = (Stage) successAlert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
                     successAlert.showAndWait();
                     if (!Utils.exist(act)) {
                         Acount.getInstance().removeCategory(act);
@@ -240,10 +261,15 @@ public class VerGastoController implements Initializable {
                     errorAlert.setTitle("Error");
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText("No se pudo eliminar el gasto.");
+                    errorAlert.getDialogPane().getStylesheets().add(css);
+                    errorAlert.getDialogPane().getStyleClass().add("custom-alert");
                     errorAlert.showAndWait();
+                    stage = (Stage) errorAlert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
                 }
             }
         }
+        Gastos.getSelectionModel().clearSelection();
         Gastos.refresh();
     }
 
@@ -288,6 +314,7 @@ public class VerGastoController implements Initializable {
             Gastos.getItems().addAll(gastos);
 
         }
+        Gastos.getSelectionModel().clearSelection();
     }
 
     @FXML

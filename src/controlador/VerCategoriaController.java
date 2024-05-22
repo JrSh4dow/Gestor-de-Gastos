@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +16,11 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -36,12 +42,19 @@ public class VerCategoriaController implements Initializable {
     private Button Modificar;
     @FXML
     private Button Eliminar;
+    @FXML
+    private Tooltip a;
+    @FXML
+    private Tooltip m;
+    @FXML
+    private Tooltip c;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        a.setShowDelay(Duration.ZERO);c.setShowDelay(Duration.ZERO);m.setShowDelay(Duration.ZERO);
         Eliminar.setDisable(true);
         Modificar.setDisable(true);
         Añadir.setDisable(false);
@@ -65,6 +78,7 @@ public class VerCategoriaController implements Initializable {
                 Modificar.setDisable(true);
             }
         });
+        
     }
 
     @FXML
@@ -84,6 +98,7 @@ public class VerCategoriaController implements Initializable {
         lista.getItems().clear();
         List<Category> cat = Acount.getInstance().getUserCategories();
         lista.getItems().addAll(cat);
+        lista.getSelectionModel().clearSelection();
         lista.refresh();
 
     }
@@ -92,10 +107,15 @@ public class VerCategoriaController implements Initializable {
     private void eliminar(ActionEvent event) throws AcountDAOException, IOException {
         Category act = lista.getSelectionModel().getSelectedItem();
         // Mostrar un diálogo de confirmación
+        String css = this.getClass().getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Eliminar Categoria");
         alert.setHeaderText("¿Estás seguro de que deseas eliminar la categoria : '" + act.getName() + "' ?");
         alert.setContentText("Esta acción no se puede deshacer.");
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
@@ -107,6 +127,7 @@ public class VerCategoriaController implements Initializable {
                 lista.getItems().addAll(cat);
             }
         }
+        lista.getSelectionModel().clearSelection();
         lista.refresh();
     }
 
