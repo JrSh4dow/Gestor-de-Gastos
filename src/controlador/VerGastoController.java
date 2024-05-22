@@ -237,6 +237,8 @@ public class VerGastoController implements Initializable {
                     successAlert.setContentText("El gasto se ha eliminado correctamente.");
                     successAlert.getDialogPane().getStylesheets().add(css);
                     successAlert.getDialogPane().getStyleClass().add("custom-alert");
+                    stage = (Stage) successAlert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
                     successAlert.showAndWait();
                     if (!Utils.exist(act)) {
                         Acount.getInstance().removeCategory(act);
@@ -250,6 +252,8 @@ public class VerGastoController implements Initializable {
                     errorAlert.getDialogPane().getStylesheets().add(css);
                     errorAlert.getDialogPane().getStyleClass().add("custom-alert");
                     errorAlert.showAndWait();
+                    stage = (Stage) errorAlert.getDialogPane().getScene().getWindow();
+                    stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
                 }
             }
         }

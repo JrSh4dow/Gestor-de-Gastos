@@ -100,26 +100,41 @@ public class Utils {
     }
 
     public static void mostrarAlerta(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Información");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
     public static void mostrarError(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
     public static void mostrarInfo(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información");
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
