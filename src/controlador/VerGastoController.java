@@ -204,10 +204,13 @@ public class VerGastoController implements Initializable {
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
             // Mostrar un diálogo de confirmación
+            String css = this.getClass().getResource("/estilos/Alert.css").toExternalForm();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Eliminar Gasto");
             alert.setHeaderText("¿Estás seguro de que deseas eliminar el gasto : '" + gastoSeleccionado.getName() + "' ?");
             alert.setContentText("Esta acción no se puede deshacer.");
+            alert.getDialogPane().getStylesheets().add(css);
+            alert.getDialogPane().getStyleClass().add("custom-alert");
 
             // Obtener la respuesta del usuario
             Optional<ButtonType> result = alert.showAndWait();
@@ -230,6 +233,8 @@ public class VerGastoController implements Initializable {
                     successAlert.setTitle("Éxito");
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("El gasto se ha eliminado correctamente.");
+                    successAlert.getDialogPane().getStylesheets().add(css);
+                    successAlert.getDialogPane().getStyleClass().add("custom-alert");
                     successAlert.showAndWait();
                     if (!Utils.exist(act)) {
                         Acount.getInstance().removeCategory(act);
@@ -240,6 +245,8 @@ public class VerGastoController implements Initializable {
                     errorAlert.setTitle("Error");
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText("No se pudo eliminar el gasto.");
+                    errorAlert.getDialogPane().getStylesheets().add(css);
+                    errorAlert.getDialogPane().getStyleClass().add("custom-alert");
                     errorAlert.showAndWait();
                 }
             }

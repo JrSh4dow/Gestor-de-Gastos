@@ -92,10 +92,13 @@ public class VerCategoriaController implements Initializable {
     private void eliminar(ActionEvent event) throws AcountDAOException, IOException {
         Category act = lista.getSelectionModel().getSelectedItem();
         // Mostrar un diálogo de confirmación
+        String css = this.getClass().getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Eliminar Categoria");
         alert.setHeaderText("¿Estás seguro de que deseas eliminar la categoria : '" + act.getName() + "' ?");
         alert.setContentText("Esta acción no se puede deshacer.");
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {

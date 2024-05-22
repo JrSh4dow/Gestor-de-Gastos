@@ -12,8 +12,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
@@ -52,10 +54,13 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private Button GuardarCambios;
     private Charge act;
+    @FXML
+    private TextField Idfield;
 
     public void initGasto(Charge c) {
         this.act = c;
         // Aqui hay que inicializar con los campos del gasto seleccionado
+        Idfield.setText(String.valueOf(act.getId()));
         NameGasto.setText(act.getName());
         DescriptionGasto.setText(act.getDescription());
         CosteGasto.setText(String.valueOf(act.getCost()));

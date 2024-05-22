@@ -29,7 +29,7 @@ public class Utils {
     public static Boolean AcabarSesion() throws AcountDAOException, IOException {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Diálogo de confirmación");
-        alert.setHeaderText("Cabecera");
+        alert.setHeaderText("Cerrar sesión");
         alert.setContentText("¿Seguro que quieres cerrar sesión?");
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
