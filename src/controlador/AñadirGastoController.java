@@ -15,11 +15,13 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.converter.IntegerStringConverter;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -61,6 +63,8 @@ public class AñadirGastoController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         NameGasto.requestFocus();
+        applyFilter(CosteGasto);
+        applyFilter(UnidadeGasto);
         try {
             llenarChoiceBoxConCategorias();
         } catch (AcountDAOException | IOException e) {
@@ -185,7 +189,6 @@ public class AñadirGastoController implements Initializable {
             CargaVistas.INICIO();
         }
     }
-
     protected void llenarChoiceBoxConCategorias() throws AcountDAOException, IOException {
         Acount account = Acount.getInstance();
         List<Category> categorias = account.getUserCategories();
@@ -199,5 +202,21 @@ public class AñadirGastoController implements Initializable {
                 CategoriaGasto.getItems().add(categoria.getName());
             }
         }
+    }
+
+    // Método para aplicar un filtro numérico a un campo de texto
+    public static void applyFilter(TextField textField) {
+        // Crear un formateador de texto que solo acepte números enteros
+        TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), 0,
+                c -> {
+                    if (c.getControlNewText().matches("\\d*")) { // Solo permite dígitos
+                        return c;
+                    } else {
+                        return null; // Rechaza la entrada si no es un dígito
+                    }
+                });
+        
+        // Aplicar el formateador de texto al campo de texto
+        textField.setTextFormatter(textFormatter);
     }
 }

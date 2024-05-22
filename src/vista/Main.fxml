@@ -23,7 +23,7 @@
          <menus>
             <Menu mnemonicParsing="false" text="Acount">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
+                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
