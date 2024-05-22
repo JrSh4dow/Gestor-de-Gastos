@@ -211,7 +211,9 @@ public class VerGastoController implements Initializable {
             alert.setContentText("Esta acción no se puede deshacer.");
             alert.getDialogPane().getStylesheets().add(css);
             alert.getDialogPane().getStyleClass().add("custom-alert");
-
+            // Establecer una imagen como icono para la ventana de la alerta
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image("/imagenes/logo.jpeg")); // Reemplaza 'ruta/a/tu/imagen.png' con la ruta de tu imagen
             // Obtener la respuesta del usuario
             Optional<ButtonType> result = alert.showAndWait();
 

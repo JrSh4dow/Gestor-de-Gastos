@@ -13,7 +13,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import model.Acount;
 import model.AcountDAOException;
@@ -35,6 +37,8 @@ public class Utils {
     alert.setContentText("¿Seguro que quieres cerrar sesión?");
     alert.getDialogPane().getStylesheets().add(css);
     alert.getDialogPane().getStyleClass().add("custom-alert");
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
     Optional<ButtonType> result = alert.showAndWait();
     if (result.isPresent() && result.get() == ButtonType.OK) {
         return true;

@@ -15,6 +15,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -99,6 +101,8 @@ public class VerCategoriaController implements Initializable {
         alert.setContentText("Esta acción no se puede deshacer.");
         alert.getDialogPane().getStylesheets().add(css);
         alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.isPresent() && result.get() == ButtonType.OK) {
