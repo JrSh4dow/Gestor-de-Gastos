@@ -25,18 +25,23 @@ import model.Charge;
  * @author
  */
 public class Utils {
-
+    
     public static Boolean AcabarSesion() throws AcountDAOException, IOException {
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Diálogo de confirmación");
-        alert.setHeaderText("Cerrar sesión");
-        alert.setContentText("¿Seguro que quieres cerrar sesión?");
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            return true;
-        }
-        return false;
+    String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm(); // Mover la definición de css aquí
+    Alert alert = new Alert(AlertType.CONFIRMATION);
+    
+    alert.setTitle("Diálogo de confirmación");
+    alert.setHeaderText("Cerrar sesión");
+    alert.setContentText("¿Seguro que quieres cerrar sesión?");
+    alert.getDialogPane().getStylesheets().add(css);
+    alert.getDialogPane().getStyleClass().add("custom-alert");
+    Optional<ButtonType> result = alert.showAndWait();
+    if (result.isPresent() && result.get() == ButtonType.OK) {
+        return true;
     }
+    return false;
+    }
+
 
     public static String ElegirImagen(Window n) {
         try {
