@@ -7,7 +7,6 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -18,7 +17,6 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Acount;
@@ -54,7 +52,9 @@ public class VerCategoriaController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        a.setShowDelay(Duration.ZERO);c.setShowDelay(Duration.ZERO);m.setShowDelay(Duration.ZERO);
+        a.setShowDelay(Duration.ZERO);
+        c.setShowDelay(Duration.ZERO);
+        m.setShowDelay(Duration.ZERO);
         Eliminar.setDisable(true);
         Modificar.setDisable(true);
         Añadir.setDisable(false);
@@ -78,7 +78,7 @@ public class VerCategoriaController implements Initializable {
                 Modificar.setDisable(true);
             }
         });
-        
+
     }
 
     @FXML
