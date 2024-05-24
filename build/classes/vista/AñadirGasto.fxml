@@ -26,7 +26,7 @@
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Acount">
+            <Menu mnemonicParsing="false" text="Cuenta">
                <items>
                   <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
                      <accelerator>
