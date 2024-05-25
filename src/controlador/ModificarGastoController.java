@@ -101,32 +101,27 @@ public class ModificarGastoController implements Initializable {
         validFecha.setValue(Boolean.TRUE);
         validName.setValue(Boolean.TRUE);
         validUnidade.setValue(Boolean.TRUE);
-        NameGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
+        // Listener para NameGasto
+        NameGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(NameGasto);
+                validName.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(NameGasto);
+                validName.setValue(Boolean.TRUE);
+            }
+        });
 
-                        if (NameGasto.getText().isEmpty()) {
-                            Utils.error(NameGasto);
-                            validName.setValue(Boolean.FALSE);
-                        } else {
-                            Utils.correct(NameGasto);
-                            validName.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
-        DescriptionGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-
-                        if (DescriptionGasto.getText().isEmpty()) {
-                            Utils.error(DescriptionGasto);
-                            validDescripcion.setValue(Boolean.FALSE);
-                        } else {
-                            Utils.correct(DescriptionGasto);
-                            validDescripcion.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
+        // Listener para DescriptionGasto
+        DescriptionGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(DescriptionGasto);
+                validDescripcion.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(DescriptionGasto);
+                validDescripcion.setValue(Boolean.TRUE);
+            }
+        });
         CosteGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue) { // focus lost.

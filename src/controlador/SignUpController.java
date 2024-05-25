@@ -90,7 +90,8 @@ public class SignUpController implements Initializable {
         avatar.setImage(new Image(image));
 
         try {
-            m.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
+            m.setShowDelay(Duration.ZERO);
+            a.setShowDelay(Duration.ZERO);
             acount = Acount.getInstance();
 
             // Añadir un ChangeListener a los campos TextField
@@ -111,9 +112,11 @@ public class SignUpController implements Initializable {
                                         Utils.correct(NickName);
                                         validNick.setValue(Boolean.TRUE);
                                     }
-                                }else{Point2D p = NickName.localToScreen(NickName.getLayoutBounds().getMaxX(),
-                NickName.getLayoutBounds().getMaxY()); // Posición del TextField
-        m.show(NickName, p.getX(), p.getY());}
+                                } else {
+                                    Point2D p = NickName.localToScreen(NickName.getLayoutBounds().getMaxX(),
+                                            NickName.getLayoutBounds().getMaxY()); // Posición del TextField
+                                    m.show(NickName, p.getX(), p.getY());
+                                }
                             });
         } catch (AcountDAOException e) {
             e.printStackTrace();
@@ -122,55 +125,63 @@ public class SignUpController implements Initializable {
         }
 
         // Inicialmente, el botón Aceptar está deshabilitado
-        Pass.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
+        Pass.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) {
                         a.hide();
-                        String t = Pass.getText();
-                        if (!User.checkPassword(t)) {
+                        if (!User.checkPassword(newv)) {
                             Utils.error(Pass);
                         } else {
                             Utils.correct(Pass);
                             validPassword.setValue(Boolean.TRUE);
                         }
-                    }else{Point2D p = Pass.localToScreen(Pass.getLayoutBounds().getMaxX(),
-                Pass.getLayoutBounds().getMaxY()); // Posición del TextField
-        a.show(Pass, p.getX(), p.getY());}
+                    } else {
+                        Point2D p = Pass.localToScreen(Pass.getLayoutBounds().getMaxX(),
+                                Pass.getLayoutBounds().getMaxY()); // Posición del TextField
+                        a.show(Pass, p.getX(), p.getY());
+                        validPassword.setValue(Boolean.FALSE);
+                    }
                 });
-        Rpass.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue && !Rpass.getText().isEmpty()) { // focus lost.
-                        String t = Rpass.getText();
-                        if (Pass.getText().compareTo(t) != 0) {
+        Rpass.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) {
+                        if (Pass.getText().compareTo(newv) != 0) {
                             Utils.error(Rpass);
                         } else {
                             Utils.correct(Rpass);
                             validRpass.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Utils.error(Rpass);
+                        validRpass.setValue(Boolean.FALSE);
                     }
                 });
-        Name.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-                        String t = Name.getText();
-                        if (!Utils.checkNames(t)) {
+        Name.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() > 0) {
+                        if (!Utils.checkNames(newv)) {
                             Utils.error(Name);
                         } else {
                             Utils.correct(Name);
                             validName.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Utils.error(Name);
+                        validName.setValue(Boolean.FALSE);
                     }
                 });
-        SurName.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-                        String t = SurName.getText();
-                        if (!Utils.checkNames(t)) {
+        SurName.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() > 0) {
+                        if (!Utils.checkNames(newv)) {
                             Utils.error(SurName);
                         } else {
                             Utils.correct(SurName);
                             validSurname.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Utils.error(SurName);
+                        validSurname.setValue(Boolean.FALSE);
                     }
                 });
         Email.focusedProperty()

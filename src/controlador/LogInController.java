@@ -92,20 +92,34 @@ public class LogInController implements Initializable {
 
         Aceptar.disableProperty().bind(validNick.not().or(validPassword.not()));
 
-        pass.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue && !pass.getText().isEmpty()) { // focus lost.
-                        String t = pass.getText();
-                        if (!User.checkPassword(t)) {
+        pass.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) { // focus lost.
+                        if (!User.checkPassword(newv)) {
                             Utils.error(pass);
                             validPassword.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(pass);
                             validPassword.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        validPassword.setValue(Boolean.FALSE);
                     }
                 });
-
+        passHidden.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) { // focus lost.
+                        if (!User.checkPassword(newv)) {
+                            Utils.error(pass);
+                            validPassword.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(pass);
+                            validPassword.setValue(Boolean.TRUE);
+                        }
+                    } else {
+                        validPassword.setValue(Boolean.FALSE);
+                    }
+                });
         if (passwordVisible) {
             pass.setText(passHidden.getText());
         } else {
@@ -115,22 +129,22 @@ public class LogInController implements Initializable {
         tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
         notick.setVisible(false);
         pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-            try {
-                AcceptarEnter();
-            } catch (AcountDAOException | IOException e) {
-                e.printStackTrace();
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    AcceptarEnter();
+                } catch (AcountDAOException | IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
         });
         passHidden.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
-        if (event.getCode() == KeyCode.ENTER) {
-            try {
-                AcceptarEnter();
-            } catch (AcountDAOException | IOException e) {
-                e.printStackTrace();
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    AcceptarEnter();
+                } catch (AcountDAOException | IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
         });
 
     }
@@ -191,6 +205,7 @@ public class LogInController implements Initializable {
             pass.setText(passHidden.getText());
         }
     }
+
     @FXML
     private void AcceptarEnter() throws AcountDAOException, IOException {
         Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
@@ -204,6 +219,5 @@ public class LogInController implements Initializable {
             pass.requestFocus();
         }
     }
-
 
 }

@@ -65,7 +65,8 @@ public class PerfilController implements Initializable {
     private Tooltip a;
 
     public void initialize(URL url, ResourceBundle rb) {
-        c.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
+        c.setShowDelay(Duration.ZERO);
+        a.setShowDelay(Duration.ZERO);
         validPassword = new SimpleBooleanProperty(true);
         validEmail = new SimpleBooleanProperty(true);
         validName = new SimpleBooleanProperty(true);
@@ -73,11 +74,10 @@ public class PerfilController implements Initializable {
 
         establecer();
 
-        Pass.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue && !Pass.getText().isEmpty()) { // focus lost.
-                        String t = Pass.getText();
-                        if (!User.checkPassword(t)) {
+        Pass.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) {
+                        if (!User.checkPassword(newv)) {
                             Utils.error(Pass);
                             validPassword.setValue(false);
                         } else {
@@ -87,30 +87,32 @@ public class PerfilController implements Initializable {
                     }
                 });
 
-        Name.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-                        String t = Name.getText();
-                        if (!Utils.checkNames(t)) {
+        Name.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() > 0) {
+                        if (!Utils.checkNames(newv)) {
                             Utils.error(Name);
-                            validName.setValue(false);
                         } else {
                             Utils.correct(Name);
-                            validName.setValue(true);
+                            validName.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Utils.error(Name);
+                        validName.setValue(Boolean.FALSE);
                     }
                 });
-        SurName.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-                        String t = SurName.getText();
-                        if (!Utils.checkNames(t)) {
+        SurName.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() > 0) {
+                        if (!Utils.checkNames(newv)) {
                             Utils.error(SurName);
-                            validSurname.setValue(false);
                         } else {
                             Utils.correct(SurName);
-                            validSurname.setValue(true);
+                            validSurname.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Utils.error(SurName);
+                        validSurname.setValue(Boolean.FALSE);
                     }
                 });
         Email.focusedProperty()

@@ -6,7 +6,6 @@ import java.util.ResourceBundle;
 
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -42,36 +41,34 @@ public class AñadirCategoriaController implements Initializable {
      * Initializes the controller class.
      */
     public void initialize(URL url, ResourceBundle rb) {
-        c.setShowDelay(Duration.ZERO);a.setShowDelay(Duration.ZERO);
+        c.setShowDelay(Duration.ZERO);
+        a.setShowDelay(Duration.ZERO);
         NameCategoria.requestFocus();
 
         validDescripcion = new SimpleBooleanProperty(false);
         validName = new SimpleBooleanProperty(false);
 
-        DescriptionCategoria.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
+        // Listener para DescriptionCategoria
+        DescriptionCategoria.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(DescriptionCategoria);
+                validDescripcion.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(DescriptionCategoria);
+                validDescripcion.setValue(Boolean.TRUE);
+            }
+        });
 
-                        if (DescriptionCategoria.getText().isEmpty()) {
-                            Utils.error(DescriptionCategoria);
-                        } else {
-                            Utils.correct(DescriptionCategoria);
-                            validDescripcion.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
-        NameCategoria.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-
-                        if (NameCategoria.getText().isEmpty()) {
-                            Utils.error(NameCategoria);
-                        } else {
-                            Utils.correct(NameCategoria);
-                            validDescripcion.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
+        // Listener para NameCategoria
+        NameCategoria.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(NameCategoria);
+                validDescripcion.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(NameCategoria);
+                validDescripcion.setValue(Boolean.TRUE);
+            }
+        });
         añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));
 
         // Algo
