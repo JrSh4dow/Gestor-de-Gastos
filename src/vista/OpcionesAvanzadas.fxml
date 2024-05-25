@@ -50,7 +50,7 @@
                   </Text>
                   <DatePicker fx:id="FechaElegida" prefHeight="26.0" prefWidth="122.0">
                      <tooltip>
-                        <Tooltip id="Tip" fx:id="Tip" autoHide="true" text="Se tendrá en cuenta el mes seleccionado para mostrar el total gastado." wrapText="true" />
+                        <Tooltip id="Tip" fx:id="Tip" autoHide="true" consumeAutoHidingEvents="false" text="Se tendrá en cuenta el mes y año seleccionado para mostrar el total gastado." wrapText="true" />
                      </tooltip>
                   </DatePicker>
                </children>

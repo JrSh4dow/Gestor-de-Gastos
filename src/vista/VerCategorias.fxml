@@ -36,7 +36,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Añadir categoria" wrapText="true" />
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Añadir categoria" wrapText="true" />
                </tooltip>
             </Button>
             <Button id="button" fx:id="Modificar" mnemonicParsing="false" onAction="#modificar">
@@ -48,7 +48,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tipm" fx:id="m" text="Modificar categoria" />
+                  <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="Modificar categoria" />
                </tooltip>
             </Button>
             <Button id="buttone" fx:id="Eliminar" mnemonicParsing="false" onAction="#eliminar">
@@ -60,7 +60,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tipe" fx:id="c" text="Eliminar categoria">
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Eliminar categoria">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>

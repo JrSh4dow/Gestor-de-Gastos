@@ -66,7 +66,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Cancelar cambios" />
+                        <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Cancelar cambios" />
                      </tooltip>
                   </Button>
                   <Button id="buttona" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
@@ -78,7 +78,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip id="Tipm" fx:id="m" autoHide="true" text="Guardar cambios" />
+                        <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="Guardar cambios" />
                      </tooltip>
                   </Button>
                </children>

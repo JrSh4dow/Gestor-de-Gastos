@@ -50,7 +50,7 @@ public class AñadirCategoriaController implements Initializable {
 
         // Listener para DescriptionCategoria
         DescriptionCategoria.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
+            if (newValue.length() == 0) {
                 Utils.error(DescriptionCategoria);
                 validDescripcion.setValue(Boolean.FALSE);
             } else {
@@ -61,12 +61,12 @@ public class AñadirCategoriaController implements Initializable {
 
         // Listener para NameCategoria
         NameCategoria.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
+            if (newValue.length() == 0) {
                 Utils.error(NameCategoria);
-                validDescripcion.setValue(Boolean.FALSE);
+                validName.setValue(Boolean.FALSE);
             } else {
                 Utils.correct(NameCategoria);
-                validDescripcion.setValue(Boolean.TRUE);
+                validName.setValue(Boolean.TRUE);
             }
         });
         añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));
@@ -87,27 +87,33 @@ public class AñadirCategoriaController implements Initializable {
 
     // Añadir la categoria a la base de datos
     @FXML
-    private void AñadirCategoria(ActionEvent event) throws AcountDAOException, IOException {
+    private void AñadirCategoria(ActionEvent event) {
         // Obtener instancia de Acount
-        Acount account = Acount.getInstance();
+        Acount account;
+        try {
+            account = Acount.getInstance();
+            // Obtener los valores de la nueva categoría desde la interfaz de usuario
+            String nombreCategoria = NameCategoria.getText();
+            String descripcionCategoria = DescriptionCategoria.getText();
+            if (!nombreCategoria.isEmpty() && !descripcionCategoria.isEmpty()) {
+                // Registrar la categoría
+                boolean registrado = account.registerCategory(nombreCategoria, descripcionCategoria);
 
-        // Obtener los valores de la nueva categoría desde la interfaz de usuario
-        String nombreCategoria = NameCategoria.getText();
-        String descripcionCategoria = DescriptionCategoria.getText();
-        if (!nombreCategoria.isEmpty() && !descripcionCategoria.isEmpty()) {
-            // Registrar la categoría
-            boolean registrado = account.registerCategory(nombreCategoria, descripcionCategoria);
+                // Verificar si se registró correctamente
+                if (registrado) {
+                    Utils.mostrarInfo("Se ha añadido la categoria");
+                    Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
+                    mainStage2.close();
+                    ok = true;
 
-            // Verificar si se registró correctamente
-            if (registrado) {
-                Utils.mostrarInfo("Se ha añadido la categoria");
-                Stage mainStage2 = (Stage) añadirCategoria.getScene().getWindow();
-                mainStage2.close();
-                ok = true;
-
-            } else {
-                Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
+                } else {
+                    Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
+                }
             }
+        } catch (AcountDAOException e) {
+            Utils.mostrarAlerta("No se ha podido añadir la categoria porque ya existe");
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

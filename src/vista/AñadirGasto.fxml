@@ -172,7 +172,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Cancelar" />
+                        <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Cancelar" />
                      </tooltip></Button>
                   <Button id="buttona" fx:id="añadirGasto" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirGasto">
                      <graphic>
@@ -183,7 +183,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip id="Tip" fx:id="a" autoHide="true" text="Añadir gasto" />
+                        <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Añadir gasto" />
                      </tooltip></Button>
                </children>
                <GridPane.margin>

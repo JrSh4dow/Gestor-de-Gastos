@@ -70,10 +70,10 @@ public class ModificarCategoriaController implements Initializable {
         NameCategoria.textProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue.isEmpty()) {
                 Utils.error(NameCategoria);
-                validDescripcion.setValue(Boolean.FALSE);
+                validName.setValue(Boolean.FALSE);
             } else {
                 Utils.correct(NameCategoria);
-                validDescripcion.setValue(Boolean.TRUE);
+                validName.setValue(Boolean.TRUE);
             }
         });
         añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));

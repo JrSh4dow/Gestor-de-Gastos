@@ -95,7 +95,7 @@
                                           </ImageView>
                                        </graphic>
                                        <tooltip>
-                                          <Tooltip id="Tip" fx:id="a" autoHide="true" text="Ver resultados" wrapText="true" />
+                                          <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Ver resultados" wrapText="true" />
                                        </tooltip>
                                     </Button>
                                  </children>
