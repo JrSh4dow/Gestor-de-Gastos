@@ -201,7 +201,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Cancelar cambios" />
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Cancelar cambios" />
                </tooltip></Button>
             <Button id="buttona" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" textFill="WHITE">
                <graphic>
@@ -212,7 +212,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Guardar cambios" />
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Guardar cambios" />
                </tooltip></Button>
          </children>
       </HBox>

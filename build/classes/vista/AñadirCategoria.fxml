@@ -66,7 +66,7 @@
                         </ImageView>
                      </graphic>
                      <tooltip>
-                        <Tooltip id="Tipe" fx:id="c" text="Cancelar" />
+                        <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Cancelar" />
                      </tooltip></Button>
                   <Button id="buttona" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
                      <graphic>
@@ -75,7 +75,10 @@
                               <Image url="@../icons/aceptar.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Añadir categoria" wrapText="true" />
+                     </tooltip></Button>
                </children>
                <GridPane.margin>
                   <Insets />

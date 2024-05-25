@@ -133,7 +133,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tipm" fx:id="m" autoHide="true" text="Modificar gasto" wrapText="true" />
+                  <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="Modificar gasto" wrapText="true" />
                </tooltip></Button>
             <Button id="buttone" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
                <graphic>
@@ -144,7 +144,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Eliminar gasto" wrapText="true">
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" consumeAutoHidingEvents="false" text="Eliminar gasto" wrapText="true">
                      <font>
                         <Font name="System Bold" size="11.0" />
                      </font>
@@ -159,7 +159,7 @@
                   </ImageView>
                </graphic>
                <tooltip>
-                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Imprimir historial gastos" wrapText="true" />
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" consumeAutoHidingEvents="false" text="Imprimir historial gastos" wrapText="true" />
                </tooltip>
             </Button>
          </children>
