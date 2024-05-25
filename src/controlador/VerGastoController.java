@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -96,19 +99,15 @@ public class VerGastoController implements Initializable {
         a.setShowDelay(Duration.ZERO);
         m.setShowDelay(Duration.ZERO);
         c.setShowDelay(Duration.ZERO);
-        eliminarGasto.setDisable(true);
-        modificarGasto.setDisable(true);
-        Gastos.getSelectionModel().selectedItemProperty().addListener((obs, oldSelection, newSelection) -> {
-            if (newSelection != null) {
-                // Habilitar botones cuando se selecciona una fila
-                eliminarGasto.setDisable(false);
-                modificarGasto.setDisable(false);
-            } else {
-                // Deshabilitar botones cuando no hay ninguna fila seleccionada
-                eliminarGasto.setDisable(true);
-                modificarGasto.setDisable(true);
-            }
-        });
+        modificarGasto.disableProperty().bind(
+                Bindings.equal(-1,
+                        Gastos.getSelectionModel().selectedIndexProperty()));
+        eliminarGasto.disableProperty().bind(
+                Bindings.equal(-1,
+                        Gastos.getSelectionModel().selectedIndexProperty()));
+        imprimirGastos.disableProperty().bind(
+                Bindings.equal(-1,
+                        Gastos.getSelectionModel().selectedIndexProperty()).not());
         // Iniciar La TableView con los gastos desde la base de datos
         categoriaGasto.setCellFactory(column -> {
             return new TableCell<Charge, Category>() {
@@ -202,7 +201,16 @@ public class VerGastoController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(VerGastoController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+        Gastos.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Crear un Timeline para deseleccionar después de 2 segundos
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                    Gastos.getSelectionModel().clearSelection();
+                }));
+                timeline.setCycleCount(1);
+                timeline.play();
+            }
+        });
         Gastos.refresh();
     }
 
