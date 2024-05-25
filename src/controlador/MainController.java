@@ -75,7 +75,7 @@ public class MainController implements Initializable {
             }
             // Crea el gráfico de pastel
             Pie.setData(pieChartData);
-            Pie.setTitle("Distribución de gastos por categorias:");
+            Pie.setTitle("Distribución de gastos:");
         } catch (AcountDAOException | IOException e) {
             e.printStackTrace();
         }

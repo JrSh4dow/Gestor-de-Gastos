@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.beans.binding.Bindings;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -55,9 +59,15 @@ public class VerCategoriaController implements Initializable {
         a.setShowDelay(Duration.ZERO);
         c.setShowDelay(Duration.ZERO);
         m.setShowDelay(Duration.ZERO);
-        Eliminar.setDisable(true);
-        Modificar.setDisable(true);
-        Añadir.setDisable(false);
+        Modificar.disableProperty().bind(
+                Bindings.equal(-1,
+                        lista.getSelectionModel().selectedIndexProperty()));
+        Eliminar.disableProperty().bind(
+                Bindings.equal(-1,
+                        lista.getSelectionModel().selectedIndexProperty()));
+        Añadir.disableProperty().bind(
+                Bindings.equal(-1,
+                        lista.getSelectionModel().selectedIndexProperty()).not());
         lista.setCellFactory(c -> new CatListCell());
         try {
             List<Category> cat = Acount.getInstance().getUserCategories();
@@ -67,18 +77,16 @@ public class VerCategoriaController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(VerCategoriaController.class.getName()).log(Level.SEVERE, null, ex);
         }
-        lista.getSelectionModel().selectedIndexProperty().addListener((obs, oldIndex, newIndex) -> {
-            if (newIndex.intValue() != -1) {
-                // Habilitar botones cuando se selecciona una fila
-                Eliminar.setDisable(false);
-                Modificar.setDisable(false);
-            } else {
-                // Deshabilitar botones cuando no hay ninguna fila seleccionada
-                Eliminar.setDisable(true);
-                Modificar.setDisable(true);
+        lista.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                // Crear un Timeline para deseleccionar después de 2 segundos
+                Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> {
+                    lista.getSelectionModel().clearSelection();
+                }));
+                timeline.setCycleCount(1);
+                timeline.play();
             }
         });
-
     }
 
     @FXML
