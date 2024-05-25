@@ -16,11 +16,13 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
+import javafx.scene.control.TextFormatter.Change;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
 import model.Acount;
 import model.AcountDAOException;
@@ -63,7 +65,7 @@ public class AñadirGastoController implements Initializable {
 
     public void initialize(URL url, ResourceBundle rb) {
         NameGasto.requestFocus();
-        applyFilter(CosteGasto);
+        applyDoubleFilter(CosteGasto);
         applyFilter(UnidadeGasto);
         try {
             llenarChoiceBoxConCategorias();
@@ -93,6 +95,8 @@ private void AñadirGasto(ActionEvent event) throws AcountDAOException, IOExcept
     double costeGasto;
     int unidadesGasto;
     try {
+        // Reemplazar comas con puntos para manejar decimales correctamente
+        costoText = costoText.replace(',', '.');
         costeGasto = Double.parseDouble(costoText);
         unidadesGasto = Integer.parseInt(unidadesText);
         if (costeGasto <= 0 || unidadesGasto <= 0) {
@@ -133,7 +137,7 @@ private void AñadirGasto(ActionEvent event) throws AcountDAOException, IOExcept
             Utils.mostrarError("No se pudo registrar el gasto.");
         }
     } catch (AcountDAOException e) {
-        Utils.mostrarError("Error al registrar el gasto: " + e.getMessage());
+        Utils.mostrarError("Error al registrar el gasto: " + nombreGasto);
     }
 }
 
@@ -237,5 +241,28 @@ private void AñadirGasto(ActionEvent event) throws AcountDAOException, IOExcept
     // Aplicar el formateador de texto al campo de texto
     textField.setTextFormatter(textFormatter);
 }
+    public static void applyDoubleFilter(TextField textField) {
+    // Crear un formateador de texto que solo acepte números decimales
+    TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), null, c -> {
+        // Permitir solo dígitos, comas, y puntos
+        if (c.getControlNewText().matches("\\d*|\\d+([.,]\\d*)?")) {
+            return c;
+        }
+        return null;
+    });
+
+    // Añadir un listener para reemplazar comas con puntos
+    textField.textProperty().addListener((observable, oldValue, newValue) -> {
+        if (newValue.contains(",")) {
+            textField.setText(newValue.replace(',', '.'));
+        }
+    });
+
+    // Aplicar el formateador de texto al campo de texto
+    textField.setTextFormatter(textFormatter);
+    }
+
+
+
 
 }
