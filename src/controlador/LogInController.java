@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -112,6 +114,24 @@ public class LogInController implements Initializable {
 
         tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
         notick.setVisible(false);
+        pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                AcceptarEnter();
+            } catch (AcountDAOException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        });
+        passHidden.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+        if (event.getCode() == KeyCode.ENTER) {
+            try {
+                AcceptarEnter();
+            } catch (AcountDAOException | IOException e) {
+                e.printStackTrace();
+            }
+        }
+        });
 
     }
 
@@ -171,5 +191,19 @@ public class LogInController implements Initializable {
             pass.setText(passHidden.getText());
         }
     }
+    @FXML
+    private void AcceptarEnter() throws AcountDAOException, IOException {
+        Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
+        if (ok == true) {
+            Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
+            mainStage2.close();
+            CargaVistas.MAIN();
+        } else {
+            Utils.mostrarError("Contraseña incorrecta");
+            pass.clear();
+            pass.requestFocus();
+        }
+    }
+
 
 }
