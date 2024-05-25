@@ -67,7 +67,7 @@
                            <Font name="FiraCode Nerd Font Reg" size="12.0" />
                         </font>
                         <tooltip>
-                           <Tooltip id="Tipm" fx:id="m" text="Mostrar o ocultar contraseña" />
+                           <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="Mostrar o ocultar contraseña" />
                         </tooltip>
                      </Button>
                      <ImageView fx:id="tick" disable="true" fitHeight="20.0" fitWidth="20.0" focusTraversable="true" pickOnBounds="true" preserveRatio="false" visible="false">
