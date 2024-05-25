@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -13,7 +14,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
-
 
 <AnchorPane prefHeight="395.3333333333333" prefWidth="472.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.LogInController">
    <children>
@@ -66,8 +66,11 @@
                         <font>
                            <Font name="FiraCode Nerd Font Reg" size="12.0" />
                         </font>
+                        <tooltip>
+                           <Tooltip id="Tipm" fx:id="m" text="Mostrar o ocultar contraseña" />
+                        </tooltip>
                      </Button>
-                     <ImageView fx:id="tick" disable="true" fitHeight="20.0" fitWidth="20.0" focusTraversable="true" pickOnBounds="true" preserveRatio="false">
+                     <ImageView fx:id="tick" disable="true" fitHeight="20.0" fitWidth="20.0" focusTraversable="true" pickOnBounds="true" preserveRatio="false" visible="false">
                         <image>
                            <Image url="@../icons/visible.png" />
                         </image>

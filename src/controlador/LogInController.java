@@ -12,10 +12,12 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.User;
@@ -55,8 +57,11 @@ public class LogInController implements Initializable {
     private ImageView tick;
     @FXML
     private ImageView notick;
+    @FXML
+    private Tooltip m;
 
     public void initialize(URL url, ResourceBundle rb) {
+        m.setShowDelay(Duration.ZERO);
         validNick = new SimpleBooleanProperty();
         validPassword = new SimpleBooleanProperty();
         validPassword.setValue(Boolean.FALSE);
@@ -206,7 +211,6 @@ public class LogInController implements Initializable {
         }
     }
 
-    @FXML
     private void AcceptarEnter() throws AcountDAOException, IOException {
         Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
         if (ok == true) {
