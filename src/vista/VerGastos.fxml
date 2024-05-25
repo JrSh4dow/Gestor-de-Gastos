@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -14,13 +15,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane fx:id="Caja" prefHeight="450.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
+<BorderPane fx:id="Caja" minWidth="450.0" prefHeight="450.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.VerGastoController">
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Acount">
+            <Menu mnemonicParsing="false" text="Cuenta">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
+                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -41,7 +42,7 @@
       <Insets />
    </opaqueInsets>
    <left>
-      <VBox alignment="CENTER" prefHeight="294.0" prefWidth="140.0" spacing="10.0" BorderPane.alignment="CENTER">
+      <VBox alignment="CENTER" fillWidth="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="294.0" prefWidth="140.0" spacing="10.0" BorderPane.alignment="CENTER">
          <padding>
             <Insets left="8.0" right="3.0" />
          </padding>
@@ -103,14 +104,14 @@
    <center>
       <TableView id="Tabla" fx:id="Gastos" minWidth="470.0" prefHeight="397.0" BorderPane.alignment="CENTER">
         <columns>
-          <TableColumn fx:id="idGasto" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="-1.0" sortable="false" text="Id" />
-                <TableColumn fx:id="nombreGasto" editable="false" maxWidth="110.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Nombre" />
-                <TableColumn fx:id="descripcionGasto" editable="false" maxWidth="1.7976931348623157E308" minWidth="185.0" prefWidth="-1.0" sortable="false" text="Descripción" />
-                <TableColumn fx:id="categoriaGasto" editable="false" maxWidth="85.0" minWidth="80.0" prefWidth="-1.0" sortable="false" text="Categoría" />
-                <TableColumn fx:id="costeGasto" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" sortable="false" text="Coste" />
-                <TableColumn fx:id="unidadesGasto" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="-1.0" sortable="false" text="Unidades" />
-                <TableColumn fx:id="facturaGasto" editable="false" maxWidth="85.0" minWidth="85.0" prefWidth="-1.0" sortable="false" text="Factura" />
-            <TableColumn fx:id="FechaGasto" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" sortable="false" text="Fecha" />
+          <TableColumn fx:id="idGasto" editable="false" maxWidth="45.0" minWidth="45.0" prefWidth="-1.0" text="Id" />
+                <TableColumn fx:id="nombreGasto" editable="false" maxWidth="110.0" minWidth="80.0" prefWidth="-1.0" text="Nombre" />
+                <TableColumn fx:id="descripcionGasto" editable="false" maxWidth="1.7976931348623157E308" minWidth="185.0" prefWidth="-1.0" text="Descripción" />
+                <TableColumn fx:id="categoriaGasto" editable="false" maxWidth="85.0" minWidth="80.0" prefWidth="-1.0" text="Categoría" />
+                <TableColumn fx:id="costeGasto" editable="false" maxWidth="60.0" minWidth="60.0" prefWidth="-1.0" text="Coste" />
+                <TableColumn fx:id="unidadesGasto" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="-1.0" text="Unidades" />
+                <TableColumn fx:id="facturaGasto" editable="false" maxWidth="85.0" minWidth="85.0" prefWidth="-1.0" text="Factura" />
+            <TableColumn fx:id="FechaGasto" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="-1.0" text="Fecha" />
         </columns>
          <BorderPane.margin>
             <Insets bottom="10.0" left="4.0" right="10.0" top="10.0" />
@@ -121,7 +122,7 @@
       </TableView>
    </center>
    <right>
-       <VBox alignment="TOP_CENTER" maxHeight="125.0" spacing="20.0" styleClass="Vbox" BorderPane.alignment="TOP_CENTER">
+       <VBox alignment="TOP_CENTER" fillWidth="false" maxHeight="125.0" spacing="20.0" styleClass="Vbox" BorderPane.alignment="TOP_CENTER">
          <children>
             <Button id="button" fx:id="modificarGasto" mnemonicParsing="false" onAction="#ModificarGasto">
                <graphic>
@@ -130,7 +131,10 @@
                         <Image url="@../icons/editar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tipm" fx:id="m" autoHide="true" text="Modificar gasto" wrapText="true" />
+               </tooltip></Button>
             <Button id="buttone" fx:id="eliminarGasto" mnemonicParsing="false" onAction="#EliminarGasto">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -138,7 +142,14 @@
                         <Image url="@../icons/eliminar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Eliminar gasto" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip></Button>
             <Button id="button" fx:id="imprimirGastos" mnemonicParsing="false" onAction="#ImprimirGastos">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -147,6 +158,9 @@
                      </image>
                   </ImageView>
                </graphic>
+               <tooltip>
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Imprimir historial gastos" wrapText="true" />
+               </tooltip>
             </Button>
          </children>
          <BorderPane.margin>

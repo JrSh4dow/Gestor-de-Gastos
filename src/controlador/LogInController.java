@@ -13,6 +13,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import model.Acount;
 import model.AcountDAOException;
@@ -70,6 +72,7 @@ public class LogInController implements Initializable {
                                     String t = nickName.getText();
                                     if (!User.checkNickName(t)) {
                                         Utils.error(nickName);
+                                        validNick.setValue(Boolean.FALSE);
                                     } else if (!acount.existsLogin(nickName.getText())) {
                                         Utils.mostrarError("No existe el nickname. Por favor regístrate");
                                         nickName.clear();
@@ -89,27 +92,60 @@ public class LogInController implements Initializable {
 
         Aceptar.disableProperty().bind(validNick.not().or(validPassword.not()));
 
-        pass.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue && !pass.getText().isEmpty()) { // focus lost.
-                        String t = pass.getText();
-                        if (!User.checkPassword(t)) {
+        pass.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) { // focus lost.
+                        if (!User.checkPassword(newv)) {
                             Utils.error(pass);
+                            validPassword.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(pass);
                             validPassword.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        validPassword.setValue(Boolean.FALSE);
                     }
                 });
-
+        passHidden.textProperty()
+                .addListener((ob, olv, newv) -> {
+                    if (newv.length() >= 8) { // focus lost.
+                        if (!User.checkPassword(newv)) {
+                            Utils.error(pass);
+                            validPassword.setValue(Boolean.FALSE);
+                        } else {
+                            Utils.correct(pass);
+                            validPassword.setValue(Boolean.TRUE);
+                        }
+                    } else {
+                        validPassword.setValue(Boolean.FALSE);
+                    }
+                });
         if (passwordVisible) {
             pass.setText(passHidden.getText());
         } else {
             passHidden.setText(pass.getText());
         }
-        
+
         tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
         notick.setVisible(false);
+        pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    AcceptarEnter();
+                } catch (AcountDAOException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        passHidden.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                try {
+                    AcceptarEnter();
+                } catch (AcountDAOException | IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
 
@@ -167,6 +203,20 @@ public class LogInController implements Initializable {
             passHidden.setText(pass.getText());
         } else {
             pass.setText(passHidden.getText());
+        }
+    }
+
+    @FXML
+    private void AcceptarEnter() throws AcountDAOException, IOException {
+        Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
+        if (ok == true) {
+            Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
+            mainStage2.close();
+            CargaVistas.MAIN();
+        } else {
+            Utils.mostrarError("Contraseña incorrecta");
+            pass.clear();
+            pass.requestFocus();
         }
     }
 

@@ -98,3 +98,29 @@
     -fx-background-color: rgb(115, 206, 115);
     -fx-text-fill: black;
 }
+
+#Tipe {
+    -fx-background-color: rgb(217, 113, 103);
+    -fx-text-fill: black;
+}
+
+#Tipm {
+    -fx-background-color: rgb(226, 231, 95);
+    -fx-text-fill: black;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgb(229, 232, 145);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgb(111, 186, 61);
+}
+
+.list-cell:hover {
+    -fx-background-color: rgb(229, 232, 145);
+}
+
+.list-cell:selected {
+    -fx-background-color: rgb(111, 186, 61);
+}

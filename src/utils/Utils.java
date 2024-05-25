@@ -13,9 +13,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -28,10 +33,16 @@ import model.Charge;
 public class Utils {
 
     public static Boolean AcabarSesion() throws AcountDAOException, IOException {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm(); // Mover la definición de css aquí
         Alert alert = new Alert(AlertType.CONFIRMATION);
+
         alert.setTitle("Diálogo de confirmación");
-        alert.setHeaderText("Cabecera");
+        alert.setHeaderText("Cerrar sesión");
         alert.setContentText("¿Seguro que quieres cerrar sesión?");
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == ButtonType.OK) {
             return true;
@@ -92,26 +103,41 @@ public class Utils {
     }
 
     public static void mostrarAlerta(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Información");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("warning-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
     public static void mostrarError(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
         alert.setHeaderText(null);
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("error-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
     public static void mostrarInfo(String mensaje) {
+        String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setHeaderText(null);
         alert.setTitle("Información");
         alert.setContentText(mensaje);
+        alert.getDialogPane().getStylesheets().add(css);
+        alert.getDialogPane().getStyleClass().add("info-alert");
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
         alert.showAndWait();
     }
 
@@ -125,7 +151,6 @@ public class Utils {
         Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
                 n.getLayoutBounds().getMaxY()); // Posición del TextField
         tooltip.show(n, p.getX(), p.getY());
-        n.requestFocus();
 
     }
 
@@ -137,7 +162,6 @@ public class Utils {
         Point2D p = n.localToScreen(n.getLayoutBounds().getMaxX(),
                 n.getLayoutBounds().getMaxY()); // Posición del TextField
         tooltip.show(n, p.getX(), p.getY());
-        n.requestFocus();
 
     }
 
@@ -160,5 +184,42 @@ public class Utils {
             }
         }
         return elem > 0;
+    }
+
+    // Método para aplicar un filtro numérico a un campo de texto
+    public static void applyFilter(TextField textField) {
+        // Crear un formateador de texto que solo acepte números enteros
+        TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), null,
+                c -> {
+                    if (c.getControlNewText().matches("\\d*")) { // Solo permite dígitos
+                        return c;
+                    } else {
+                        return null; // Rechaza la entrada si no es un dígito
+                    }
+                });
+
+        // Aplicar el formateador de texto al campo de texto
+        textField.setTextFormatter(textFormatter);
+    }
+
+    public static void applyDoubleFilter(TextField textField) {
+        // Crear un formateador de texto que solo acepte números decimales
+        TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), null, c -> {
+            // Permitir solo dígitos, comas, y puntos
+            if (c.getControlNewText().matches("\\d*|\\d+([.,]\\d*)?")) {
+                return c;
+            }
+            return null;
+        });
+
+        // Añadir un listener para reemplazar comas con puntos sin añadir un cero detrás
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.contains(",")) {
+                textField.setText(newValue.replace(',', '.'));
+            }
+        });
+
+        // Aplicar el formateador de texto al campo de texto
+        textField.setTextFormatter(textFormatter);
     }
 }

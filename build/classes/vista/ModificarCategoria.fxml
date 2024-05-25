@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -64,6 +65,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Cancelar cambios" />
+                     </tooltip>
                   </Button>
                   <Button id="buttona" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
                      <graphic>
@@ -73,6 +77,9 @@
                            </image>
                         </ImageView>
                      </graphic>
+                     <tooltip>
+                        <Tooltip id="Tipm" fx:id="m" autoHide="true" text="Guardar cambios" />
+                     </tooltip>
                   </Button>
                </children>
                <GridPane.margin>

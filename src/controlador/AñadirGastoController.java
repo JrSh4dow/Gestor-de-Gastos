@@ -20,12 +20,14 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -71,8 +73,14 @@ public class AñadirGastoController implements Initializable {
     private BooleanProperty validCoste;
     private BooleanProperty validUnidade;
     private BooleanProperty validCategory;
+    @FXML
+    private Tooltip c;
+    @FXML
+    private Tooltip a;
 
     public void initialize(URL url, ResourceBundle rb) {
+        c.setShowDelay(Duration.ZERO);
+        a.setShowDelay(Duration.ZERO);
         validCategory = new SimpleBooleanProperty();
         validCoste = new SimpleBooleanProperty();
         validDescripcion = new SimpleBooleanProperty();
@@ -85,30 +93,27 @@ public class AñadirGastoController implements Initializable {
         validFecha.setValue(Boolean.FALSE);
         validName.setValue(Boolean.FALSE);
         validUnidade.setValue(Boolean.FALSE);
-        NameGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
+        // Listener para NameGasto
+        NameGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(NameGasto);
+                validName.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(NameGasto);
+                validName.setValue(Boolean.TRUE);
+            }
+        });
 
-                        if (NameGasto.getText().isEmpty()) {
-                            Utils.error(NameGasto);
-                        } else {
-                            Utils.correct(NameGasto);
-                            validName.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
-        DescriptionGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-
-                        if (DescriptionGasto.getText().isEmpty()) {
-                            Utils.error(DescriptionGasto);
-                        } else {
-                            Utils.correct(DescriptionGasto);
-                            validDescripcion.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
+        // Listener para DescriptionGasto
+        DescriptionGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(DescriptionGasto);
+                validDescripcion.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(DescriptionGasto);
+                validDescripcion.setValue(Boolean.TRUE);
+            }
+        });
         CosteGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue) { // focus lost.
@@ -147,6 +152,8 @@ public class AñadirGastoController implements Initializable {
             }
         });
         NameGasto.requestFocus();
+        Utils.applyDoubleFilter(CosteGasto);
+        Utils.applyFilter(UnidadeGasto);
         try {
             llenarChoiceBoxConCategorias();
         } catch (AcountDAOException | IOException e) {
@@ -177,19 +184,39 @@ public class AñadirGastoController implements Initializable {
 
     // añadir el gasto a la base de datos
     @FXML
-    private void AñadirGasto(ActionEvent event) throws IOException, AcountDAOException {
+    private void AñadirGasto(ActionEvent event) throws AcountDAOException, IOException {
         // Obtener los valores del formulario
-        String nombreGasto = NameGasto.getText();
-        String descripcionGasto = DescriptionGasto.getText();
-        double costeGasto = Double.parseDouble(CosteGasto.getText());
-        int unidadesGasto = Integer.parseInt(UnidadeGasto.getText());
+        String nombreGasto = NameGasto.getText().trim();
+        String descripcionGasto = DescriptionGasto.getText().trim();
+        String costoText = CosteGasto.getText().trim();
+        String unidadesText = UnidadeGasto.getText().trim();
         String categoriaSeleccionada = CategoriaGasto.getValue();
         LocalDate fechaGasto = FechaGasto.getValue();
         Image imagenFactura = Factura.getImage();
 
-        /*
-         * J
-         */
+        // Verificar campos obligatorios y validar datos numéricos
+        if (nombreGasto.isEmpty() || categoriaSeleccionada == null || fechaGasto == null || costoText.isEmpty()
+                || unidadesText.isEmpty()) {
+            Utils.mostrarAlerta("Por favor, complete todos los campos obligatorios.");
+            return;
+        }
+
+        double costeGasto;
+        int unidadesGasto;
+        try {
+            // Reemplazar comas con puntos para manejar decimales correctamente
+            costoText = costoText.replace(',', '.');
+            costeGasto = Double.parseDouble(costoText);
+            unidadesGasto = Integer.parseInt(unidadesText);
+            if (costeGasto <= 0 || unidadesGasto <= 0) {
+                Utils.mostrarAlerta("El costo y las unidades deben ser mayores que cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Utils.mostrarAlerta("Por favor, ingrese valores numéricos válidos para costo y unidades.");
+            return;
+        }
+
         // Obtener la categoría seleccionada por su nombre
         Acount account = Acount.getInstance();
         List<Category> categorias = account.getUserCategories();
@@ -200,22 +227,27 @@ public class AñadirGastoController implements Initializable {
                 break;
             }
         }
-        // Registrar el gasto en la base de datos
-        boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
-                imagenFactura, fechaGasto, categoria);
 
-        // Verificar si el gasto se registró correctamente
-        if (registrado) {
-            Utils.mostrarInfo("El gasto se ha registrado correctamente.");
-            NameGasto.clear();
-            CosteGasto.clear();
-            UnidadeGasto.clear();
-            DescriptionGasto.clear();
-            CategoriaGasto.getSelectionModel().clearSelection();
-            Factura.setImage(null);
-            FechaGasto.setValue(null);
-        } else {
-            Utils.mostrarError("No se pudo registrar el gasto.");
+        // Registrar el gasto en la base de datos
+        try {
+            boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
+                    imagenFactura, fechaGasto, categoria);
+
+            // Verificar si el gasto se registró correctamente
+            if (registrado) {
+                Utils.mostrarInfo("El gasto se ha registrado correctamente.");
+                NameGasto.clear();
+                CosteGasto.clear();
+                UnidadeGasto.clear();
+                DescriptionGasto.clear();
+                CategoriaGasto.getSelectionModel().clearSelection();
+                Factura.setImage(null);
+                FechaGasto.setValue(null);
+            } else {
+                Utils.mostrarError("No se pudo registrar el gasto.");
+            }
+        } catch (AcountDAOException e) {
+            Utils.mostrarError("Error al registrar el gasto: " + nombreGasto);
         }
     }
 
@@ -303,4 +335,5 @@ public class AñadirGastoController implements Initializable {
             }
         }
     }
+
 }

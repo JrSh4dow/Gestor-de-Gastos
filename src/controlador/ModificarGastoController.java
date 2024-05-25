@@ -58,6 +58,8 @@ public class ModificarGastoController implements Initializable {
     @FXML
     private Button GuardarCambios;
     private Charge act;
+    @FXML
+    private TextField Idfield;
 
     private BooleanProperty validName;
     private BooleanProperty validDescripcion;
@@ -69,6 +71,7 @@ public class ModificarGastoController implements Initializable {
     public void initGasto(Charge c) {
         this.act = c;
         // Aqui hay que inicializar con los campos del gasto seleccionado
+        Idfield.setText(String.valueOf(act.getId()));
         NameGasto.setText(act.getName());
         DescriptionGasto.setText(act.getDescription());
         CosteGasto.setText(String.valueOf(act.getCost()));
@@ -98,32 +101,27 @@ public class ModificarGastoController implements Initializable {
         validFecha.setValue(Boolean.TRUE);
         validName.setValue(Boolean.TRUE);
         validUnidade.setValue(Boolean.TRUE);
-        NameGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
+        // Listener para NameGasto
+        NameGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(NameGasto);
+                validName.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(NameGasto);
+                validName.setValue(Boolean.TRUE);
+            }
+        });
 
-                        if (NameGasto.getText().isEmpty()) {
-                            Utils.error(NameGasto);
-                            validName.setValue(Boolean.FALSE);
-                        } else {
-                            Utils.correct(NameGasto);
-                            validName.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
-        DescriptionGasto.focusedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-
-                        if (DescriptionGasto.getText().isEmpty()) {
-                            Utils.error(DescriptionGasto);
-                            validDescripcion.setValue(Boolean.FALSE);
-                        } else {
-                            Utils.correct(DescriptionGasto);
-                            validDescripcion.setValue(Boolean.TRUE);
-                        }
-                    }
-                });
+        // Listener para DescriptionGasto
+        DescriptionGasto.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.isEmpty()) {
+                Utils.error(DescriptionGasto);
+                validDescripcion.setValue(Boolean.FALSE);
+            } else {
+                Utils.correct(DescriptionGasto);
+                validDescripcion.setValue(Boolean.TRUE);
+            }
+        });
         CosteGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue) { // focus lost.
@@ -164,6 +162,9 @@ public class ModificarGastoController implements Initializable {
             }
         });
         NameGasto.requestFocus();
+
+        Utils.applyDoubleFilter(CosteGasto);
+        Utils.applyFilter(UnidadeGasto);
 
         LocalDate minDate = LocalDate.of(2022, 1, 1);
         LocalDate maxDate = LocalDate.now();

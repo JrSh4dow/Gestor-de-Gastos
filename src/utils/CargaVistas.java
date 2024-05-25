@@ -22,7 +22,7 @@ public class CargaVistas {
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         mainStage.setTitle("Principal");
-        mainStage.setResizable(false);
+        mainStage.setResizable(true);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();
     }
@@ -33,6 +33,7 @@ public class CargaVistas {
         Stage inicioStage = new Stage();
         inicioStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
         inicioStage.setTitle("Expense Tracker");
+        inicioStage.setResizable(false);
         inicioStage.setScene(new Scene(userRoot));
         inicioStage.show();
     }
@@ -133,7 +134,7 @@ public class CargaVistas {
         Stage mainStage = new Stage();
         mainStage.setScene(new Scene(root));
         mainStage.getIcons().add(new Image(CargaVistas.class.getResourceAsStream("/imagenes/logo-sin.png")));
-        mainStage.setTitle("REGISTRAR-SE");
+        mainStage.setTitle("FORMULARIO REGISTRO");
         mainStage.setResizable(false);
         mainStage.initModality(Modality.APPLICATION_MODAL);
         mainStage.show();

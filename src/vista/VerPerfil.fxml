@@ -7,6 +7,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.input.KeyCodeCombination?>
@@ -19,7 +20,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane fx:id="Caja" prefHeight="430.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PerfilController">
+<BorderPane fx:id="Caja" minWidth="-Infinity" prefHeight="430.0" styleClass="background" stylesheets="@../estilos/Main.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controlador.PerfilController">
    <center>
       <GridPane alignment="CENTER" hgap="10.0" prefHeight="178.0" prefWidth="554.0" styleClass="Vbox" vgap="10.0">
          <columnConstraints>
@@ -142,9 +143,9 @@
    <top>
       <MenuBar prefHeight="26.0" prefWidth="157.0" style="-fx-border-color: #ffffff; -fx-border-radius: 3; -fx-border-width: 2; -fx-background-color: #00C1A4;" BorderPane.alignment="CENTER">
          <menus>
-            <Menu mnemonicParsing="false" text="Acount">
+            <Menu mnemonicParsing="false" text="Cuenta">
                <items>
-                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Log out">
+                  <MenuItem mnemonicParsing="false" onAction="#TerminarSesion" text="Cerrar sesión">
                      <accelerator>
                         <KeyCodeCombination alt="UP" code="W" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
                      </accelerator>
@@ -198,7 +199,10 @@
                         <Image url="@../icons/cancelar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tipe" fx:id="c" autoHide="true" text="Cancelar cambios" />
+               </tooltip></Button>
             <Button id="buttona" fx:id="guardarCambios" mnemonicParsing="false" onAction="#GuardarCambios" textFill="WHITE">
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -206,7 +210,10 @@
                         <Image url="@../icons/aceptar.png" />
                      </image>
                   </ImageView>
-               </graphic></Button>
+               </graphic>
+               <tooltip>
+                  <Tooltip id="Tip" fx:id="a" autoHide="true" text="Guardar cambios" />
+               </tooltip></Button>
          </children>
       </HBox>
    </bottom>

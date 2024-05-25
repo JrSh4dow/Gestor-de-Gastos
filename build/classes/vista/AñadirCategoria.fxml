@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -63,7 +64,10 @@
                               <Image url="@../icons/cancelar.png" />
                            </image>
                         </ImageView>
-                     </graphic></Button>
+                     </graphic>
+                     <tooltip>
+                        <Tooltip id="Tipe" fx:id="c" text="Cancelar" />
+                     </tooltip></Button>
                   <Button id="buttona" fx:id="añadirCategoria" contentDisplay="CENTER" mnemonicParsing="false" onAction="#AñadirCategoria">
                      <graphic>
                         <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
@@ -81,6 +85,9 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="11.0" />
                </font>
+               <tooltip>
+                  <Tooltip id="Tip" fx:id="a" text="Añadir categoria" />
+               </tooltip>
             </TextArea>
          </children>
          <padding>

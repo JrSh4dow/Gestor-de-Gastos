@@ -20,10 +20,12 @@ import javafx.scene.chart.PieChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -51,8 +53,11 @@ public class MainController implements Initializable {
     private Button AplicarFiltro;
     @FXML
     private Button opcionesAvanzadas;
+    @FXML
+    private Tooltip a;
 
     public void initialize(URL url, ResourceBundle rb) {
+        a.setShowDelay(Duration.ZERO);
         AplicarFiltro.setDisable(true);
         List<Category> categories;
         List<Charge> charges;
@@ -70,7 +75,7 @@ public class MainController implements Initializable {
             }
             // Crea el gráfico de pastel
             Pie.setData(pieChartData);
-            Pie.setTitle("Distribución de gastos:");
+            Pie.setTitle("Distribución de gastos por categorias:");
         } catch (AcountDAOException | IOException e) {
             e.printStackTrace();
         }
