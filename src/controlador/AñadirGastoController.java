@@ -20,7 +20,6 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -29,7 +28,6 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import javafx.util.Duration;
-import javafx.util.converter.IntegerStringConverter;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -157,8 +155,8 @@ public class AñadirGastoController implements Initializable {
             }
         });
         NameGasto.requestFocus();
-        applyFilter(CosteGasto);
-        applyFilter(UnidadeGasto);
+        Utils.applyDoubleFilter(CosteGasto);
+        Utils.applyFilter(UnidadeGasto);
         try {
             llenarChoiceBoxConCategorias();
         } catch (AcountDAOException | IOException e) {
@@ -199,6 +197,29 @@ public class AñadirGastoController implements Initializable {
         LocalDate fechaGasto = FechaGasto.getValue();
         Image imagenFactura = Factura.getImage();
 
+        // Verificar campos obligatorios y validar datos numéricos
+        if (nombreGasto.isEmpty() || categoriaSeleccionada == null || fechaGasto == null || costoText.isEmpty()
+                || unidadesText.isEmpty()) {
+            Utils.mostrarAlerta("Por favor, complete todos los campos obligatorios.");
+            return;
+        }
+
+        double costeGasto;
+        int unidadesGasto;
+        try {
+            // Reemplazar comas con puntos para manejar decimales correctamente
+            costoText = costoText.replace(',', '.');
+            costeGasto = Double.parseDouble(costoText);
+            unidadesGasto = Integer.parseInt(unidadesText);
+            if (costeGasto <= 0 || unidadesGasto <= 0) {
+                Utils.mostrarAlerta("El costo y las unidades deben ser mayores que cero.");
+                return;
+            }
+        } catch (NumberFormatException e) {
+            Utils.mostrarAlerta("Por favor, ingrese valores numéricos válidos para costo y unidades.");
+            return;
+        }
+
         // Obtener la categoría seleccionada por su nombre
         Acount account = Acount.getInstance();
         List<Category> categorias = account.getUserCategories();
@@ -209,23 +230,27 @@ public class AñadirGastoController implements Initializable {
                 break;
             }
         }
-        // Registrar el gasto en la base de datos
-        boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, Double.parseDouble(costoText),
-                Integer.parseInt(unidadesText),
-                imagenFactura, fechaGasto, categoria);
 
-        // Verificar si el gasto se registró correctamente
-        if (registrado) {
-            Utils.mostrarInfo("El gasto se ha registrado correctamente.");
-            NameGasto.clear();
-            CosteGasto.clear();
-            UnidadeGasto.clear();
-            DescriptionGasto.clear();
-            CategoriaGasto.getSelectionModel().clearSelection();
-            Factura.setImage(null);
-            FechaGasto.setValue(null);
-        } else {
-            Utils.mostrarError("No se pudo registrar el gasto.");
+        // Registrar el gasto en la base de datos
+        try {
+            boolean registrado = account.registerCharge(nombreGasto, descripcionGasto, costeGasto, unidadesGasto,
+                    imagenFactura, fechaGasto, categoria);
+
+            // Verificar si el gasto se registró correctamente
+            if (registrado) {
+                Utils.mostrarInfo("El gasto se ha registrado correctamente.");
+                NameGasto.clear();
+                CosteGasto.clear();
+                UnidadeGasto.clear();
+                DescriptionGasto.clear();
+                CategoriaGasto.getSelectionModel().clearSelection();
+                Factura.setImage(null);
+                FechaGasto.setValue(null);
+            } else {
+                Utils.mostrarError("No se pudo registrar el gasto.");
+            }
+        } catch (AcountDAOException e) {
+            Utils.mostrarError("Error al registrar el gasto: " + nombreGasto);
         }
     }
 
@@ -312,22 +337,6 @@ public class AñadirGastoController implements Initializable {
                 CategoriaGasto.getItems().add(categoria.getName());
             }
         }
-    }
-
-    // Método para aplicar un filtro numérico a un campo de texto
-    public static void applyFilter(TextField textField) {
-        // Crear un formateador de texto que solo acepte números enteros
-        TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), null,
-                c -> {
-                    if (c.getControlNewText().matches("\\d*")) { // Solo permite dígitos
-                        return c;
-                    } else {
-                        return null; // Rechaza la entrada si no es un dígito
-                    }
-                });
-
-        // Aplicar el formateador de texto al campo de texto
-        textField.setTextFormatter(textFormatter);
     }
 
 }

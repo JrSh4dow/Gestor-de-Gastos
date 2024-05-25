@@ -13,11 +13,14 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import javafx.util.converter.DoubleStringConverter;
+import javafx.util.converter.IntegerStringConverter;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -181,5 +184,42 @@ public class Utils {
             }
         }
         return elem > 0;
+    }
+
+    // Método para aplicar un filtro numérico a un campo de texto
+    public static void applyFilter(TextField textField) {
+        // Crear un formateador de texto que solo acepte números enteros
+        TextFormatter<Integer> textFormatter = new TextFormatter<>(new IntegerStringConverter(), null,
+                c -> {
+                    if (c.getControlNewText().matches("\\d*")) { // Solo permite dígitos
+                        return c;
+                    } else {
+                        return null; // Rechaza la entrada si no es un dígito
+                    }
+                });
+
+        // Aplicar el formateador de texto al campo de texto
+        textField.setTextFormatter(textFormatter);
+    }
+
+    public static void applyDoubleFilter(TextField textField) {
+        // Crear un formateador de texto que solo acepte números decimales
+        TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), null, c -> {
+            // Permitir solo dígitos, comas, y puntos
+            if (c.getControlNewText().matches("\\d*|\\d+([.,]\\d*)?")) {
+                return c;
+            }
+            return null;
+        });
+
+        // Añadir un listener para reemplazar comas con puntos sin añadir un cero detrás
+        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.contains(",")) {
+                textField.setText(newValue.replace(',', '.'));
+            }
+        });
+
+        // Aplicar el formateador de texto al campo de texto
+        textField.setTextFormatter(textFormatter);
     }
 }

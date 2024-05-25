@@ -168,6 +168,9 @@ public class ModificarGastoController implements Initializable {
         });
         NameGasto.requestFocus();
 
+        Utils.applyDoubleFilter(CosteGasto);
+        Utils.applyFilter(UnidadeGasto);
+
         LocalDate minDate = LocalDate.of(2022, 1, 1);
         LocalDate maxDate = LocalDate.now();
         // formatear las fechas
