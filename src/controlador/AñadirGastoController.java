@@ -151,7 +151,6 @@ public class AñadirGastoController implements Initializable {
                 validFecha.setValue(Boolean.TRUE);
             }
         });
-        NameGasto.requestFocus();
         Utils.applyDoubleFilter(CosteGasto);
         Utils.applyFilter(UnidadeGasto);
         try {

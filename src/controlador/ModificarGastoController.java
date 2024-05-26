@@ -161,7 +161,6 @@ public class ModificarGastoController implements Initializable {
                 validFecha.setValue(Boolean.TRUE);
             }
         });
-        NameGasto.requestFocus();
 
         Utils.applyDoubleFilter(CosteGasto);
         Utils.applyFilter(UnidadeGasto);

@@ -219,7 +219,6 @@ public class VerGastoController implements Initializable {
     private void EliminarGasto(ActionEvent event) throws AcountDAOException, IOException {
         // Obtener el gasto seleccionado en la TableView
         Charge gastoSeleccionado = Gastos.getSelectionModel().getSelectedItem();
-        Category act = gastoSeleccionado.getCategory();
         // Verificar si se seleccionó un gasto
         if (gastoSeleccionado != null) {
             // Mostrar un diálogo de confirmación
@@ -256,13 +255,10 @@ public class VerGastoController implements Initializable {
                     successAlert.setHeaderText(null);
                     successAlert.setContentText("El gasto se ha eliminado correctamente.");
                     successAlert.getDialogPane().getStylesheets().add(css);
-                    successAlert.getDialogPane().getStyleClass().add("custom-alert");
+                    successAlert.getDialogPane().getStyleClass().add("info-alert");
                     stage = (Stage) successAlert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("/imagenes/logo.jpeg"));
                     successAlert.showAndWait();
-                    if (!Utils.exist(act)) {
-                        Acount.getInstance().removeCategory(act);
-                    }
                 } else {
                     // Mostrar un mensaje de error si no se pudo eliminar el gasto
                     Alert errorAlert = new Alert(Alert.AlertType.ERROR);
@@ -270,7 +266,7 @@ public class VerGastoController implements Initializable {
                     errorAlert.setHeaderText(null);
                     errorAlert.setContentText("No se pudo eliminar el gasto.");
                     errorAlert.getDialogPane().getStylesheets().add(css);
-                    errorAlert.getDialogPane().getStyleClass().add("custom-alert");
+                    errorAlert.getDialogPane().getStyleClass().add("error-alert");
                     errorAlert.showAndWait();
                     stage = (Stage) errorAlert.getDialogPane().getScene().getWindow();
                     stage.getIcons().add(new Image("/imagenes/logo.jpeg"));

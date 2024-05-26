@@ -2,7 +2,6 @@ package utils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -21,10 +20,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.converter.DoubleStringConverter;
 import javafx.util.converter.IntegerStringConverter;
-import model.Acount;
 import model.AcountDAOException;
-import model.Category;
-import model.Charge;
 
 /**
  *
@@ -104,9 +100,9 @@ public class Utils {
 
     public static void mostrarAlerta(String mensaje) {
         String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Información");
-        alert.setHeaderText(null);
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.setTitle("Alerta");
+        alert.setHeaderText("! Alerta ¡");
         alert.setContentText(mensaje);
         alert.getDialogPane().getStylesheets().add(css);
         alert.getDialogPane().getStyleClass().add("warning-alert");
@@ -119,7 +115,7 @@ public class Utils {
         String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
-        alert.setHeaderText(null);
+        alert.setHeaderText("Error");
         alert.setContentText(mensaje);
         alert.getDialogPane().getStylesheets().add(css);
         alert.getDialogPane().getStyleClass().add("error-alert");
@@ -131,8 +127,8 @@ public class Utils {
     public static void mostrarInfo(String mensaje) {
         String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setHeaderText(null);
         alert.setTitle("Información");
+        alert.setHeaderText("Información relevante");
         alert.setContentText(mensaje);
         alert.getDialogPane().getStylesheets().add(css);
         alert.getDialogPane().getStyleClass().add("info-alert");
@@ -141,7 +137,7 @@ public class Utils {
         alert.showAndWait();
     }
 
-    static Tooltip tooltip = new Tooltip("Formato no válido");
+    static Tooltip tooltip = new Tooltip("Formato incorrecto o campo vacío");
 
     public static void error(TextField n) {
         n.styleProperty().setValue("-fx-background-color: #EC7063");
@@ -173,17 +169,6 @@ public class Utils {
     public static void correct(TextArea n) {
         n.styleProperty().setValue("-fx-background-color: #ffffff");
         tooltip.hide();
-    }
-
-    public static Boolean exist(Category cat) throws AcountDAOException, IOException {
-        int elem = 0;
-        List<Charge> charges = Acount.getInstance().getUserCharges();
-        for (Charge charge : charges) {
-            if (charge.getCategory().getName().equals(cat.getName())) {
-                elem += 1;
-            }
-        }
-        return elem > 0;
     }
 
     // Método para aplicar un filtro numérico a un campo de texto

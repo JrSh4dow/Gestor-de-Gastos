@@ -18,6 +18,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
@@ -199,6 +201,11 @@ public class SignUpController implements Initializable {
         Registrar.disableProperty().bind(validNick.not().or(validPassword.not()
                 .or(validName.not().or(validSurname.not().or(validEmail.not().or(validRpass.not()))))));
 
+        Rpass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                reg();
+            }
+        });
     }
 
     @FXML
@@ -210,24 +217,7 @@ public class SignUpController implements Initializable {
 
     @FXML
     private void registrarClicked(ActionEvent event) throws IOException, AcountDAOException {
-
-        Image img;
-        if (Avatar == null) {
-            img = new Image("/avatars/default.png");
-        } else {
-            img = new Image(Avatar);
-        }
-
-        // registrar el nuevo miembro
-        LocalDate date = LocalDate.now();
-        Boolean ok = acount.registerUser(Name.getText(), SurName.getText(), Email.getText(), NickName.getText(),
-                Pass.getText(), img, date);
-        if (ok) {
-            Utils.mostrarInfo("Se ha registrado correctamente");
-            Stage currentStage = (Stage) Registrar.getScene().getWindow();
-            currentStage.close();
-            CargaVistas.LOGIN();
-        }
+        reg();
     }
 
     @FXML
@@ -237,5 +227,31 @@ public class SignUpController implements Initializable {
         if (Avatar != null) {
             avatar.setImage(new Image(Avatar));
         }
+    }
+
+    private void reg() {
+        Image img;
+        if (Avatar == null) {
+            img = new Image("/avatars/default.png");
+        } else {
+            img = new Image(Avatar);
+        }
+
+        // registrar el nuevo miembro
+        LocalDate date = LocalDate.now();
+        Boolean ok;
+        try {
+            ok = acount.registerUser(Name.getText(), SurName.getText(), Email.getText(), NickName.getText(),
+                    Pass.getText(), img, date);
+            if (ok) {
+                Utils.mostrarInfo("Se ha registrado correctamente");
+                Stage currentStage = (Stage) Registrar.getScene().getWindow();
+                currentStage.close();
+                CargaVistas.LOGIN();
+            }
+        } catch (AcountDAOException | IOException e) {
+            e.printStackTrace();
+        }
+
     }
 }

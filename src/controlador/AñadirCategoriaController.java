@@ -43,7 +43,6 @@ public class AñadirCategoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         c.setShowDelay(Duration.ZERO);
         a.setShowDelay(Duration.ZERO);
-        NameCategoria.requestFocus();
 
         validDescripcion = new SimpleBooleanProperty(false);
         validName = new SimpleBooleanProperty(false);

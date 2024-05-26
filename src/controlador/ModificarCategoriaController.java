@@ -47,7 +47,6 @@ public class ModificarCategoriaController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         c.setShowDelay(Duration.ZERO);
         m.setShowDelay(Duration.ZERO);
-        NameCategoria.requestFocus();
 
         validDescripcion = new SimpleBooleanProperty();
         validName = new SimpleBooleanProperty();
