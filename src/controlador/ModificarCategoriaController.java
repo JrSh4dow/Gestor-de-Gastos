@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Category;
@@ -76,6 +78,11 @@ public class ModificarCategoriaController implements Initializable {
             }
         });
         añadirCategoria.disableProperty().bind(validName.not().or(validDescripcion.not()));
+        DescriptionCategoria.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                reg();
+            }
+        });
     }
 
     private Category act;
@@ -94,6 +101,10 @@ public class ModificarCategoriaController implements Initializable {
 
     @FXML
     private void AñadirCategoria(ActionEvent event) {
+        reg();
+    }
+
+    private void reg() {
         // Obtener los valores de la nueva categoría desde la interfaz de usuario
         String nombreCategoria = NameCategoria.getText();
         String descripcionCategoria = DescriptionCategoria.getText();

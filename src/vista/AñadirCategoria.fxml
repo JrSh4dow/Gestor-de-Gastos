@@ -88,9 +88,6 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="11.0" />
                </font>
-               <tooltip>
-                  <Tooltip id="Tip" fx:id="a" text="Añadir categoria" />
-               </tooltip>
             </TextArea>
          </children>
          <padding>

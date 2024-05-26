@@ -13,6 +13,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import model.Acount;
@@ -72,6 +74,11 @@ public class AñadirCategoriaController implements Initializable {
 
         // Algo
         ok = false;
+        DescriptionCategoria.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                reg();
+            }
+        });
     }
 
     public Boolean getOk() {
@@ -87,6 +94,10 @@ public class AñadirCategoriaController implements Initializable {
     // Añadir la categoria a la base de datos
     @FXML
     private void AñadirCategoria(ActionEvent event) {
+        reg();
+    }
+
+    private void reg() {
         // Obtener instancia de Acount
         Acount account;
         try {

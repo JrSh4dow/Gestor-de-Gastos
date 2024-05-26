@@ -17,6 +17,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -130,6 +132,11 @@ public class PerfilController implements Initializable {
                 });
         guardarCambios.disableProperty().bind((validPassword.not()
                 .or(validName.not().or(validSurname.not().or(validEmail.not())))));
+        Pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                reg();
+            }
+        });
     }
 
     public void establecer() {
@@ -168,8 +175,11 @@ public class PerfilController implements Initializable {
     }
 
     @FXML
-    private void GuardarCambios(ActionEvent event) throws AcountDAOException, IOException {
+    private void GuardarCambios(ActionEvent event) {
+        reg();
+    }
 
+    private void reg() {
         logged.setName(Name.getText());
         logged.setSurname(SurName.getText());
         logged.setImage(avatar.getImage());
