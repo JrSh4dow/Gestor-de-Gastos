@@ -126,10 +126,9 @@ public class SignUpController implements Initializable {
             e.printStackTrace();
         }
 
-        // Inicialmente, el botón Aceptar está deshabilitado
         Pass.textProperty()
                 .addListener((ob, olv, newv) -> {
-                    if (newv.length() >= 8) {
+                    if (newv.length() >= 8 && newv.length() <= 20) {
                         a.hide();
                         if (!User.checkPassword(newv)) {
                             Utils.error(Pass);
@@ -146,7 +145,7 @@ public class SignUpController implements Initializable {
                 });
         Rpass.textProperty()
                 .addListener((ob, olv, newv) -> {
-                    if (newv.length() >= 8) {
+                    if (newv.length() >= 8 && newv.length() <= 20) {
                         if (Pass.getText().compareTo(newv) != 0) {
                             Utils.error(Rpass);
                         } else {

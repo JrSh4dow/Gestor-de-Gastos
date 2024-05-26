@@ -98,7 +98,7 @@ public class LogInController implements Initializable {
 
         pass.textProperty()
                 .addListener((ob, olv, newv) -> {
-                    if (newv.length() >= 8) { // focus lost.
+                    if (newv.length() >= 8 && newv.length() <= 20) {
                         if (!User.checkPassword(newv)) {
                             Utils.error(pass);
                             validPassword.setValue(Boolean.FALSE);
@@ -112,7 +112,7 @@ public class LogInController implements Initializable {
                 });
         passHidden.textProperty()
                 .addListener((ob, olv, newv) -> {
-                    if (newv.length() >= 8) { // focus lost.
+                    if (newv.length() >= 8) {
                         if (!User.checkPassword(newv)) {
                             Utils.error(pass);
                             validPassword.setValue(Boolean.FALSE);
@@ -130,7 +130,7 @@ public class LogInController implements Initializable {
             passHidden.setText(pass.getText());
         }
 
-        tick.setVisible(true); 
+        tick.setVisible(true);
         notick.setVisible(false);
         pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -202,9 +202,9 @@ public class LogInController implements Initializable {
     private void AcceptarEnter() throws AcountDAOException, IOException {
         String psw;
         if (passwordVisible) {
-           psw= passHidden.getText();
+            psw = passHidden.getText();
         } else {
-            psw=pass.getText();
+            psw = pass.getText();
         }
         Boolean ok = acount.logInUserByCredentials(nickName.getText(), psw);
         if (ok == true) {

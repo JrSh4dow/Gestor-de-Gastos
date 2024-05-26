@@ -129,12 +129,15 @@
                   <Font name="System Bold" size="12.0" />
                </font>
             </TextField>
-            <TextField fx:id="NickName" maxWidth="-Infinity" prefHeight="26.0" prefWidth="118.0" promptText="+6 letras" GridPane.columnIndex="1" GridPane.rowIndex="3">
+            <TextField fx:id="NickName" maxWidth="-Infinity" prefHeight="26.0" prefWidth="118.0" promptText="entre 6 y 15 letras" GridPane.columnIndex="1" GridPane.rowIndex="3">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
                <tooltip>
-                  <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="! No podrás cambiarlo después ¡" />
+                  <Tooltip id="Tipm" fx:id="m" autoHide="true" consumeAutoHidingEvents="false" text="! No podrás cambiarlo después ¡">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font></Tooltip>
                </tooltip>
             </TextField>
             <Label alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="209.0" text="Repetir Contraseña" textFill="#f4f4f4" GridPane.rowIndex="5">
@@ -167,7 +170,7 @@
                   </Button>
                </children>
             </HBox>
-            <TextField fx:id="Pass" maxWidth="-Infinity" prefWidth="135.0" promptText="+8 letras" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <TextField fx:id="Pass" maxWidth="-Infinity" prefWidth="135.0" promptText="Entre 8 y 20 letras" GridPane.columnIndex="1" GridPane.rowIndex="4">
                <font>
                   <Font name="System Bold" size="12.0" />
                </font>
