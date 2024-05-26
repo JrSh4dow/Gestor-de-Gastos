@@ -80,9 +80,8 @@ public class LogInController implements Initializable {
                                         validNick.setValue(Boolean.FALSE);
                                     } else if (!acount.existsLogin(nickName.getText())) {
                                         Utils.mostrarError("No existe el nickname. Por favor regístrate");
-                                        nickName.clear();
                                         nickName.requestFocus();
-
+                                        Utils.error(nickName);
                                     } else {
                                         Utils.correct(nickName);
                                         validNick.setValue(Boolean.TRUE);
@@ -131,7 +130,7 @@ public class LogInController implements Initializable {
             passHidden.setText(pass.getText());
         }
 
-        tick.setVisible(true); // Mostrar tick cuando se muestra el campo de texto
+        tick.setVisible(true); 
         notick.setVisible(false);
         pass.addEventHandler(KeyEvent.KEY_PRESSED, event -> {
             if (event.getCode() == KeyCode.ENTER) {
@@ -156,18 +155,7 @@ public class LogInController implements Initializable {
 
     @FXML
     private void Acceptar(ActionEvent event) throws AcountDAOException, IOException {
-
-        Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
-        if (ok == true) {
-            Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
-            mainStage2.close();
-            CargaVistas.MAIN();
-
-        } else {
-            Utils.mostrarError("Contraseña incorrecta");
-            pass.clear();
-            pass.requestFocus();
-        }
+        AcceptarEnter();
     }
 
     @FXML
@@ -212,14 +200,21 @@ public class LogInController implements Initializable {
     }
 
     private void AcceptarEnter() throws AcountDAOException, IOException {
-        Boolean ok = acount.logInUserByCredentials(nickName.getText(), pass.getText());
+        String psw;
+        if (passwordVisible) {
+           psw= passHidden.getText();
+        } else {
+            psw=pass.getText();
+        }
+        Boolean ok = acount.logInUserByCredentials(nickName.getText(), psw);
         if (ok == true) {
             Stage mainStage2 = (Stage) Aceptar.getScene().getWindow();
             mainStage2.close();
             CargaVistas.MAIN();
         } else {
+            Utils.error(pass);
+            Utils.error(passHidden);
             Utils.mostrarError("Contraseña incorrecta");
-            pass.clear();
             pass.requestFocus();
         }
     }

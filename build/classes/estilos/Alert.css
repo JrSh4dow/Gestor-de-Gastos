@@ -138,7 +138,7 @@
 
 .warning-alert .button-bar .button:hover {
     -fx-background-color: white;
-    -fx-text-fill: #FFD700;
+    -fx-text-fill: black;
     -fx-border-color: black;
 }
 
