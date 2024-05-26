@@ -1,0 +1,126 @@
+#button {
+    -fx-background-color: #00C1A4;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#button:hover {
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttone {
+    -fx-background-color: #00C1A4;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttone:hover {
+    -fx-background-color: rgb(205, 82, 82);
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttona {
+    -fx-background-color: #00C1A4;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-color: white;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#buttona:hover {
+    -fx-background-color: rgb(60, 162, 104);
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#button:pressed {
+    -fx-background-color: #d7e41f;
+    -fx-text-fill: black;
+    -fx-border-color: black;
+    -fx-border-width: 2 2 2 2;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10
+}
+
+#Mensaje {
+    -fx-font-color: white;
+    -fx-stroke-width: 1px;
+    -fx-stroke: black;
+}
+
+.body {
+    -fx-background-color: #00C1A4;
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: 100% 100%;
+    -fx-background-position: center;
+}
+
+#buttonDisable {
+    -fx-font-weight: bold;
+    -fx-font-size: 12px;
+    -fx-background-color: white;
+    -fx-text-fill: #00C1A4;
+    -fx-background-radius: 10
+}
+
+.background {
+    -fx-background-color: #00C1A4;
+}
+
+.Vbox {
+    -fx-border-color: white;
+    -fx-border-width: 3 3 3 3;
+    -fx-border-radius: 10;
+}
+
+#Tabla {
+    -fx-background-color: lightgray;
+}
+
+#Tip {
+    -fx-background-color: rgb(115, 206, 115);
+    -fx-text-fill: black;
+}
+
+#Tipe {
+    -fx-background-color: rgb(217, 113, 103);
+    -fx-text-fill: black;
+}
+
+#Tipm {
+    -fx-background-color: rgb(226, 231, 95);
+    -fx-text-fill: black;
+}
+
+.table-row-cell:hover {
+    -fx-background-color: rgb(229, 232, 145);
+}
+
+.table-row-cell:selected {
+    -fx-background-color: rgb(111, 186, 61);
+}
+
+.list-cell:hover {
+    -fx-background-color: rgb(229, 232, 145);
+}
+
+.list-cell:selected {
+    -fx-background-color: rgb(111, 186, 61);
+}
