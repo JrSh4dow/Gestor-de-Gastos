@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -77,10 +78,14 @@ public class AñadirGastoController implements Initializable {
     private Tooltip c;
     @FXML
     private Tooltip a;
+    private boolean disableValidators = false;
+    @FXML
+    private Tooltip n;
 
     public void initialize(URL url, ResourceBundle rb) {
         c.setShowDelay(Duration.ZERO);
         a.setShowDelay(Duration.ZERO);
+        n.setShowDelay(Duration.ZERO);
         validCategory = new SimpleBooleanProperty();
         validCoste = new SimpleBooleanProperty();
         validDescripcion = new SimpleBooleanProperty();
@@ -95,43 +100,54 @@ public class AñadirGastoController implements Initializable {
         validUnidade.setValue(Boolean.FALSE);
         // Listener para NameGasto
         NameGasto.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                Utils.error(NameGasto);
-                validName.setValue(Boolean.FALSE);
-            } else {
-                Utils.correct(NameGasto);
-                validName.setValue(Boolean.TRUE);
+            if (!disableValidators) {
+                if (newValue.isEmpty()) {
+                    Utils.error(NameGasto);
+                    validName.setValue(Boolean.FALSE);
+                } else {
+                    Utils.correct(NameGasto);
+                    validName.setValue(Boolean.TRUE);
+                }
             }
         });
 
         // Listener para DescriptionGasto
         DescriptionGasto.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.isEmpty()) {
-                Utils.error(DescriptionGasto);
-                validDescripcion.setValue(Boolean.FALSE);
-            } else {
-                Utils.correct(DescriptionGasto);
-                validDescripcion.setValue(Boolean.TRUE);
+            if (!disableValidators) {
+                if (newValue.isEmpty()) {
+                    Utils.error(DescriptionGasto);
+                    validDescripcion.setValue(Boolean.FALSE);
+                } else {
+                    Utils.correct(DescriptionGasto);
+                    validDescripcion.setValue(Boolean.TRUE);
+                }
             }
         });
         CosteGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
-
-                        if (CosteGasto.getText().isEmpty() || !Utils.checkDigit(CosteGasto.getText())) {
+                    if (!newValue && !disableValidators) { // focus lost.
+                        n.hide();
+                        if (CosteGasto.getText().isEmpty()) {
                             Utils.error(CosteGasto);
+                            validCoste.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(CosteGasto);
                             validCoste.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Point2D p = CosteGasto.localToScreen(CosteGasto.getLayoutBounds().getMaxX(),
+                                CosteGasto.getLayoutBounds().getMaxY()); // Posición del TextField
+                        n.show(CosteGasto, p.getX(), p.getY());
                     }
                 });
+
         UnidadeGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
-                    if (!newValue) { // focus lost.
+                    if (!newValue && !disableValidators) { // focus lost.
 
-                        if (NameGasto.getText().isEmpty() || !Utils.checkDigit(UnidadeGasto.getText())) {
+                        if (UnidadeGasto.getText().isEmpty()) {
                             Utils.error(UnidadeGasto);
+                            validUnidade.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(UnidadeGasto);
                             validUnidade.setValue(Boolean.TRUE);
@@ -158,6 +174,7 @@ public class AñadirGastoController implements Initializable {
         } catch (AcountDAOException | IOException e) {
             e.printStackTrace();
         }
+        NameGasto.requestFocus();
         LocalDate minDate = LocalDate.of(2022, 1, 1);
         LocalDate maxDate = LocalDate.now();
         // formatear las fechas
@@ -203,8 +220,6 @@ public class AñadirGastoController implements Initializable {
         double costeGasto;
         int unidadesGasto;
         try {
-            // Reemplazar comas con puntos para manejar decimales correctamente
-            costoText = costoText.replace(',', '.');
             costeGasto = Double.parseDouble(costoText);
             unidadesGasto = Integer.parseInt(unidadesText);
             if (costeGasto <= 0 || unidadesGasto <= 0) {
@@ -235,6 +250,9 @@ public class AñadirGastoController implements Initializable {
             // Verificar si el gasto se registró correctamente
             if (registrado) {
                 Utils.mostrarInfo("El gasto se ha registrado correctamente.");
+                // Temporarily disable validators while clearing fields
+                disableValidators = true;
+
                 NameGasto.clear();
                 CosteGasto.clear();
                 UnidadeGasto.clear();
@@ -242,6 +260,9 @@ public class AñadirGastoController implements Initializable {
                 CategoriaGasto.getSelectionModel().clearSelection();
                 Factura.setImage(null);
                 FechaGasto.setValue(null);
+
+                // Re-enable validators after clearing fields
+                disableValidators = false;
             } else {
                 Utils.mostrarError("No se pudo registrar el gasto.");
             }

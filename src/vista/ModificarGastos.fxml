@@ -85,6 +85,13 @@
                <font>
                   <Font name="FiraCode Nerd Font Bold" size="12.0" />
                </font>
+               <tooltip>
+                  <Tooltip id="Tipm" fx:id="n" autoHide="true" consumeAutoHidingEvents="false" text="Para la parte decimal usa punto en vez de coma" wrapText="true">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font>
+                  </Tooltip>
+               </tooltip>
             </TextField>
             <TextField fx:id="UnidadeGasto" maxWidth="-Infinity" prefHeight="26.0" prefWidth="55.0" GridPane.columnIndex="1" GridPane.rowIndex="6">
                <font>

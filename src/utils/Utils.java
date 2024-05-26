@@ -81,23 +81,6 @@ public class Utils {
 
     }
 
-    public static Boolean checkDigit(String n) {
-
-        // If the password is empty , return false
-        if (n == null) {
-            return false;
-        }
-        // Regex to check valid password.
-        String regex = "^\\d+(\\.\\d+)?$";
-
-        // Compile the ReGex
-        Pattern pattern = Pattern.compile(regex);
-        // Match ReGex with value to check
-        Matcher matcher = pattern.matcher(n);
-        return matcher.matches();
-
-    }
-
     public static void mostrarAlerta(String mensaje) {
         String css = Utils.class.getResource("/estilos/Alert.css").toExternalForm();
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -191,17 +174,10 @@ public class Utils {
         // Crear un formateador de texto que solo acepte números decimales
         TextFormatter<Double> textFormatter = new TextFormatter<>(new DoubleStringConverter(), null, c -> {
             // Permitir solo dígitos, comas, y puntos
-            if (c.getControlNewText().matches("\\d*|\\d+([.,]\\d*)?")) {
+            if (c.getControlNewText().matches("\\d*|\\d+([.]\\d*)?")) {
                 return c;
             }
             return null;
-        });
-
-        // Añadir un listener para reemplazar comas con puntos sin añadir un cero detrás
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue.contains(",")) {
-                textField.setText(newValue.replace(',', '.'));
-            }
         });
 
         // Aplicar el formateador de texto al campo de texto

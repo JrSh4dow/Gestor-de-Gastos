@@ -12,6 +12,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
@@ -19,11 +20,13 @@ import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import javafx.util.Duration;
 import model.Acount;
 import model.AcountDAOException;
 import model.Category;
@@ -67,6 +70,8 @@ public class ModificarGastoController implements Initializable {
     private BooleanProperty validCoste;
     private BooleanProperty validUnidade;
     private BooleanProperty validCategory;
+    @FXML
+    private Tooltip n;
 
     public void initGasto(Charge c) {
         this.act = c;
@@ -89,6 +94,7 @@ public class ModificarGastoController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        n.setShowDelay(Duration.ZERO);
         validCategory = new SimpleBooleanProperty();
         validCoste = new SimpleBooleanProperty();
         validDescripcion = new SimpleBooleanProperty();
@@ -125,21 +131,25 @@ public class ModificarGastoController implements Initializable {
         CosteGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue) { // focus lost.
-
-                        if (CosteGasto.getText().isEmpty() || !Utils.checkDigit(CosteGasto.getText())) {
+                        n.hide();
+                        if (CosteGasto.getText().isEmpty()) {
                             Utils.error(CosteGasto);
                             validCoste.setValue(Boolean.FALSE);
                         } else {
                             Utils.correct(CosteGasto);
                             validCoste.setValue(Boolean.TRUE);
                         }
+                    } else {
+                        Point2D p = CosteGasto.localToScreen(CosteGasto.getLayoutBounds().getMaxX(),
+                                CosteGasto.getLayoutBounds().getMaxY()); // Posición del TextField
+                        n.show(CosteGasto, p.getX(), p.getY());
                     }
                 });
         UnidadeGasto.focusedProperty()
                 .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> {
                     if (!newValue) { // focus lost.
 
-                        if (NameGasto.getText().isEmpty() || !Utils.checkDigit(UnidadeGasto.getText())) {
+                        if (NameGasto.getText().isEmpty()) {
                             Utils.error(UnidadeGasto);
                             validUnidade.setValue(Boolean.FALSE);
                         } else {
@@ -215,6 +225,7 @@ public class ModificarGastoController implements Initializable {
     // Guardar las modificaciones del gasto
     @FXML
     private void Modificar(ActionEvent event) throws AcountDAOException, IOException {
+
         // Obtener los valores del formulario
         String nombreGasto = NameGasto.getText();
         String descripcionGasto = DescriptionGasto.getText();
